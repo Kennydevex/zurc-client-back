@@ -22,21 +22,18 @@ export default {
 
   css: ["@/assets/styles/main.css"],
 
-  transition: {
+  pageTransition: {
     name: "fade",
     mode: "out-in"
   },
 
-  plugins: [],
+  plugins: ["@/plugins/base", "@/plugins/veevalidate"],
 
   components: true,
 
   buildModules: ["@nuxtjs/vuetify"],
 
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios"
-  ],
+  modules: ["@nuxtjs/axios"],
 
   axios: {},
 

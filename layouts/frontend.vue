@@ -1,15 +1,24 @@
 <template>
   <v-app dark>
-    <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-main>
+    <home-system-bar />
+
+    <home-app-bar />
+
+    <home-view />
+
+    <home-footer />
   </v-app>
 </template>
 
 <script>
 export default {
+  layout: "frontend",
+  components: {
+    HomeAppBar: () => import("@/components/frontend/HomeAppBar"),
+    HomeFooter: () => import("@/components/frontend/HomeFooter"),
+    HomeSystemBar: () => import("@/components/frontend/HomeSystemBar"),
+    HomeView: () => import("@/components/frontend/HomeView")
+  },
   data() {
     return {};
   }

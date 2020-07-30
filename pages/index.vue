@@ -1,17 +1,34 @@
-<template>
-  <div>
-    frontend
-
-    <v-btn color="success" to="auth/login">text</v-btn>
-  </div>
-</template>
-
 <script>
+// Extensions
+import View from "@/views/View";
+
+// Mixins
+import LoadSections from "@/mixins/load-sections";
+
 export default {
   layout: "frontend",
-  data() {
-    return {
-    };
+  name: "Home",
+
+  extends: View,
+
+  mixins: [
+    LoadSections([
+      "hero",
+      "theme-features",
+      "features",
+      "contact-us",
+      "keep-in-touch",
+      "newsletter",
+      "pro-features",
+      "info"
+    ])
+  ],
+
+  props: {
+    id: {
+      type: String,
+      default: "home"
+    }
   }
 };
 </script>

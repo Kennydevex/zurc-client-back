@@ -8,52 +8,75 @@
               <v-card-text>
                 <div class="layout column align-center">
                   <v-avatar size="70" color="primary">
-                    <v-icon x-large dark>mdi-login</v-icon>
+                    <v-icon x-large dark>mdi-account-edit</v-icon>
                   </v-avatar>
                   <h3 class="font-weight-thin">Zurconstroi</h3>
                   <h1 class="flex my-4 primary--text font-weight-light">
-                    Login
+                    Registar
                   </h1>
                 </div>
                 <v-form>
-                  <v-text-field
-                    name="login"
-                    label="Login"
-                    type="text"
-                    v-model="model.username"
-                  ></v-text-field>
-                  <v-text-field
-                    name="password"
-                    label="Password"
-                    id="password"
-                    :type="show_password ? 'text' : 'password'"
-                    v-model="model.password"
-                    @click:append="show_password = !show_password"
-                    :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-                  ></v-text-field>
+                  <v-row>
+                    <v-col cols="12" md="6" class="my-0 py-0">
+                      <v-text-field
+                        name="name"
+                        label="Nome Completo"
+                        type="text"
+                        v-model="model.username"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" class="my-0 py-0">
+                      <v-text-field
+                        name="username"
+                        label="Nome de Utilizador"
+                        type="text"
+                        v-model="model.username"
+                        hint="Um identificador único do utilizador"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" md="6" class="my-0 py-0">
+                      <v-text-field
+                        name="email"
+                        label="Email"
+                        type="text"
+                        v-model="model.username"
+                        placeholder="exemplo@email.cv"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" class="my-0 py-0">
+                      <v-text-field
+                        name="password"
+                        label="Password"
+                        id="password"
+                        :type="show_password ? 'text' : 'password'"
+                        v-model="model.password"
+                        @click:append="show_password = !show_password"
+                        :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" md="6">
+                      <v-autocomplete
+                        dense
+                        :items="genders"
+                        item-text="name"
+                        item-value="id"
+                        v-model="value"
+                        label="Sexo"
+                      ></v-autocomplete>
+                    </v-col>
+                  </v-row>
                 </v-form>
                 <v-btn
                   nuxt
-                  to="register"
+                  to="/login"
                   :ripple="false"
                   class="pa-0 ma-0 text-none text-decoration-underline"
                   text
                   x-small
                   color="primary"
-                  >Registar um conta</v-btn
-                >
-                <small class="primary--text"
-                  >&nbsp; &nbsp; | &nbsp; &nbsp;</small
-                >
-                <v-btn
-                  nuxt
-                  to="register"
-                  :ripple="false"
-                  class="pa-0 ma-0 text-none text-decoration-underline"
-                  text
-                  x-small
-                  color="primary"
-                  >Recuperar palavra passe</v-btn
+                  >Efetuar o login</v-btn
                 >
 
                 <br />
@@ -78,9 +101,6 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn small text :to="{ name: 'index' }" :loading="loading"
-                  >Voltar</v-btn
-                >
                 <v-btn
                   depressed
                   tile
@@ -108,7 +128,13 @@ export default {
       model: {
         username: "",
         password: ""
-      }
+      },
+
+      genders: [
+        { id: "1", name: "Masculino" },
+        { id: "2", name: "Feminino" },
+        { id: "3", name: "Outros" }
+      ]
     };
   },
 
