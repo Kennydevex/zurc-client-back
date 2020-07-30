@@ -20,22 +20,26 @@
                     name="login"
                     label="Email"
                     type="text"
-                    v-model="formData.email"
+                    v-model.trim="formData.email"
                     v-validate="'required|email'"
                     data-vv-name="email"
-                    :error-messages="errors.collect('email')"
+                    :error-messages="
+                      showFormErrors('email') || errors.collect('email')
+                    "
                   ></v-text-field>
                   <v-text-field
                     name="password"
                     label="Password"
                     id="password"
                     :type="show_password ? 'text' : 'password'"
-                    v-model="formData.password"
+                    v-model.trim="formData.password"
                     @click:append="show_password = !show_password"
                     :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                     v-validate="'required|min:8'"
                     data-vv-name="password"
-                    :error-messages="errors.collect('password')"
+                    :error-messages="
+                      showFormErrors('password') || errors.collect('password')
+                    "
                   ></v-text-field>
                 </v-form>
                 <v-btn
@@ -85,11 +89,12 @@
                 <v-spacer></v-spacer>
 
                 <v-btn
+                  :disabled="errors.has('email') || errors.has('password')"
                   depressed
                   tile
                   small
                   color="primary"
-                  @click="login"
+                  @click="login()"
                   :loading="loading"
                   >Login</v-btn
                 >
@@ -103,12 +108,14 @@
 </template>
 
 <script>
-// import { dictionary } from "@/mixins/initValidation";
+import { dictionary } from "@/mixins/initValidation";
 
 export default {
   name: "LoginPgae",
 
-//   mixins: [dictionary],
+  middleware: ["guest"],
+
+  mixins: [dictionary],
 
   head() {
     return {
@@ -128,16 +135,31 @@ export default {
   },
 
   methods: {
-    login() {
-      this.$validator.validateAll().then(noErrorOnValidate => {
-        if (noErrorOnValidate) {
-          this.loading = true;
-          setTimeout(() => {
-            this.$router.push("/dashboard");
-          }, 1000);
+    async login() {
+      let formIsValid = await this.$validator.validateAll();
+      try {
+        if (formIsValid) {
+          await this.$auth.loginWith("local", {
+            data: this.formData
+          });
         }
-      });
+
+        this.$router.push({
+          // Redirecionar o utilizador para a página que pretendia abrir ou para a página de adim
+          path: this.$router.query.redirect || "/admin"
+        });
+      } catch (error) {}
     }
+    // login() {
+    //   this.$validator.validateAll().then(noErrorOnValidate => {
+    //     if (noErrorOnValidate) {
+    //       this.loading = true;
+    //       setTimeout(() => {
+    //         this.$router.push("/dashboard");
+    //       }, 1000);
+    //     }
+    //   });
+    // }
   }
 };
 </script>

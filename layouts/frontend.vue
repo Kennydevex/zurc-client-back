@@ -12,7 +12,8 @@
 
 <script>
 export default {
-  layout: "frontend",
+  name: "FrontendPage",
+  // layout: "frontend",
   components: {
     HomeAppBar: () => import("@/components/frontend/HomeAppBar"),
     HomeFooter: () => import("@/components/frontend/HomeFooter"),

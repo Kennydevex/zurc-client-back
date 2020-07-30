@@ -73,6 +73,8 @@ import AppFab from "@/components/backend/AppFab";
 import ThemeSettings from "@/components/backend/ThemeSettings";
 
 export default {
+  name:'BackendPage',
+  middleware: ["auth"],
   head() {
     return {
       title: "ZurcAdmin",

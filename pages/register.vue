@@ -22,7 +22,13 @@
                         name="name"
                         label="Nome Completo"
                         type="text"
-                        v-model="model.username"
+                        v-model.trim="formData.person.name"
+                        v-validate="'required'"
+                        data-vv-name="name"
+                        :error-messages="
+                          showFormErrors('person.name') ||
+                            errors.collect('name')
+                        "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6" class="my-0 py-0">
@@ -30,8 +36,14 @@
                         name="username"
                         label="Nome de Utilizador"
                         type="text"
-                        v-model="model.username"
+                        v-model.trim="formData.username"
                         hint="Um identificador único do utilizador"
+                        v-validate="'required|alpha_dash'"
+                        data-vv-name="username"
+                        :error-messages="
+                          showFormErrors('username') ||
+                            errors.collect('username')
+                        "
                       ></v-text-field>
                     </v-col>
 
@@ -40,8 +52,13 @@
                         name="email"
                         label="Email"
                         type="text"
-                        v-model="model.username"
+                        v-model.trim="formData.email"
                         placeholder="exemplo@email.cv"
+                        v-validate="'required|email'"
+                        data-vv-name="email"
+                        :error-messages="
+                          showFormErrors('email') || errors.collect('email')
+                        "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6" class="my-0 py-0">
@@ -50,9 +67,15 @@
                         label="Password"
                         id="password"
                         :type="show_password ? 'text' : 'password'"
-                        v-model="model.password"
+                        v-model.trim="formData.password"
                         @click:append="show_password = !show_password"
                         :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                        v-validate="'required|min:8'"
+                        data-vv-name="password"
+                        :error-messages="
+                          showFormErrors('password') ||
+                            errors.collect('password')
+                        "
                       ></v-text-field>
                     </v-col>
 
@@ -62,7 +85,7 @@
                         :items="genders"
                         item-text="name"
                         item-value="id"
-                        v-model="value"
+                        v-model="formData.person.gender"
                         label="Sexo"
                       ></v-autocomplete>
                     </v-col>
@@ -76,7 +99,7 @@
                   text
                   x-small
                   color="primary"
-                  >Efetuar o login</v-btn
+                  >Já tenho uma conta, quero efetuar o login</v-btn
                 >
 
                 <br />
@@ -106,9 +129,9 @@
                   tile
                   small
                   color="primary"
-                  @click="login"
+                  @click.prevent="register()"
                   :loading="loading"
-                  >Login</v-btn
+                  >Registar</v-btn
                 >
               </v-card-actions>
             </v-card>
@@ -120,14 +143,30 @@
 </template>
 
 <script>
+import { dictionary } from "@/mixins/initValidation";
+
 export default {
+  name: "RegisterPage",
+
+  middleware: ["guest"],
+
+  mixins: [dictionary],
   data() {
     return {
       show_password: false,
       loading: false,
-      model: {
+      formData: {
+        id: "",
         username: "",
-        password: ""
+        email: "",
+        password: "",
+        person: {
+          id: "",
+          name: "",
+          birthday: "",
+          gender: "",
+          phone: ""
+        }
       },
 
       genders: [
@@ -139,11 +178,23 @@ export default {
   },
 
   methods: {
-    login() {
-      this.loading = true;
-      setTimeout(() => {
-        this.$router.push("/dashboard");
-      }, 1000);
+    async register() {
+      let formIsValid = await this.$validator.validateAll();
+      try {
+        if (formIsValid) {
+          await this.$axios.post("auth/register", this.formData);
+          await this.$auth.loginWith("local", {
+            data: {
+              email: this.formData.email,
+              password: this.formData.password
+            }
+          });
+        }
+        this.$router.push({
+          // Redirecionar o utilizador para a página que pretendia abrir ou para a página de adim
+          path: this.$router.query.redirect || "/admin"
+        });
+      } catch (error) {}
     }
   }
 };

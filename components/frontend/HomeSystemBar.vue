@@ -24,24 +24,98 @@
     <v-btn class="text-none font-weight-regular" text nuxt dark
       >Zurconstroi</v-btn
     >
-    <v-divider class="ml-6 mr-3" vertical /> 
+    <v-divider class="ml-6 mr-3" vertical />
     <v-btn color="white" text x-small class="text-none"
       >zurconstroi@gmail.com</v-btn
     >|
     <v-btn color="white" text x-small class="text-none">9178599</v-btn>
     <v-spacer />
+    <template v-if="!authenticated">
+      <v-btn
+        class="text-capitalize subtitle-2 font-weight-light"
+        color="white"
+        small
+        nuxt
+        text
+        to="/login"
+        icon
+      >
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+    </template>
 
-    <v-btn
-      class="text-capitalize subtitle-2 font-weight-light"
-      color="white"
-      small
-      nuxt
-      text
-      to="/login"
-      icon
-    >
-      <v-icon>mdi-login</v-icon>
-    </v-btn>
+    <template v-else>
+      <v-menu
+        rounded="0"
+        v-model="menu"
+        :close-on-content-click="false"
+        offset-y
+        origin="center center"
+        :nudge-right="140"
+        :nudge-bottom="6"
+        transition="scale-transition"
+        offset-x
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="text-capitalize subtitle-2 font-weight-light"
+            color="white"
+            small
+            text
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
+            {{ user.username }}
+          </v-btn>
+        </template>
+
+        <v-card tile width="300">
+          <v-list>
+            <v-list-item>
+              <v-list-item-avatar>
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="Usrr avatar"
+                />
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ user.person.name }}</v-list-item-title>
+                <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn @click.prevent="logout()" icon class="primary--text">
+                  <v-icon>mdi-logout</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+
+          <v-divider></v-divider>
+
+          <v-list color="white" class="pa-0 ma-0">
+            <v-list-item @click="">
+              <v-list-item-title
+                ><v-icon>mdi-account</v-icon> Perfil</v-list-item-title
+              >
+            </v-list-item>
+            <v-list-item @click="">
+              <v-list-item-title
+                ><v-icon>mdi-view-dashboard</v-icon>
+                Dashboard</v-list-item-title
+              >
+            </v-list-item>
+            <v-list-item @click.prevent="logout()">
+              <v-list-item-title
+                ><v-icon>mdi-logout</v-icon> Terminar Sessão</v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
+    </template>
 
     <v-divider class="ml-6 mr-3" vertical />
 
@@ -66,8 +140,19 @@
 export default {
   name: "HomeSystemBar",
 
-  data: () => ({
-    model: true
-  })
+  data() {
+    return {
+      model: true,
+      menu: false
+    };
+  },
+
+  methods: {
+    async logout() {
+      try {
+        await this.$auth.logout();
+      } catch (error) {}
+    }
+  }
 };
 </script>

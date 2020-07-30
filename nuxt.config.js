@@ -27,15 +27,43 @@ export default {
     mode: "out-in"
   },
 
-  plugins: ["@/plugins/base", "@/plugins/veevalidate"],
+  plugins: [
+    "@/plugins/base",
+    "@/plugins/veevalidate",
+    "@/plugins/axios",
+    "@/mixins/user",
+    "@/mixins/validationErrors"
+  ],
 
   components: true,
 
   buildModules: ["@nuxtjs/vuetify"],
 
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/auth"],
 
-  axios: {},
+  axios: {
+    baseURL: "http://zurc_api.test:8000/api"
+  },
+
+  router: {
+    middleware: ["clearValidationFormErrors"]
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: "auth/login",
+            method: "post",
+            propertyName: "meta.token"
+          },
+          logout: { url: "auth/logout", method: "post" },
+          user: { url: "auth/user", method: "get", propertyName: "data" }
+        }
+      }
+    }
+  },
 
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
