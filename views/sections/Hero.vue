@@ -9,36 +9,36 @@
       <v-container class="fill-height px-4 py-12">
         <v-responsive
           class="d-flex align-center"
-          height="100%"
+          height="50%"
           max-width="500"
           width="100%"
         >
-          <base-heading title="PROMOTE YOUR BUSINESS WITH ZERO" />
+          <base-heading title="ZURCONSTROI WEB APP" />
 
           <base-body>
-            Infographic hypotheses influencer user experience Long madel ture gen-z paradigm shift client partner network product seilans solve management influencer analytics leverage virality.
-            incubator seed round massmarket.
-            buyer agile development growth hacking business-to-consumer ecosystem
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
+            temporibus, sequi adipisci fugiat ipsum quis sunt, quia nostrum quas
+            voluptates omnis, quod optio aperiam? Ad nesciunt modi doloremque
+            dolore ipsam?
           </base-body>
 
           <div
-            :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
+            :class="
+              $vuetify.breakpoint.smAndDown
+                ? 'flex-column align-start'
+                : 'align-center'
+            "
             class="d-flex flex-wrap"
           >
             <base-btn>
-              Discover More
+              Saber Mais
             </base-btn>
 
-            <span class="font-weight-bold ml-6 mr-4 my-4">or</span>
+            <!--<span class="font-weight-bold ml-6 mr-4 my-4">or</span>
 
-            <base-btn
-              :ripple="false"
-              class="pa-1"
-              height="auto"
-              text
-            >
+            <base-btn :ripple="false" class="pa-1" height="auto" text>
               Get Started Now
-            </base-btn>
+            </base-btn>-->
           </div>
         </v-responsive>
       </v-container>
@@ -47,19 +47,19 @@
 </template>
 
 <script>
-  export default {
-    name: 'SectionHero',
+export default {
+  name: "SectionHero",
 
-    provide: {
-      theme: { isDark: true },
-    },
+  provide: {
+    theme: { isDark: true }
+  },
 
-    computed: {
-      minHeight () {
-        const height = this.$vuetify.breakpoint.mdAndUp ? '80vh' : '50vh'
+  computed: {
+    minHeight() {
+      const height = this.$vuetify.breakpoint.mdAndUp ? "100vh" : "50vh";
 
-        return `calc(${height} - ${this.$vuetify.application.top}px)`
-      },
-    },
+      return `calc(${height} - ${this.$vuetify.application.top}px)`;
+    }
   }
+};
 </script>

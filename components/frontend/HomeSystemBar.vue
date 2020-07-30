@@ -101,7 +101,7 @@
                 ><v-icon>mdi-account</v-icon> Perfil</v-list-item-title
               >
             </v-list-item>
-            <v-list-item @click="">
+            <v-list-item @click="redirectToPage('admin')">
               <v-list-item-title
                 ><v-icon>mdi-view-dashboard</v-icon>
                 Dashboard</v-list-item-title

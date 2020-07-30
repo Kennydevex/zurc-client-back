@@ -28,8 +28,8 @@
 
       <v-list-item class="text-center" v-if="!miniVariant">
         <v-list-item-content>
-          <v-list-item-title class="title">John Leider</v-list-item-title>
-          <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+          <v-list-item-title class="title">Estefanio Silva</v-list-item-title>
+          <v-list-item-subtitle>este@gmail.com</v-list-item-subtitle>
         </v-list-item-content>
         <v-btn icon @click.stop="miniVariant = !miniVariant">
           <v-icon>mdi-chevron-left</v-icon>

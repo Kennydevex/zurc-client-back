@@ -12,10 +12,10 @@
       <img :src="'logo.png'" contain max-width="10"  />-->
 
       <base-img
-        :src="'logo.png'"
+        :src="'zurconstroi.jpeg'"
         class="mr-3 hidden-xs-only"
         contain
-        max-width="52"
+        max-width="120"
         width="100%"
       />
 
@@ -58,7 +58,7 @@ export default {
 
   data: () => ({
     drawer: null,
-    items: ["Home", "about", "Contact", "Pro"]
+    items: ["Home", "about", "properties", "services", "contacts"]
   })
 };
 </script>

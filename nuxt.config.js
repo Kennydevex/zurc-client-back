@@ -32,7 +32,8 @@ export default {
     "@/plugins/veevalidate",
     "@/plugins/axios",
     "@/mixins/user",
-    "@/mixins/validationErrors"
+    "@/mixins/validationErrors",
+    "@/mixins/goToPage"
   ],
 
   components: true,
