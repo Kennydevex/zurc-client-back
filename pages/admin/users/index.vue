@@ -41,6 +41,7 @@
 
     <v-layout row wrap>
       <v-flex lg12>
+        <v-btn color="success" @click="showAlert()">Alert</v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -231,6 +232,13 @@ export default {
   },
 
   methods: {
+    showAlert() {
+      this.$swal({
+        type: "error",
+        title: "title",
+        text: "text"
+      });
+    },
     updateEmployeeModal(id) {
       console.log(id);
     },

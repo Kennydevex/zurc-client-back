@@ -40,7 +40,17 @@ export default {
 
   buildModules: ["@nuxtjs/vuetify"],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/auth"],
+  modules: [
+    "@nuxtjs/axios",
+    "@nuxtjs/auth",
+    [
+      "vue-sweetalert2/nuxt",
+      {
+        confirmButtonColor: "#657643",
+        cancelButtonColor: "#ff7674"
+      }
+    ]
+  ],
 
   axios: {
     baseURL: "http://zurc_api.test:8000/api"
