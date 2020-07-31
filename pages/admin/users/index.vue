@@ -41,7 +41,6 @@
 
     <v-layout row wrap>
       <v-flex lg12>
-        <!--<v-btn color="success" @click="showAlert()">Alert</v-btn>--></v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -53,6 +52,14 @@
               hide-details
               class="hidden-sm-and-down"
             ></v-text-field>
+            <template v-if="selected.length > 0">
+              <v-btn
+                icon
+                @click="onDelete('users', '', 'APP_UPDATE_USERS_DATA', true)"
+              >
+                <v-icon>mdi-trash-can</v-icon>
+              </v-btn>
+            </template>
             <!--<v-btn class="ma-1" color="primary" small rounded>
               Adicionar
             </v-btn>-->
@@ -82,7 +89,17 @@
                   x-small
                   text
                   class="text-capitalize"
-                  :color="item.status == true ? 'primary' : 'grey darken-2'"
+                  :loading="loadAtivaction[item.id]"
+                  :color="item.status == true ? 'success' : 'grey darken-2'"
+                  @click="
+                    toggleStatus(
+                      'users/user-activation',
+                      item.id,
+                      item.status,
+                      'Utilizador',
+                      'APP_UPDATE_USERS_DATA'
+                    )
+                  "
                 >
                   <span>{{ item.status == true ? "ativo" : "desativo" }}</span>
                   <span slot="loader" class="custom-loader-class">
@@ -92,7 +109,9 @@
               </template>
 
               <template v-slot:item.created_at="{ item }">
-                <div v-text="$moment(item.created_at, 'YYYYMMDD').fromNow()"></div>
+                <div
+                  v-text="$moment(item.created_at, 'YYYYMMDD').fromNow()"
+                ></div>
               </template>
 
               <!--<template v-slot:item.avatar="{ item }">
@@ -125,8 +144,9 @@
                   small
                   text
                   class="text-none mr-1"
-                  @click="updateUserModal(item.name)"
+                  @click="onUpdateUser(item.id)"
                   icon
+                  :loading="update_sending[item.id]"
                 >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -137,7 +157,7 @@
                   text
                   icon
                   class="text-none"
-                  @click="onDelete()"
+                  @click="onDelete('users', item.id, 'APP_UPDATE_USERS_DATA')"
                 >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -164,11 +184,12 @@
               </v-btn>
             </template>
             <v-btn
+              :loading="add_sending"
               fab
               dark
               small
               color="primary"
-             @click.stop="toggleCreateUserDialog()"
+              @click.stop="onCreateUser()"
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -178,24 +199,34 @@
     </v-row>
 
     <v-row>
-    <create-user></create-user>
-    <!--<update-user></update-user>-->
+      <create-user></create-user>
+      <update-user></update-user>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { deleteDatas } from "@/mixins/formActions";
+import { handleActivations } from "@/mixins/formActions";
 
 export default {
+  mixins: [deleteDatas, handleActivations],
 
   layout: "backend",
 
   name: "ListUsers",
+
   async fetch({ store }) {
     await store.dispatch("users/getUsers");
-     await store.dispatch("permissions/getPermissions");
-    await store.dispatch("permissions/getRoles");
+  },
+
+  created: function() {
+    if (process.client) {
+      window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
+        this.getUsers();
+      });
+    }
   },
 
   computed: {
@@ -204,6 +235,8 @@ export default {
 
   data() {
     return {
+      add_sending: false,
+      update_sending: {},
       fab: false,
       search: "",
       selected: [],
@@ -227,7 +260,7 @@ export default {
           value: "status",
           align: "center"
         },
-         {
+        {
           text: "Criado em:",
           value: "created_at",
           align: "center"
@@ -238,38 +271,38 @@ export default {
           sortable: false,
           value: "action"
         }
-      ]
+      ],
+      single_user: []
     };
   },
 
   components: {
     MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
     CreateUser: () => import("@/components/backend/users/Create"),
-    // UpdateUser: () => import("@/components/backend/users/Update"),
+    UpdateUser: () => import("@/components/backend/users/Update")
   },
 
   methods: {
+    async getUsers() {
+      await this.$store.dispatch("users/getUsers");
+    },
 
-   toggleCreateUserDialog() {
+    async onCreateUser() {
+      this.add_sending = true;
+      await this.$store.dispatch("permissions/getPermissions");
+      await this.$store.dispatch("permissions/getRoles");
+      this.add_sending = false;
       this.$store.commit("dialogs/toggleCreateUserDialog");
     },
 
-    //   toggleUpdateUserDialog(id) {
-    //   this.$store.commit("dialogs/toggleUpdateUserDialog");
-      
-    // },
-
-    showAlert() {
-      this.$swal({
-        type: "error",
-        title: "title",
-        text: "text"
-      });
-    },
-  
-
-    onDelete() {
-      console.log("id");
+    async onUpdateUser(id) {
+      this.$set(this.update_sending, id, true);
+      let { data } = await this.$axios.$get(`users/${id}`);
+      this.$data.single_user = data;
+      this.$set(this.update_sending, id, false);
+      process.client
+        ? window.getApp.$emit("APP_UPDATE_USER", this.$data.single_user)
+        : "";
     }
   }
 };

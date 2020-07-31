@@ -73,7 +73,7 @@ import AppFab from "@/components/backend/AppFab";
 import ThemeSettings from "@/components/backend/ThemeSettings";
 
 export default {
-  name:'BackendPage',
+  name: "BackendPage",
   middleware: ["auth"],
   head() {
     return {
@@ -88,6 +88,11 @@ export default {
       ]
     };
   },
+
+  created() {
+    process.client ? (window.getApp = this) : "";
+  },
+
   components: {
     AppDrawer,
     AppToolbar,

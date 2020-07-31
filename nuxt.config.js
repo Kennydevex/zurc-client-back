@@ -33,6 +33,7 @@ export default {
     "@/plugins/axios",
     "@/mixins/user",
     "@/mixins/validationErrors",
+    "@/mixins/utils",
     "@/mixins/goToPage"
   ],
 
@@ -46,7 +47,7 @@ export default {
     [
       "vue-sweetalert2/nuxt",
       {
-        confirmButtonColor: "#657643",
+        confirmButtonColor: "#02636F",
         cancelButtonColor: "#ff7674"
       }
     ]

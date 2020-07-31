@@ -132,33 +132,51 @@
           </v-col>
 
           <v-col cols="12" md="6" class="py-0">
-            <v-autocomplete
-              outlined
-              rounded
-              chips
-              name="roles"
-              :items="roles"
-              item-text="name"
-              item-value="id"
-              multiple
-              v-model.trim="formData.roles"
-              label="Funções"
-            ></v-autocomplete>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header color="grey lighten-2"
+                  >Papeis/Funcções</v-expansion-panel-header
+                >
+                <v-expansion-panel-content>
+                  <v-card flat height="200" class="overflow-y-auto pa-2">
+                    <template v-for="(role, rol) in roles">
+                      <v-checkbox
+                        :key="'userrole_' + rol"
+                        dense
+                        hide-details
+                        v-model="formData.roles"
+                        :label="role.name"
+                        :value="role.id"
+                      ></v-checkbox>
+                    </template>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-col>
 
           <v-col cols="12" md="6" class="my-0 py-0">
-            <v-autocomplete
-              outlined
-              rounded
-              chips
-              name="permissions"
-              :items="permissions"
-              item-text="name"
-              item-value="id"
-              multiple
-              v-model.trim="formData.permissions"
-              label="Permissões"
-            ></v-autocomplete>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header color="grey lighten-2"
+                  >Permissções de acesso</v-expansion-panel-header
+                >
+                <v-expansion-panel-content>
+                  <v-card flat height="200" class="overflow-y-auto pa-2">
+                    <template v-for="(permission, per) in permissions">
+                      <v-checkbox
+                        :key="'userpermission_' + per"
+                        dense
+                        hide-details
+                        v-model="formData.permissions"
+                        :label="permission.name"
+                        :value="permission.id"
+                      ></v-checkbox>
+                    </template>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-col>
 
           <v-col cols="12" md="6" class="my-0 py-0">

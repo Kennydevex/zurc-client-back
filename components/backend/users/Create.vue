@@ -7,7 +7,7 @@
     max-width="640px"
     transition="dialog-transition"
   >
-    <user-form :formData="formData"></user-form>
+    <user-form :formData="formData" :creating="true"></user-form>
   </v-dialog>
 </template>
 
@@ -36,7 +36,7 @@ export default {
       }
     };
   },
-
+ 
   components: {
     UserForm: () => import("@/components/backend/forms/UserForm")
   },
