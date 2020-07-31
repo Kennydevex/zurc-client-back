@@ -95,7 +95,7 @@
                   small
                   color="primary"
                   @click="login()"
-                  :loading="loading"
+                  :loading="sending"
                   >Login</v-btn
                 >
               </v-card-actions>
@@ -125,6 +125,7 @@ export default {
 
   data() {
     return {
+      sending: false,
       show_password: false,
       loading: false,
       formData: {
@@ -139,16 +140,20 @@ export default {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
+          this.sending = true;
           await this.$auth.loginWith("local", {
             data: this.formData
           });
+          this.sending = false;
         }
 
         this.$router.push({
           // Redirecionar o utilizador para a página que pretendia abrir ou para a página de adim
           path: this.$router.query.redirect || "/admin"
         });
-      } catch (error) {}
+      } catch (error) {
+        this.sending = false;
+      }
     }
     // login() {
     //   this.$validator.validateAll().then(noErrorOnValidate => {

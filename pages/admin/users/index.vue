@@ -125,7 +125,7 @@
                   small
                   text
                   class="text-none mr-1"
-                  @click="updateEmployeeModal(item.name)"
+                  @click="updateUserModal(item.name)"
                   icon
                 >
                   <v-icon>mdi-pencil</v-icon>
@@ -168,8 +168,7 @@
               dark
               small
               color="primary"
-              nuxt
-              :to="{ name: 'admin-users-create' }"
+             @click.stop="toggleCreateUserDialog()"
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -177,19 +176,26 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row>
+    <create-user></create-user>
+    <!--<update-user></update-user>-->
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import MiniStatistic from "@/components/backend/widgets/MiniStatistic";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
+
   layout: "backend",
 
   name: "ListUsers",
   async fetch({ store }) {
     await store.dispatch("users/getUsers");
+     await store.dispatch("permissions/getPermissions");
+    await store.dispatch("permissions/getRoles");
   },
 
   computed: {
@@ -237,10 +243,22 @@ export default {
   },
 
   components: {
-    MiniStatistic
+    MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
+    CreateUser: () => import("@/components/backend/users/Create"),
+    // UpdateUser: () => import("@/components/backend/users/Update"),
   },
 
   methods: {
+
+   toggleCreateUserDialog() {
+      this.$store.commit("dialogs/toggleCreateUserDialog");
+    },
+
+    //   toggleUpdateUserDialog(id) {
+    //   this.$store.commit("dialogs/toggleUpdateUserDialog");
+      
+    // },
+
     showAlert() {
       this.$swal({
         type: "error",
@@ -248,9 +266,7 @@ export default {
         text: "text"
       });
     },
-    updateEmployeeModal(id) {
-      console.log(id);
-    },
+  
 
     onDelete() {
       console.log("id");
