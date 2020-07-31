@@ -38,7 +38,7 @@ export default {
 
   components: true,
 
-  buildModules: ["@nuxtjs/vuetify"],
+  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/moment"],
 
   modules: [
     "@nuxtjs/axios",
@@ -101,6 +101,11 @@ export default {
         }
       }
     }
+  },
+  moment: {
+    timezone: true,
+    locales: ["pt"],
+    defaultTimezone: "Atlantic/Cape_Verde"
   },
 
   build: {}

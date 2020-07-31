@@ -41,14 +41,14 @@
 
     <v-layout row wrap>
       <v-flex lg12>
-        <v-btn color="success" @click="showAlert()">Alert</v-btn>
+        <!--<v-btn color="success" @click="showAlert()">Alert</v-btn>--></v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
               flat
               solo
               prepend-icon="mdi-magnify"
-              placeholder="Type something"
+              placeholder="Procurar Utilizadores"
               v-model="search"
               hide-details
               class="hidden-sm-and-down"
@@ -91,6 +91,10 @@
                 </v-btn>
               </template>
 
+              <template v-slot:item.created_at="{ item }">
+                <div v-text="$moment(item.created_at, 'YYYYMMDD').fromNow()"></div>
+              </template>
+
               <!--<template v-slot:item.avatar="{ item }">
                 <v-avatar size="36px" color="grey lighten-3">
                   <img
@@ -107,7 +111,7 @@
               </template>-->
 
               <template v-slot:item.action="{ item }">
-                <v-btn
+                <!--<v-btn
                   color="grey darken-2"
                   small
                   text
@@ -115,7 +119,7 @@
                   icon
                 >
                   <v-icon>mdi-information</v-icon>
-                </v-btn>
+                </v-btn>-->
                 <v-btn
                   color="grey darken-2"
                   small
@@ -215,6 +219,11 @@ export default {
         {
           text: "Estado",
           value: "status",
+          align: "center"
+        },
+         {
+          text: "Criado em:",
+          value: "created_at",
           align: "center"
         },
         {
