@@ -17,16 +17,29 @@ const Menu = [
     items: [{ name: "users", title: "Users", href: "/admin/users" }]
   },
 
+  { header: "Negócio" },
+
+  {
+    title: "Minha Empresa",
+    group: "buisnis",
+    component: "buisnis",
+    icon: "mdi-domain",
+    items: [
+      { name: "companies", title: "Company", href: "/admin/companies" },
+      { name: "properties", title: "Preterties", href: "/admin/properties" }
+    ]
+  },
+
   { header: "UI Elements" },
 
   { divider: true },
-  { header: "Extras" },
-  {
-    title: "Login",
-    group: "extra",
-    icon: "mdi-login",
-    href: "/login"
-  }
+  { header: "Extras" }
+  // {
+  //   title: "Login",
+  //   group: "extra",
+  //   icon: "mdi-login",
+  //   href: "/o"
+  // }
 ];
 // reorder menu
 Menu.forEach(item => {

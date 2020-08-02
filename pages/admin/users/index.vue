@@ -41,6 +41,8 @@
 
     <v-layout row wrap>
       <v-flex lg12>
+        <span v-role="'Add'">Estefanio Silva</span>
+        <v-btn v-permission="'Add'" color="success">text</v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -276,6 +278,14 @@ export default {
     };
   },
 
+  // async created() {
+  //   this.checkPermissions();
+  //   const { data: permissions } = await this.$axios.get("laravel-permissions");
+  //   const { data: roles } = await this.$axios.get("laravel-roles");
+  //   this.$laravel.setPermissions(permissions);
+  //   this.$laravel.setRoles(roles);
+  // },
+
   components: {
     MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
     CreateUser: () => import("@/components/backend/users/Create"),
@@ -283,6 +293,9 @@ export default {
   },
 
   methods: {
+    checkPermissions() {
+      console.log(this.$laravel.getPermissions());
+    },
     async getUsers() {
       await this.$store.dispatch("users/getUsers");
     },

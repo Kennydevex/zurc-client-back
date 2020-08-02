@@ -6,7 +6,7 @@ import View from "@/views/View";
 import LoadSections from "@/mixins/load-sections";
 // import Measurable from "vuetify/lib/mixins/measurable";
 export default {
-  layout: 'frontend',
+  layout: "frontend",
   name: "About",
 
   head() {
@@ -29,7 +29,9 @@ export default {
 
   extends: View,
 
-  mixins: [LoadSections(["newsletter", "pro-features", "info"])],
+  mixins: [
+    LoadSections(["LandingPageSlider", "newsletter", "pro-features", "info"])
+  ],
 
   props: {
     id: {

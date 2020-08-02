@@ -20,7 +20,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
-  css: ["@/assets/styles/main.css"],
+  css: ["@/assets/styles/main.css", "swiper/swiper-bundle.css"],
 
   pageTransition: {
     name: "fade",
@@ -31,10 +31,13 @@ export default {
     "@/plugins/base",
     "@/plugins/veevalidate",
     "@/plugins/axios",
+    "@/plugins/laravel-permissions",
     "@/mixins/user",
+    // "@/mixins/acl",
     "@/mixins/validationErrors",
     "@/mixins/utils",
-    "@/mixins/goToPage"
+    "@/mixins/goToPage",
+    { src: "@/plugins/vue-awesome-swiper.js", mode: "client" }
   ],
 
   components: true,
