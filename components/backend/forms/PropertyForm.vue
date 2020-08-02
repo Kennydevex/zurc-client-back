@@ -285,9 +285,10 @@
           <v-row>
             <v-col cols="12">
               <v-subheader>Imagem de Capa</v-subheader>
+              <small>Carregue uma imagem da capa desta propriedade</small>
             </v-col>
             <v-col cols="12">
-              Imagem de Capa
+              <v-file-input show-size label="File input"></v-file-input>
             </v-col>
             <v-col cols="12">
               <v-subheader>Fotos da galheria</v-subheader>
