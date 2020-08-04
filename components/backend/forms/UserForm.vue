@@ -49,11 +49,11 @@
               style="display:none"
               name="birthday_target"
               ref="birthday_ref"
-              v-model.trim="actual_date"
+              v-model="actual_date"
               type="text"
             />
             <v-menu
-              v-model.trim="birthday_menu"
+              v-model="birthday_menu"
               :close-on-content-click="false"
               :nudge-right="30"
               transition="scale-transition"
@@ -81,7 +81,7 @@
                 ref="birthday_picker_ref"
                 :max="new Date().toISOString().substr(0, 10)"
                 min="1950-01-01"
-                v-model.trim="formData.person.birthday"
+                v-model="formData.person.birthday"
                 @input="birthday_menu = false"
                 locale="pt-pt"
               ></v-date-picker>

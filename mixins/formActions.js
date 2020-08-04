@@ -4,7 +4,8 @@ export const deleteDatas = {
   mixins: [alerts],
   data() {
     return {
-      ids: []
+      ids: [],
+      deleting: {}
       // selected: [] Uma variavel declarada no componente
     };
   },
@@ -20,8 +21,9 @@ export const deleteDatas = {
     },
 
     onDelete(url, id, refresh_data, multiple_delete = false) {
-      this.handleDeleteMultiple();
-      if (!multiple_delete) {
+      if (multiple_delete) {
+        this.handleDeleteMultiple();
+      } else {
         this.ids = id;
       }
       this.deleteAlert(
@@ -39,7 +41,9 @@ export const deleteDatas = {
     },
 
     async delete(url, id, refresh_data) {
+      this.$set(this.deleting, id, true);
       let { msg } = await this.$axios.$delete(`/${url}/${id}`);
+      this.$set(this.deleting, id, false);
       this.feedback("success", msg);
       // Depois de eliminar registo, atualizar os dados
       process.client ? window.getApp.$emit(refresh_data) : "";

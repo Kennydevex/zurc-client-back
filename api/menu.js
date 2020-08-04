@@ -26,7 +26,7 @@ const Menu = [
     icon: "mdi-domain",
     items: [
       { name: "companies", title: "Company", href: "/admin/companies" },
-      { name: "properties", title: "Preterties", href: "/admin/properties" }
+      { name: "properties", title: "Preperties", href: "/admin/properties" }
     ]
   },
 

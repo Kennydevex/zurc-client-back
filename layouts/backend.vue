@@ -90,11 +90,8 @@ export default {
   },
 
   created() {
-    // const { data: permissions } = await this.$axios.$get("permissions");
-    // const { data: roles } = await this.$axios.$get("roles");
-    // this.$laravel.setPermissions(permissions);
-    // this.$laravel.setRoles(roles);
     process.client ? (window.getApp = this) : "";
+    this.laravelPermissions();   // Uma opção crítica, mas no caso de problema é so chama-lo em cada componente explicitamente
   },
 
   components: {

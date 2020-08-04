@@ -17,7 +17,7 @@
                 </div>
                 <v-form>
                   <v-row>
-                    <v-col cols="12" md="6" class="my-0 py-0">
+                    <v-col cols="12" class="py-0">
                       <v-text-field
                         name="name"
                         label="Nome Completo"
@@ -31,7 +31,22 @@
                         "
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" class="my-0 py-0">
+
+                    <v-col cols="12" class="py-0">
+                      <v-text-field
+                        name="email"
+                        label="Email"
+                        type="text"
+                        v-model.trim="formData.email"
+                        placeholder="exemplo@email.cv"
+                        v-validate="'required|email'"
+                        data-vv-name="email"
+                        :error-messages="
+                          showFormErrors('email') || errors.collect('email')
+                        "
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" class="py-0">
                       <v-text-field
                         name="username"
                         label="Nome de Utilizador"
@@ -46,22 +61,7 @@
                         "
                       ></v-text-field>
                     </v-col>
-
-                    <v-col cols="12" md="6" class="my-0 py-0">
-                      <v-text-field
-                        name="email"
-                        label="Email"
-                        type="text"
-                        v-model.trim="formData.email"
-                        placeholder="exemplo@email.cv"
-                        v-validate="'required|email'"
-                        data-vv-name="email"
-                        :error-messages="
-                          showFormErrors('email') || errors.collect('email')
-                        "
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6" class="my-0 py-0">
+                    <v-col cols="12" md="6" class="py-0">
                       <v-text-field
                         name="password"
                         label="Password"

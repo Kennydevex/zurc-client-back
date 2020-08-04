@@ -53,7 +53,6 @@
             <v-list-item
               nuxt
               to="/"
-              @click.stop="handleLogout()"
               :ripple="false"
             >
               <v-list-item-icon>

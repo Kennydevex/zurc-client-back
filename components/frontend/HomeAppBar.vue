@@ -26,17 +26,18 @@
       <div>
         <v-tabs class="hidden-sm-and-down" optional>
           <v-tab
-            v-for="(name, i) in items"
-            :key="i"
-            :exact="name === 'Home'"
+            v-for="menu in menus"
+            :key="menu.id"
             :ripple="false"
-            :to="{ name: name == 'Home' ? 'index' : name }"
+            @click="frontNavegation(menu.link)"
+            :exact="menu.link === '/'"
             active-class="text--primary"
             class="font-weight-bold"
             min-width="96"
             text
+            nuxt
           >
-            {{ name }}
+            {{ menu.name }}
           </v-tab>
         </v-tabs>
       </div>
@@ -44,7 +45,7 @@
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer" />
     </v-app-bar>
 
-    <home-drawer v-model="drawer" :items="items" />
+    <home-drawer v-model="drawer" :menus="menus" />
   </div>
 </template>
 
@@ -58,7 +59,14 @@ export default {
 
   data: () => ({
     drawer: null,
-    items: ["Home", "about", "properties", "services", "contacts"]
+    items: ["Home", "About", "properties", "services", "contacts"],
+    menus: [
+      { id: 1, name: "Home", link: "/" },
+      { id: 2, name: "About", link: "/about" },
+      { id: 3, name: "Properties", link: "/properties" },
+      { id: 4, name: "Services", link: "/services" },
+      { id: 5, name: "Contacts", link: "/contacts" }
+    ]
   })
 };
 </script>

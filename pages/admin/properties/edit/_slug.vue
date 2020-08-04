@@ -1,18 +1,24 @@
 <template>
   <div>
-    <property-form :formData="formData" :creating="true"></property-form>
+    <property-form :formData="formData" :creating="false"></property-form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CreateCompany",
+  name: "EditProperty",
   layout: "backend",
   middleware: "auth",
 
   components: {
     PropertyForm: () => import("@/components/backend/forms/PropertyForm")
   },
+
+  async asyncData({ $axios, params }) {
+    const { data } = await $axios.$get(`/properties/${params.slug}`);
+    return { formData: data };
+  },
+
   async fetch({ store }) {
     await store.dispatch("properties/getDestinations");
   },

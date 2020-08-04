@@ -22,6 +22,8 @@ export default {
 
   css: ["@/assets/styles/main.css", "swiper/swiper-bundle.css"],
 
+  loading: { color: "#3adced" },
+
   pageTransition: {
     name: "fade",
     mode: "out-in"
@@ -32,12 +34,17 @@ export default {
     "@/plugins/veevalidate",
     "@/plugins/axios",
     "@/plugins/laravel-permissions",
+    "@/plugins/vue2-filters",
+    // "@/plugins/google-maps",
+    // "@/plugins/vue2-google-maps",
+    "@/plugins/v-mask",
     "@/mixins/user",
-    // "@/mixins/acl",
+    "@/mixins/acl",
     "@/mixins/validationErrors",
     "@/mixins/utils",
     "@/mixins/goToPage",
-    { src: "@/plugins/vue-awesome-swiper.js", mode: "client" }
+    { src: "@/plugins/vue-awesome-swiper.js", mode: "client" },
+    { src: "@/plugins/vue2-google-maps", ssr: false }
   ],
 
   components: true,

@@ -41,8 +41,8 @@
 
     <v-layout row wrap>
       <v-flex lg12>
-        <span v-role="'Add'">Estefanio Silva</span>
-        <v-btn v-permission="'Add'" color="success">text</v-btn>
+        <span>Estefanio Silva</span>
+        <v-btn v-can="'Add'" color="success">text</v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -223,20 +223,14 @@ export default {
     await store.dispatch("users/getUsers");
   },
 
-  created: function() {
-    if (process.client) {
-      window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
-        this.getUsers();
-      });
-    }
-  },
-
   computed: {
     ...mapGetters({ users: "users/users" })
   },
 
   data() {
     return {
+      roles: [],
+      permissions: [],
       add_sending: false,
       update_sending: {},
       fab: false,
@@ -278,24 +272,21 @@ export default {
     };
   },
 
-  // async created() {
-  //   this.checkPermissions();
-  //   const { data: permissions } = await this.$axios.get("laravel-permissions");
-  //   const { data: roles } = await this.$axios.get("laravel-roles");
-  //   this.$laravel.setPermissions(permissions);
-  //   this.$laravel.setRoles(roles);
-  // },
+  created() {
+    if (process.client) {
+      window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
+        this.getUsers();
+      });
+    }
+  },
 
   components: {
     MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
-    CreateUser: () => import("@/components/backend/users/Create"),
-    UpdateUser: () => import("@/components/backend/users/Update")
+    CreateUser: () => import("@/components/backend/users/CreateUser"),
+    UpdateUser: () => import("@/components/backend/users/UpdateUser")
   },
 
   methods: {
-    checkPermissions() {
-      console.log(this.$laravel.getPermissions());
-    },
     async getUsers() {
       await this.$store.dispatch("users/getUsers");
     },

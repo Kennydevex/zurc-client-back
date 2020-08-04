@@ -7,11 +7,11 @@ import LoadSections from "@/mixins/load-sections";
 // import Measurable from "vuetify/lib/mixins/measurable";
 export default {
   layout: "frontend",
-  name: "AboutPage",
+  name: "ContactsPage",
 
   head() {
     return {
-      title: "Sobre",
+      title: "Contactos",
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
@@ -29,14 +29,12 @@ export default {
 
   extends: View,
 
-  mixins: [
-    LoadSections(["LandingPageSlider", "newsletter", "pro-features", "info"])
-  ],
+  mixins: [LoadSections(["LandingPageSlider"])],
 
   props: {
     id: {
       type: String,
-      default: "about"
+      default: "contacts"
     }
   }
 };

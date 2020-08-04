@@ -40,7 +40,7 @@
         to="/login"
         icon
       >
-        <v-icon>mdi-login</v-icon>
+        <v-icon small>mdi-login</v-icon>
       </v-btn>
     </template>
 
@@ -87,7 +87,7 @@
 
               <v-list-item-action>
                 <v-btn @click.prevent="logout()" icon class="primary--text">
-                  <v-icon>mdi-logout</v-icon>
+                  <v-icon small>mdi-logout</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -122,16 +122,17 @@
     <v-btn
       class="text-capitalize grey--text mr-n2 mr-sm-n1"
       small
-      text
+      icon
       @click="model = false"
     >
-      <v-icon color="white" :left="$vuetify.breakpoint.smAndUp">
+      <!--<v-icon color="white" small :left="$vuetify.breakpoint.smAndUp">--></v-icon>
+      <v-icon color="white" small>
         mdi-close
       </v-icon>
 
-      <span class="hidden-xs-only">
+      <!--<span class="hidden-xs-only">
         Fechar Area
-      </span>
+      </span>-->
     </v-btn>
   </v-system-bar>
 </template>

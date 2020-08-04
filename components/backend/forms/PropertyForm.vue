@@ -82,11 +82,7 @@
               <v-autocomplete
                 outlined
                 name="type"
-                :items="[
-                  { id: 1, name: 'Apartamentos' },
-                  { id: 2, name: 'Terrenos' },
-                  { id: 3, name: 'Vivendia' }
-                ]"
+                :items="types"
                 item-text="name"
                 item-value="id"
                 v-model="formData.type"
@@ -103,7 +99,7 @@
                 prefix="Para:"
                 multiple
                 v-model="formData.destinations"
-                label="Destinação da propriedade"
+                label="Finalidades da propriedade"
               ></v-autocomplete>
             </v-col>
 
@@ -293,9 +289,7 @@
             <v-col cols="12">
               <v-subheader>Fotos da galheria</v-subheader>
             </v-col>
-            <v-col cols="12">
-              Carregar fotos da galheria
-            </v-col>
+            <v-col cols="12"> Upload mult galary </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
@@ -327,7 +321,7 @@
                 rounded
                 @click.stop="!creating ? updateProperty() : addProperty(false)"
               >
-                Salvar
+                {{ creating ? "Guardar" : "Guardar Alterações" }}
               </v-btn>
               <v-btn class="text-none" to="/admin/properties" text rounded
                 >Sair</v-btn
@@ -343,12 +337,28 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { alerts } from "@/mixins/appAlerts";
 export default {
   props: ["formData", "creating"],
 
+  mixins: [alerts],
+
   data() {
     return {
-      step: 1
+      step: 1,
+      types: [
+        { id: "1", name: "Apartamento" },
+        { id: "2", name: "Moradia" },
+        { id: "3", name: "Bloco de Apartamentos" },
+        { id: "4", name: "Lote de Terreno" },
+        { id: "5", name: "Loja" },
+        { id: "6", name: "Armazem" },
+        { id: "7", name: "Quinta" },
+        { id: "8", name: "Garagem" },
+        { id: "9", name: "Quarto" },
+        { id: "10", name: "Escritório" },
+        { id: "11", name: "Outro" }
+      ]
     };
   },
 
@@ -359,9 +369,12 @@ export default {
   },
 
   methods: {
+    selectcCover(event) {
+      // `files` is always an array because the file input may be in multiple mode
+      this.cover = event.target.files[0];
+    },
     propertyForm1Error() {
       if (this.backend_form_errors && this.showFormErrors("name")) return false;
-
       return true;
     },
     nextStep(scope) {
@@ -398,16 +411,20 @@ export default {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
-          await this.$axios.put(
-            `properties/${this.$props.formData.id}`,
-            this.$props.formData
-          );
+          await this.$axios
+            .put(
+              `properties/${this.$props.formData.slug}`,
+              this.$props.formData
+            )
+            .then(res => {
+              this.resetForm();
+              this.feedback("success", res.data.msg);
+              this.$router.push("/admin/properties");
 
-          this.resetForm();
-
-          process.client
-            ? window.getApp.$emit("APP_UPDATE_PROPERTIES_DATA")
-            : "";
+              process.client
+                ? window.getApp.$emit("APP_UPDATE_PROPERTIES_DATA")
+                : "";
+            });
         }
       } catch (error) {}
     }

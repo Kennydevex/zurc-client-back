@@ -3,17 +3,17 @@
     <v-layout>
       <v-flex lg3 sm6 xs12>
         <mini-statistic
-          icon="mdi-account-group"
-          title="20"
-          sub-title="Utilizadores"
+          icon="mdi-home-city"
+          :title="`${totalPropreties}`"
+          sub-title="Propriedades"
           color="indigo"
         >
         </mini-statistic>
       </v-flex>
       <v-flex lg3 sm6 xs12>
         <mini-statistic
-          icon="mdi-account-check"
-          title="10"
+          icon="mdi-check-all"
+          :title="`${activedPropreties}`"
           sub-title="Ativos"
           color="red"
         >
@@ -21,8 +21,8 @@
       </v-flex>
       <v-flex lg3 sm6 xs12>
         <mini-statistic
-          icon="mdi-account-lock"
-          title="5"
+          icon="mdi-home-lock"
+          :title="`${inactivedPropreties}`"
           sub-title="Inativos"
           color="light-blue"
         >
@@ -38,10 +38,59 @@
         </mini-statistic>
       </v-flex>
     </v-layout>
+
+    <v-divider></v-divider>
+
+    <v-row justify="end">
+      <v-col cols="12" sm="6" md="8" align-self="center">
+        <v-btn
+          text
+          color="primary"
+          class="font-weight-bold"
+          @click="onListDestinations()"
+          :loading="load_destinations"
+          >Finalidade das propriedades
+          <template v-slot:loader>
+            <span class="success--text text-none">Carregando...</span>
+          </template></v-btn
+        >
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col cols="12" sm="6" md="4" align-self="center">
+        <v-text-field
+          hide-details
+          dense
+          filled
+          outlined
+          prepend-inner-icon="mdi-magnify"
+          name="name"
+          label="Procurar Propriedades"
+          v-model="filter_data"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-divider></v-divider>
     <v-layout row wrap>
-      <template v-for="property in properties">
-        <v-flex xs12 md3 :key="property.id">
-          <v-card class="mx-auto">
+      <!--{{
+        145673665
+          | currency("ECV", 0, {
+            spaceBetweenAmountAndSymbol: true,
+            symbolOnLeft: false
+          })
+      }}-->
+
+      <template
+        v-for="property in limitBy(
+          filterBy(properties, filter_data, 'name', 'description'),
+          limitByn
+        )"
+      >
+        <v-flex xs12 md4 :key="property.id">
+          <v-card
+            class="mx-auto"
+            @mouseenter.stop="$set(show_actions, property.id, true)"
+            @mouseleave.stop="$set(show_actions, property.id, false)"
+          >
             <v-img
               src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
               height="200px"
@@ -53,11 +102,38 @@
             </v-card-subtitle>
 
             <v-card-actions>
-              <v-btn text>Ver</v-btn>
+              <v-btn color="primary" rounded small text>Ver</v-btn>
+              <template v-if="show_actions[property.id]">
+                <v-btn
+                  class="text-none"
+                  color="grey darken-1"
+                  text
+                  nuxt
+                  icon
+                  :to="{
+                    name: 'admin-properties-edit-slug',
+                    params: { slug: property.slug }
+                  }"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
 
-              <v-btn color="purple" text>
-                Editar
-              </v-btn>
+                <v-btn
+                  @click="
+                    onDelete(
+                      'properties',
+                      property.id,
+                      'APP_UPDATE_PROPERTIES_DATA'
+                    )
+                  "
+                  class="text-none"
+                  color="grey darken-1"
+                  text
+                  icon
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </template>
 
               <v-spacer></v-spacer>
 
@@ -71,12 +147,32 @@
             <v-expand-transition>
               <div v-show="show[property.id]">
                 <v-divider></v-divider>
-                <v-card-text v-text="property.description"> </v-card-text>
+                <v-card-text
+                  >{{ property.description | truncate(3) }}
+                </v-card-text>
               </div>
             </v-expand-transition>
           </v-card>
         </v-flex>
       </template>
+      <v-flex xs12>
+        <v-btn
+          v-if="properties.length >= limitByn"
+          text
+          small
+          color="primary"
+          @click.prevent="limitByn += 6"
+          >Mostrar mais</v-btn
+        >
+        <v-btn
+          v-if="limitByn >= 8"
+          text
+          small
+          color="primary"
+          @click.prevent="limitByn -= 6"
+          >Mostrar Menos</v-btn
+        >
+      </v-flex>
 
       <v-card-text class="company-action">
         <v-fab-transition>
@@ -95,15 +191,21 @@
         </v-fab-transition>
       </v-card-text>
     </v-layout>
+    <v-row>
+      <destinations-index></destinations-index>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Vue2Filters from "vue2-filters";
+import { deleteDatas } from "@/mixins/formActions";
 
 export default {
   layout: "backend",
   middleware: "auth",
+  mixins: [Vue2Filters.mixin, deleteDatas],
 
   async fetch({ store }) {
     await store.dispatch("properties/getProperties");
@@ -111,24 +213,45 @@ export default {
 
   data() {
     return {
-      show: {}
+      load_destinations: false,
+      selected: [],
+      show_actions: {},
+      limitByn: 6,
+      show: {},
+      filter_data: ""
     };
   },
 
   created: function() {
     if (process.client) {
-      window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
+      window.getApp.$on("APP_UPDATE_PROPERTIES_DATA", () => {
         this.getProperties();
       });
     }
   },
 
   computed: {
-    ...mapGetters({ properties: "properties/properties" })
+    ...mapGetters({ properties: "properties/properties" }),
+    totalPropreties() {
+      return this.properties.length;
+    },
+    activedPropreties() {
+      return this.properties.filter(property => {
+        return property.status == true;
+      }).length;
+    },
+
+    inactivedPropreties() {
+      return this.properties.filter(property => {
+        return property.status == false;
+      }).length;
+    }
   },
 
   components: {
-    MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic")
+    MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
+    DestinationsIndex: () =>
+      import("@/components/backend/destinations/DestinationsIndex")
   },
 
   methods: {
@@ -136,8 +259,17 @@ export default {
       if (this.show[id]) this.$set(this.show, id, false);
       else this.$set(this.show, id, true);
     },
+
     async getProperties() {
       await this.$store.dispatch("properties/getProperties");
+    },
+
+    async onListDestinations() {
+      this.load_destinations = true;
+      await this.$store.dispatch("destinations/getDestinations");
+      this.load_destinations = false;
+
+      this.$store.commit("destinations/toggleListDestinationDialog");
     }
   }
 };
@@ -148,4 +280,10 @@ export default {
   position: fixed
   z-index: 100
   bottom: 20px
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s;
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+  opacity: 0;
 </style>

@@ -8,6 +8,9 @@ const redirectPage = {
       methods: {
         redirectToPage(page) {
           this.$router.push({ path: "/" + page });
+        },
+        frontNavegation(link) {
+          this.$router.push({ path: link });
         }
       }
     });
