@@ -25,21 +25,20 @@
 
       <div>
         <v-tabs class="hidden-sm-and-down" optional>
-          <template v-for="menu in menus">
-            <v-tab
-              :key="menu.id"
-              :ripple="false"
-              @click="frontNavegation(menu.link)"
-              :exact="menu.name === 'Home'"
-              active-class="text--primary"
-              class="font-weight-bold"
-              min-width="96"
-              text
-              nuxt
-            >
-              {{ menu.name }}
-            </v-tab>
-          </template>
+          <v-tab
+            v-for="menu in menus"
+            :key="menu.id"
+            :ripple="false"
+            @click="frontNavegation(menu.link)"
+            :exact="menu.link === '/'"
+            active-class="text--primary"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            nuxt
+          >
+            {{ menu.name }}
+          </v-tab>
         </v-tabs>
       </div>
 
@@ -60,20 +59,13 @@ export default {
 
   data: () => ({
     drawer: null,
+    items: ["Home", "About", "properties", "services", "contacts"],
     menus: [
-      { id: 1, name: "Início", link: "/" },
-      { id: 2, name: "Sobre nós", link: "/about" },
-      { id: 4, name: "Serviços", link: "/services", self: true },
-      { id: 3, name: "Proppridades", link: "/properties" },
-      { id: 5, name: "Contactos", link: "/contacts" },
-      // {
-      //   id: 6,
-      //   name: "Outros",
-      //   submenus: [
-      //     { id: 7, name: "Sub-Outro", link: "/" },
-      //     { id: 8, name: "Sub-Outter", link: "/about" }
-      //   ]
-      // }
+      { id: 1, name: "Home", link: "/" },
+      { id: 2, name: "About", link: "/about" },
+      { id: 3, name: "Properties", link: "/properties" },
+      { id: 4, name: "Services", link: "/services" },
+      { id: 5, name: "Contacts", link: "/contacts" }
     ]
   })
 };

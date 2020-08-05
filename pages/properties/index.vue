@@ -1,17 +1,25 @@
+<template>
+  <div>
+    <google-maps></google-maps>
+    <home-featured-properties></home-featured-properties>
+  </div>
+</template>
+
 <script>
+// import HomeFeaturedPropertiesVue from '~/views/sections/HomeFeaturedProperties.vue';
 // Extensions
-import View from "@/views/View";
+// import View from "@/views/View";
 
 // Mixins
-import LoadSections from "@/mixins/load-sections";
+// import LoadSections from "@/mixins/load-sections";
 // import Measurable from "vuetify/lib/mixins/measurable";
 export default {
   layout: "frontend",
-  name: "Properties",
+  name: "PropertiesPages",
 
   head() {
     return {
-      title: "PropertiesPages",
+      title: "Properties",
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
@@ -23,19 +31,24 @@ export default {
     };
   },
 
+  components: {
+    GoogleMaps: () => import("@/views/sections/GoogleMaps"),
+    HomeFeaturedProperties: () => import("@/views/sections/HomeFeaturedProperties")
+  }
+
   // mixins: [Measurable],
 
   // metaInfo: { title: "About Us" },
 
-  extends: View,
+  // extends: View,
 
-  mixins: [LoadSections(["LandingPageSlider"])],
+  // mixins: [LoadSections(["google-maps"])],
 
-  props: {
-    id: {
-      type: String,
-      default: "properties"
-    }
-  }
+  // props: {
+  //   id: {
+  //     type: String,
+  //     default: "properties"
+  //   }
+  // }
 };
 </script>

@@ -2,10 +2,10 @@
   <v-theme-provider :dark="dark">
     <div>
       <base-info-card
-        title="KEEP IN TOUCH WITH US"
+        title="Mantenha em contacto connosco"
         pace="6"
       >
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo pariatur quidem, quis modi iure nihil commodi suscipit, corporis dicta adipisci, voluptatum quia cupiditate. Nulla minus voluptatum nostrum deleniti, asperiores facere.
+        Utilize as informações de contacto e localização apresemtada a seguir para entar em contacto connosco. Da nossa parte será um prezer atender as suas necessidades.
       </base-info-card>
 
       <base-business-contact dense />

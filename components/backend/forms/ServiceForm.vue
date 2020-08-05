@@ -1,7 +1,9 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="primary--text font-weight-regular">{{creating?'Registo de serviço':'Atualizar serviço'}}</span>
+      <span class="primary--text font-weight-regular">{{
+        creating ? "Registo de serviço" : "Atualizar serviço"
+      }}</span>
     </v-card-title>
     <v-card-text>
       <v-form ref="form">
@@ -31,6 +33,24 @@
                 showFormErrors('description') || errors.collect('description')
               "
             ></v-textarea>
+          </v-col>
+
+          <v-col cols="12" md="6" class="mb-0 py-0">
+            <v-autocomplete
+              v-model="formData.icon"
+              :items="icons"
+              clearable
+              item-text="name"
+              item-value="key"
+              name="icon"
+              label="Ícone"
+              v-validate="'required'"
+              data-vv-name="icon"
+              :error-messages="showFormErrors('icon') || errors.collect('icon')"
+            ></v-autocomplete>
+            <v-avatar v-if="formData.icon" color="grey lighten-2">
+              <v-icon large color="primary">{{ formData.icon }}</v-icon>
+            </v-avatar>
           </v-col>
         </v-row>
       </v-form>
@@ -101,7 +121,34 @@ export default {
 
   data() {
     return {
-      sending: false
+      sending: false,
+      icons: [
+        { key: "mdi-home", name: "Home" },
+        { key: "mdi-heart", name: "Coração" },
+        { key: "mdi-school", name: "Formação" },
+        { key: "mdi-home-city-outline", name: "Metrópole" },
+        { key: "mdi-flower", name: "Crescimento" },
+        { key: "mdi-hammer-wrench", name: "Ferramentas" },
+        { key: "mdi-hand-heart", name: "Amor" },
+        { key: "mdi-handshake", name: "Negócio" },
+        { key: "mdi-domain", name: "Instituição" },
+        { key: "mdi-charity", name: "Caridade" },
+        { key: "mdi-engine", name: "Engenharia" },
+        { key: "mdi-compass", name: "Explorar" },
+        { key: "mdi-pencil-ruler", name: "Design" },
+        { key: "mdi-brain", name: "Cerebro" },
+        { key: "mdi-math-compass", name: "Projetar" },
+        { key: "mdi-head-cog-outline", name: "Pisicologia" },
+        { key: "mdi-desktop-classic", name: "Computação" },
+        { key: "mdi-home-heart", name: "Família" },
+        { key: "mdi-alphabetical", name: "Afabetização" },
+        { key: "mdi-currency-usd", name: "Dinheiro" },
+        { key: "mdi-certificate-outline", name: "Diploma" },
+        { key: "mdi-diamond", name: "Furtuna" },
+        { key: "mdi-key", name: "Chave" },
+        { key: "mdi-star-outline", name: "Estrela" },
+        { key: "mdi-earth", name: "Globalização" }
+      ]
     };
   },
 

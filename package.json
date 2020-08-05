@@ -11,15 +11,17 @@
   "dependencies": {
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
+    "aos": "^3.0.0-beta.6",
     "laravel-permissions": "^1.5.3",
     "nuxt": "^2.14.0",
     "swiper": "^6.1.1",
     "v-mask": "^2.2.3",
     "vee-validate": "<3.0.0",
-    "vue-awesome-swiper": "^4.1.1",
+    "vue-scrollto": "^2.18.2",
     "vue-sweetalert2": "^3.0.6",
     "vue2-filters": "^0.11.0",
     "vue2-google-maps": "^0.10.7",
+    "vueperslides": "^2.10.2",
     "vuetify-loader": "^1.6.0"
   },
   "devDependencies": {

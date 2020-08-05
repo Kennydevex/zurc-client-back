@@ -49,6 +49,14 @@
             itemsPerPageText: 'Registos por página'
           }"
         >
+          <template v-slot:item.icon="{ item }">
+            <v-avatar size="30" color="primary">
+              <v-icon dark>{{ item.icon }}</v-icon>
+            </v-avatar>
+          </template>
+          <template v-slot:item.description="{ item }">
+            <span>{{ item.description | truncate(100) }}</span>
+          </template>
           <template v-slot:item.action="{ item }">
             <v-btn
               color="grey darken-2"
@@ -108,6 +116,10 @@ export default {
       search: "",
       selected: [],
       headers: [
+        {
+          text: "Ícone",
+          value: "icon"
+        },
         {
           text: "Nome do serviço",
           value: "name"

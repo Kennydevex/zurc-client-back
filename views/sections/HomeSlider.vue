@@ -1,5 +1,5 @@
 <template>
-  <section id="hero">
+  <section id="home-slider">
     <v-img
       :min-height="minHeight"
       :src="'/home-hero.jpg'"
@@ -31,7 +31,7 @@
             class="d-flex flex-wrap"
           >
             <base-btn>
-              Saber Mais
+              Solicitar Orçamento
             </base-btn>
 
             <!--<span class="font-weight-bold ml-6 mr-4 my-4">or</span>
@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "SectionHero",
+  name: "SectionHomeSlider",
 
   provide: {
     theme: { isDark: true }

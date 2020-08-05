@@ -20,7 +20,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
-  css: ["@/assets/styles/main.css", "swiper/swiper-bundle.css"],
+  css: ["@/assets/styles/main.css"],
 
   loading: { color: "#3adced" },
 
@@ -33,6 +33,7 @@ export default {
     "@/plugins/base",
     "@/plugins/veevalidate",
     "@/plugins/axios",
+    { src: "@/plugins/aos", ssr: false },
     "@/plugins/laravel-permissions",
     "@/plugins/vue2-filters",
     // "@/plugins/google-maps",
@@ -43,7 +44,6 @@ export default {
     "@/mixins/validationErrors",
     "@/mixins/utils",
     "@/mixins/goToPage",
-    { src: "@/plugins/vue-awesome-swiper.js", mode: "client" },
     { src: "@/plugins/vue2-google-maps", ssr: false }
   ],
 
@@ -60,7 +60,8 @@ export default {
         confirmButtonColor: "#02636F",
         cancelButtonColor: "#ff7674"
       }
-    ]
+    ],
+    ["vue-scrollto/nuxt", { container: "body", duration: 500, easing: "ease" }]
   ],
 
   axios: {

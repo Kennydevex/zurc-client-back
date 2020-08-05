@@ -13,16 +13,19 @@ export default {
 
   mixins: [
     LoadSections([
-      "hero",
-      "theme-features",
-      "GoogleMaps",
-      "features",
-      "contact-us",
-      "keep-in-touch",
+      "home-caroucel",
+      // "home-slider",
+      "home-services",
+      "home-guidelines",
+      // "contact-us",
+      // "affiliates",
+      // "social-media",
+      "home-featured-properties",
+      "principal-contacts",
       "newsletter",
-      "pro-features",
-      "info",
-      
+      // "pro-features",
+      // "GoogleMaps",
+      "home-footer"
     ])
   ],
 

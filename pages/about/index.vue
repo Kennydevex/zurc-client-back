@@ -29,9 +29,7 @@ export default {
 
   extends: View,
 
-  mixins: [
-    LoadSections(["LandingPageSlider", "newsletter", "pro-features", "info"])
-  ],
+  mixins: [LoadSections(["pro-features", "info"])],
 
   props: {
     id: {

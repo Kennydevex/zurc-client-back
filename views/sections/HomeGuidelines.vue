@@ -1,14 +1,14 @@
 <template>
   <base-section
     id="features"
-    class="secondary"
+    class="grey lighten-2"
   >
     <v-responsive
       class="mx-auto"
       max-width="1350"
     >
       <v-container fluid>
-        <v-row>
+        <v-row justify="center">
           <v-col
             v-for="card in cards"
             :key="card.title"
@@ -18,7 +18,7 @@
           >
             <base-info-card
               align="center"
-              dark
+              
               v-bind="card"
             />
           </v-col>
@@ -36,24 +36,20 @@
       cards: [
         {
           icon: 'mdi-keyboard-outline',
-          title: 'Trendy Design',
+          title: 'Missão',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
         {
           icon: 'mdi-camera-outline',
-          title: 'Photography',
+          title: 'Visão',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
         {
           icon: 'mdi-pencil-outline',
-          title: 'Brand Making',
+          title: 'Valores',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
-        {
-          icon: 'mdi-puzzle-outline',
-          title: '24/7 Support',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
+      
       ],
     }),
   }

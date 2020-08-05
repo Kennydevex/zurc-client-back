@@ -1,33 +1,50 @@
 <template>
-    <base-section id="contact-us" class="primary" space="40">
-      <v-container fluid>
-        <v-row justify="center" align="center">
-            <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="5">
-              <gmap-marker
-                v-for="(item, index) in markers"
-                :key="index"
-                :position="item.position"
-                @click="center = item.position"
-              />
-            </gmap-map>
-        </v-row>
-      </v-container>
-    </base-section>
+  <base-section id="map" space="0">
+    <v-row align="center" justify="center">
+      <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="7.5">
+        <template v-for="(item, index) in properties">
+          <div :key="index">
+            <gmap-marker
+              :position="item.location.geo"
+              @click="goToProperty(item.slug)"
+            />
+            <!--<gmap-info-window :position="item.location.geo">
+              yes
+            </gmap-info-window>-->
+          </div>
+        </template>
+      </gmap-map>
+    </v-row>
+  </base-section>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "SectionGoogleMaps",
+  provide: {
+    heading: { align: "center" }
+  },
+
+  computed: {
+    ...mapGetters({ properties: "properties/properties" })
+  },
 
   data() {
     return {
-      center: { lat: -3.350235, lng: 111.995865 },
-      mapTypeId: "terrain",
-      markers: [
-        { position: { lat: -0.48585, lng: 117.1466 } },
-        { position: { lat: -6.9127778, lng: 107.6205556 } }
-      ]
+      center: { lat: 16, lng: -24 },
+      mapTypeId: "terrain"
     };
+  },
+
+  async created() {
+    await this.$store.dispatch("properties/getProperties");
+  },
+
+  methods: {
+    goToProperty(slug) {
+      console.log(slug);
+    }
   }
 };
 </script>
@@ -35,6 +52,6 @@ export default {
 <style lang="stylus" scoped>
 .vue-map-container
   height: 450px
-  max-width: 992px
+  // max-width 900px
   width: 100%
 </style>

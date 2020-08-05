@@ -24,7 +24,8 @@ export default {
       formData: {
         id: "",
         name: "",
-        description: ""
+        description: "",
+        icon: ""
       }
     };
   },
