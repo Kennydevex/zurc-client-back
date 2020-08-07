@@ -8,6 +8,8 @@ import LoadSections from "@/mixins/load-sections";
 export default {
   layout: "frontend",
   name: "index",
+ 
+ 
 
   extends: View,
 
@@ -22,7 +24,7 @@ export default {
       // "social-media",
       "home-featured-properties",
       "principal-contacts",
-      "newsletter",
+      // "newsletter",
       // "pro-features",
       // "GoogleMaps",
       "home-footer"

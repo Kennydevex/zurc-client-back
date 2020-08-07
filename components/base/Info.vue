@@ -1,13 +1,7 @@
 <template>
   <v-theme-provider :dark="dark">
     <div>
-      <base-img
-        :src="'/logo.png'"
-        contain
-        max-width="128"
-        min-height="78"
-        width="100%"
-      />
+    
 
       <base-title
         size="body-1"

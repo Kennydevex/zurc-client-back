@@ -109,7 +109,10 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.darken1
+          success: colors.green.darken1,
+          compl_prim: "#6F0E02",
+          compl_suss: "#2D6F02",
+          compl_info: "#45026F"
         }
       }
     }

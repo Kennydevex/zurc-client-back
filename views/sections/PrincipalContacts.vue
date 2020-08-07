@@ -9,8 +9,7 @@
           cols="12"
           md="5"
         >
-          <base-business-info title="Esteja em contacto connosco">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo pariatur quidem, quis modi iure nihil commodi suscipit, corporis dicta adipisci, voluptatum quia cupiditate.
+          <base-business-info>
           </base-business-info>
         </v-col>
 
@@ -27,6 +26,6 @@
 
 <script>
   export default {
-    name: 'SectionKeepInTouch',
+    name: 'PrincipalContacts',
   }
 </script>

@@ -62,10 +62,10 @@ export default {
     drawer: null,
     menus: [
       { id: 1, name: "Início", link: "/" },
-      { id: 2, name: "Sobre nós", link: "/about" },
-      { id: 4, name: "Serviços", link: "/services", self: true },
       { id: 3, name: "Proppridades", link: "/properties" },
-      { id: 5, name: "Contactos", link: "/contacts" },
+      { id: 4, name: "Serviços", link: "/services", self: true },
+      { id: 2, name: "Sobre nós", link: "/about" },
+      { id: 5, name: "Contactos", link: "/contacts" }
       // {
       //   id: 6,
       //   name: "Outros",

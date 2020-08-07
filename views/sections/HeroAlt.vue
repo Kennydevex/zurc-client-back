@@ -4,7 +4,7 @@
       <base-img
         :height="$vuetify.breakpoint.mdAndUp ? 350 : 225"
         :gradient="gradient"
-        :src="src"
+        :src="`about.jpg`"
         color="#45516b"
         flat
         max-width="100%"
@@ -40,20 +40,24 @@ import { HexToRGBA, RGBAtoCSS } from "vuetify/lib/util/colorUtils";
 export default {
   name: "SectionHeroAlt",
 
-  metaInfo() {
-    return {
-      changed: meta => (this.title = meta.titleChunk.toUpperCase())
-    };
+  metaInfo: {
+    // title will be injected into parent titleTemplate
+    title: "About Us"
   },
+
+  // metaInfo() {
+  //   return {
+  //     changed: meta => (this.title = meta.titleChunk.toUpperCase())
+  //   };
+  // },
 
   provide: {
     heading: { align: "center" }
   },
 
-  data: () => ({
-    title: ""
-  }),
-
+  // data: () => ({
+  //   title: ""
+  // }),
 
   computed: {
     gradient() {

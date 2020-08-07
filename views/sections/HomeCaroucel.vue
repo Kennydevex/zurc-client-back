@@ -57,8 +57,12 @@
             </v-container>
           </template>
           <template v-slot:loader>
-            <v-icon>mdi-loading</v-icon>
-            <span>Loading...</span>
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
           </template>
         </vueper-slide>
         <template v-slot:pause>
@@ -125,6 +129,6 @@ export default {
 
 <style lang="css">
 .vueperslides__arrow {
-  color: #02636F;
+  color: #02636f;
 }
 </style>

@@ -1,20 +1,22 @@
 export const state = () => ({
   properties: [],
   property: [],
-  destinations: []
+  actived_properties: [],
+  featured_properties: []
 });
 
 export const getters = {
   properties(state) {
     return state.properties;
   },
-
   property(state) {
     return state.property;
   },
-
-  destinations(state) {
-    return state.destinations;
+  actived_properties(state) {
+    return state.actived_properties;
+  },
+  featured_properties(state) {
+    return state.featured_properties;
   }
 };
 
@@ -25,8 +27,12 @@ export const mutations = {
   SET_PROPERTY(state, property) {
     state.property = property;
   },
-  SET_DESTINATIONS(state, destination) {
-    state.destinations = destination;
+  SET_ACTIVED_PROPERTIES(state, property) {
+    state.actived_properties = property;
+  },
+
+  SET_FEATURED_PROPERTIES(state, property) {
+    state.featured_properties = property;
   }
 };
 
@@ -45,9 +51,14 @@ export const actions = {
     property = await this.$axios.$get(`properties/${slug}`);
     commit("SET_PROPERTY", property.data);
   },
-  
-  async getDestinations({ commit }) {
-    let destinations = await this.$axios.$get("destinations");
-    commit("SET_DESTINATIONS", destinations.data);
+
+  async getActivedProperties({ commit }) {
+    let { data } = await this.$axios.$get("actived-properties");
+    commit("SET_ACTIVED_PROPERTIES", data);
+  },
+
+  async getFeaturedProperties({ commit }) {
+    let { data } = await this.$axios.$get("featured-properties");
+    commit("SET_FEATURED_PROPERTIES", data);
   }
 };

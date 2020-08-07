@@ -1,27 +1,72 @@
 <template>
   <div>
-    <google-maps></google-maps>
-    <home-featured-properties></home-featured-properties>
+    <v-container grid-list-xs ma-0 pa-0 fluid>
+      <v-row no-gutters>
+        <v-col cols="12">
+          <google-maps></google-maps>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container grid-list-xs fluid>
+      <v-row no-gutters>
+        <v-col cols="12">
+          <v-row>
+            <v-col cols="12" md="9">
+              <v-container grid-list-xs>
+                <v-row>
+                  <template v-for="(property, index) in actived_properties">
+                    <v-col
+                      cols="12"
+                      md="4"
+                      :key="'actd_proprt_' + index"
+                    >
+                      <!--:to="{
+                          name: 'properties-ver-slug',
+                          params: { slug: property.slug }
+                        }"-->
+                      <base-properties-card
+                        :trunc="50"
+                        :property="property"
+                      ></base-properties-card>
+                    </v-col>
+                  </template>
+                </v-row>
+              </v-container>
+            </v-col>
+
+            <v-col cols="12" md="3" order="first">
+              <v-row>
+                <v-col class="pb-0">
+                  <search></search>
+                </v-col>
+              </v-row>
+
+              <v-divider></v-divider>
+
+              <v-row>
+                <v-col>
+                  <properties-featured-properties></properties-featured-properties>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
-// import HomeFeaturedPropertiesVue from '~/views/sections/HomeFeaturedProperties.vue';
-// Extensions
-// import View from "@/views/View";
-
-// Mixins
-// import LoadSections from "@/mixins/load-sections";
-// import Measurable from "vuetify/lib/mixins/measurable";
+import { mapGetters } from "vuex";
 export default {
   layout: "frontend",
   name: "PropertiesPages",
 
   head() {
     return {
-      title: "Properties",
+      title: "Propriedades",
       meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
           hid: "description",
           name: "description",
@@ -31,24 +76,28 @@ export default {
     };
   },
 
+  async fetch({ store }) {
+    await store.dispatch("properties/getActivedProperties");
+  },
+
+  data() {
+    return {
+      currency_type: 1
+    };
+  },
+
+  computed: {
+    ...mapGetters({ actived_properties: "properties/actived_properties" })
+    // users() {
+    //   // return this.$store.state.users.users;
+    // }
+  },
+
   components: {
     GoogleMaps: () => import("@/views/sections/GoogleMaps"),
-    HomeFeaturedProperties: () => import("@/views/sections/HomeFeaturedProperties")
+    Search: () => import("@/components/frontend/Search"),
+    PropertiesFeaturedProperties: () =>
+      import("@/views/sections/PropertiesFeaturedProperties")
   }
-
-  // mixins: [Measurable],
-
-  // metaInfo: { title: "About Us" },
-
-  // extends: View,
-
-  // mixins: [LoadSections(["google-maps"])],
-
-  // props: {
-  //   id: {
-  //     type: String,
-  //     default: "properties"
-  //   }
-  // }
 };
 </script>

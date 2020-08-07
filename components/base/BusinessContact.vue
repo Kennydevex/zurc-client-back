@@ -1,66 +1,82 @@
 <template>
   <v-theme-provider :dark="dark">
     <div>
-      <base-info-card
-        :title="title"
-        color="primary"
-      >
+      <base-info-card :title="title" color="primary">
         <slot />
       </base-info-card>
 
-      <template v-for="({ icon, text, title: t }, i) in business">
+      <template v-if="companies.length != 0">
+        <template v-for="(contact, i) in companies[0].contacts">
+          <base-avatar-card
+            :key="i"
+            v-if="contact.type === '1'"
+            :icon="'mdi-phone'"
+            :outlined="false"
+            :title="!dense ? t : undefined"
+            color="transparent"
+            horizontal
+            space="0"
+          >
+            <div>{{ contact.contact }}</div>
+            <small>{{ contact.description }}</small>
+          </base-avatar-card>
+        </template>
+
+        <v-divider></v-divider>
+
+        <template v-for="(contact, i) in companies[0].contacts">
+          <base-avatar-card
+            :key="i"
+            v-if="contact.type === '2'"
+            :icon="'mdi-email'"
+            :outlined="false"
+            :title="!dense ? t : undefined"
+            color="transparent"
+            horizontal
+            space="0"
+          >
+            <div>{{ contact.contact }}</div>
+            <small>{{ contact.description }}</small>
+          </base-avatar-card>
+        </template>
+
+        <v-divider></v-divider>
+
         <base-avatar-card
-          :key="i"
-          :icon="icon"
+          :icon="'mdi-map-marker'"
           :outlined="false"
           :title="!dense ? t : undefined"
           color="transparent"
           horizontal
           space="0"
         >
-          <!-- Do not use v-html for user -->
-          <!-- provided values -->
-          <div v-html="text" />
+          <div>{{ address }}</div>
+          <small>Localização física da empresa</small>
         </base-avatar-card>
-
-        <v-divider
-          v-if="i + 1 !== business.length"
-          :key="`divider-${i}`"
-          class="my-2"
-        />
       </template>
     </div>
   </v-theme-provider>
 </template>
 
 <script>
-  export default {
-    name: 'BaseBusinessContact',
+import { mapGetters } from "vuex";
+export default {
+  name: "BaseBusinessContact",
+  props: {
+    dark: Boolean,
+    dense: Boolean,
+    title: String
+  },
 
-    props: {
-      dark: Boolean,
-      dense: Boolean,
-      title: String,
-    },
+  computed: {
+    ...mapGetters({ companies: "companies/companies" }),
 
-    data: () => ({
-      business: [
-        {
-          icon: 'mdi-map-marker-outline',
-          title: 'Address',
-          text: '8553 N. Beach St. Ste. 227<br>Fort Worth, Texas 76137',
-        },
-        {
-          icon: 'mdi-cellphone',
-          title: 'Phone',
-          text: '01 (800) 433 744<br>01 (800) 433 633',
-        },
-        {
-          icon: 'mdi-email',
-          title: 'Email',
-          text: 'john@vuetifyjs.com<br>heather@vuetifyjs.com',
-        },
-      ],
-    }),
+    address() {
+      if (this.companies.length != 0) {
+        return `${this.companies[0].location.state} - ${this.companies[0].location.city} - ${this.companies[0].location.zone}`;
+      }
+      return;
+    }
   }
+};
 </script>

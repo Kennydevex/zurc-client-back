@@ -21,7 +21,7 @@
                 :infinite="true"
                 :bullets="false"
                 class="no-shadow"
-                :visible-slides="3"
+                :visible-slides="4"
                 slide-multiple
                 :gap="2"
                 :slide-ratio="1 / 4"
@@ -89,51 +89,13 @@ export default {
   name: "SectionThemeFeatures",
 
   async created() {
-    await this.$store.dispatch("services/getServices");
+    await this.$store.dispatch("properties/getFeaturedProperties");
   },
-
-  components: { VueperSlides, VueperSlide },
 
   computed: {
-    ...mapGetters({ services: "services/services" })
+    ...mapGetters({ featured_properties: "properties/featured_properties" })
   },
 
-  data() {
-    return {
-      title: [],
-      features: [
-        {
-          color: "primary",
-          dark: true,
-          title: "Pixel Perfect Design",
-          icon: "mdi-fountain-pen-tip"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Retina Ready",
-          icon: "mdi-cellphone"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Easily Customizable",
-          icon: "mdi-pencil-box-outline"
-        }
-        // {
-        //   title: "Image Parallax",
-        //   icon: "mdi-image-size-select-actual"
-        // },
-        // {
-        //   title: "Seo Optimized",
-        //   icon: "mdi-ice-pop"
-        // },
-        // {
-        //   title: "24/7 Support",
-        //   icon: "mdi-help-circle-outline"
-        // }
-      ]
-    };
-  }
+  components: { VueperSlides, VueperSlide }
 };
 </script>

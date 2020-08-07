@@ -8,7 +8,11 @@
               :position="item.location.geo"
               @click="goToProperty(item.slug)"
             />
-            <!--<gmap-info-window :position="item.location.geo">
+
+            <!--<gmap-info-window
+              v-if="info_window[item.id]"
+              :position="item.location.geo"
+            >
               yes
             </gmap-info-window>-->
           </div>
@@ -33,7 +37,8 @@ export default {
   data() {
     return {
       center: { lat: 16, lng: -24 },
-      mapTypeId: "terrain"
+      mapTypeId: "terrain",
+      info_window: {}
     };
   },
 
@@ -43,7 +48,10 @@ export default {
 
   methods: {
     goToProperty(slug) {
-      console.log(slug);
+      this.$router.push({
+        name: "properties-ver-slug",
+        params: { slug: slug }
+      });
     }
   }
 };

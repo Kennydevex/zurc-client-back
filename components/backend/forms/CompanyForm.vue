@@ -379,9 +379,10 @@ export default {
 
     moreContact(index) {
       this.addFormData(index, this.formData.contacts, {
-        type: "1",
+        id: "",
         contact: "",
-        description: ""
+        description: "",
+        type: "1"
       });
     },
 

@@ -7,41 +7,91 @@
       color="primary"
     />
 
-    <base-text-field label="Name" />
+    <v-text-field
+      outlined
+      dense
+      v-model.trim="formData.name"
+      v-validate="'required|alpha_spaces'"
+      data-vv-name="name"
+      :error-messages="errors.collect('name')"
+      name="name"
+      label="Nome"
+    ></v-text-field>
 
-    <base-text-field label="Email" />
+    <v-text-field
+      outlined
+      dense
+      v-model.trim="formData.email"
+      v-validate="'required|email'"
+      data-vv-name="email"
+      :error-messages="errors.collect('email')"
+      name="email"
+      label="Email"
+    ></v-text-field>
 
-    <base-text-field label="Subject" />
+    <v-text-field
+      outlined
+      dense
+      v-model.trim="formData.subject"
+      v-validate="'required'"
+      data-vv-name="subject"
+      :error-messages="errors.collect('subject')"
+      name="subject"
+      label="Assunto da mensagem"
+    ></v-text-field>
 
-    <base-textarea
-      class="mb-6"
-      label="Your Need & Description"
-    />
+    <v-textarea
+      outlined
+      auto-grow
+      label="Mensagem"
+      name="message"
+      v-model.trim="formData.message"
+      v-validate="'max:500'"
+      data-vv-name="message"
+      :error-messages="errors.collect('message')"
+    ></v-textarea>
 
+    <!-- href="mailto:shop@vuetifyjs.com?subject=Zero%20Theme%20Question"-->
     <base-btn
       :color="!theme.isDark ? 'accent' : 'white'"
-      href="mailto:shop@vuetifyjs.com?subject=Zero%20Theme%20Question"
       outlined
       target="_blank"
+      @click="sendMessage()"
     >
-      Send message
+      Enviar Mensagem
     </base-btn>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'BaseContactForm',
+export default {
+  name: "BaseContactForm",
 
-    // Injected from the Vuetify Themeable mixin
-    inject: ['theme'],
+  // Injected from the Vuetify Themeable mixin
+  inject: ["theme"],
 
-    props: {
-      subtitle: String,
-      title: {
-        type: String,
-        default: 'MAIL US YOUR MESSAGE',
-      },
-    },
+  props: {
+    subtitle: String,
+    title: {
+      type: String,
+      default: "Enviar um mensagem"
+    }
+  },
+
+  data() {
+    return {
+      formData: {
+        name: "",
+        email: "",
+        subject: ""
+      }
+    };
+  },
+
+  methods: {
+    sendMessage() {
+      console.log("Enviando msg  --  " + this.formData.name);
+    }
   }
+};
 </script>

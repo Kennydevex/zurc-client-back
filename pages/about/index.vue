@@ -25,11 +25,15 @@ export default {
 
   // mixins: [Measurable],
 
-  // metaInfo: { title: "About Us" },
-
   extends: View,
 
-  mixins: [LoadSections(["pro-features", "info"])],
+  mixins: [
+    LoadSections([
+      // "hero-alt",
+      "pro-features",
+      "HomeFooter"
+    ])
+  ],
 
   props: {
     id: {

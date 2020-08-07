@@ -1,26 +1,15 @@
 <template>
-  <base-section
-    id="pro-features"
-  >
-    <v-img
-      :src="'/logo.png'"
-      class="mx-auto mb-8"
-      max-width="128"
-    />
+  <base-section id="pro-features">
+    <v-img :src="'/logo.png'" class="mx-auto mb-8" max-width="128" />
 
     <base-section-heading title="Feature Comparison">
-      Get the PRO version of <strong>Zero</strong> and level up your theme<br>with additional components, pages, and Free updates.
+      Get the PRO version of <strong>Zero</strong> and level up your theme<br />with
+      additional components, pages, and Free updates.
     </base-section-heading>
 
     <v-container>
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          md="7"
-        >
+      <v-row align="center" justify="center">
+        <v-col cols="12" md="7">
           <v-simple-table>
             <thead>
               <tr>
@@ -35,16 +24,13 @@
             </thead>
 
             <tbody class="body-1">
-              <tr
-                v-for="([name, one, two], i) in features"
-                :key="i"
-              >
+              <tr v-for="([name, one, two], i) in features" :key="i">
                 <td v-text="name" />
 
                 <td class="text-center font-weight-bold">
                   <template v-if="typeof one === 'boolean'">
                     <v-icon :color="one ? 'success' : 'error'">
-                      mdi-{{ one ? 'check' : 'close' }}
+                      mdi-{{ one ? "check" : "close" }}
                     </v-icon>
                   </template>
 
@@ -56,7 +42,7 @@
                 <td class="text-center font-weight-bold">
                   <template v-if="typeof two === 'boolean'">
                     <v-icon :color="two ? 'success' : 'error'">
-                      mdi-{{ two ? 'check' : 'close' }}
+                      mdi-{{ two ? "check" : "close" }}
                     </v-icon>
                   </template>
 
@@ -69,14 +55,8 @@
           </v-simple-table>
         </v-col>
 
-        <v-col
-          cols="12"
-          md="5"
-        >
-          <v-card
-            elevation="16"
-            class="mb-12"
-          >
+        <v-col cols="12" md="5">
+          <v-card elevation="16" class="mb-12">
             <base-img
               max-width="100%"
               src="https://cdn.vuetifyjs.com/store/themes/zero/pro.png"
@@ -104,19 +84,19 @@
 </template>
 
 <script>
-  export default {
-    name: 'SectionProChart',
+export default {
+  name: "SectionProChart",
 
-    data: () => ({
-      features: [
-        ['Components', 23, '40+'],
-        ['Example Pages', 3, 10],
-        ['Bugfixes and Issues', true, true],
-        ['Vue CLI Support', true, true],
-        ['News, Project, and Pricing Pages', false, true],
-        ['6 Months Free Updates', false, true],
-        ['Price', 'Free', '$60'],
-      ],
-    }),
-  }
+  data: () => ({
+    features: [
+      ["Components", 23, "40+"],
+      ["Example Pages", 3, 10],
+      ["Bugfixes and Issues", true, true],
+      ["Vue CLI Support", true, true],
+      ["News, Project, and Pricing Pages", false, true],
+      ["6 Months Free Updates", false, true],
+      ["Price", "Free", "$60"]
+    ]
+  })
+};
 </script>

@@ -15,7 +15,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "SectionFeaturesAlt",
+  name: "ServicesInfo",
 
   computed: {
     ...mapGetters({ services: "services/services" })

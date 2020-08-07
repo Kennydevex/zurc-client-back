@@ -20,7 +20,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch("properties/getDestinations");
+    await store.dispatch("destinations/getDestinations");
   },
 
   data() {
@@ -31,6 +31,8 @@ export default {
         description: "",
         price: 0,
         type: "",
+        typology: "",
+        leisure: "",
         dimension: "", // Em mt quadrado
         status: false,
         featured: false,

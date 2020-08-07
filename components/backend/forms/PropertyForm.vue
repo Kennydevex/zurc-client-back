@@ -92,6 +92,28 @@
             <v-col cols="12" md="6" class="py-0">
               <v-autocomplete
                 outlined
+                name="typology"
+                :items="[
+                  'T0',
+                  'T1',
+                  'T3',
+                  'T4',
+                  'T5',
+                  'T6',
+                  'V1',
+                  'V2',
+                  'V3',
+                  'V4',
+                  'V5',
+                  'V6'
+                ]"
+                v-model="formData.typology"
+                label="Tipo de propriedade"
+              ></v-autocomplete>
+            </v-col>
+            <v-col cols="12" md="6" class="py-0">
+              <v-autocomplete
+                outlined
                 name="destinations"
                 :items="destinations"
                 item-text="name"
@@ -101,6 +123,21 @@
                 v-model="formData.destinations"
                 label="Finalidades da propriedade"
               ></v-autocomplete>
+            </v-col>
+
+            <v-col cols="12" md="6" class="py-0">
+              <v-text-field
+                type="number"
+                outlined
+                name="leisure"
+                label="Espaço de lazer"
+                prepend-icon="mdi-coffee"
+                v-model="formData.leisure"
+                v-validate="'numeric'"
+                data-vv-name="form-step-1.leisure"
+                :error-messages="errors.collect('form-step-1.leisure')"
+              >
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="6" class="py-0">
@@ -357,14 +394,15 @@ export default {
         { id: "8", name: "Garagem" },
         { id: "9", name: "Quarto" },
         { id: "10", name: "Escritório" },
-        { id: "11", name: "Outro" }
+        { id: "11", name: "Terreno" },
+        { id: "12", name: "Outro" }
       ]
     };
   },
 
   computed: {
     ...mapGetters({
-      destinations: "properties/destinations"
+      destinations: "destinations/destinations"
     })
   },
 
