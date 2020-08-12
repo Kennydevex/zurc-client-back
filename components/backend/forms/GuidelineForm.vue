@@ -32,6 +32,24 @@
               "
             ></v-textarea>
           </v-col>
+
+           <v-col cols="12" md="6" class="mb-0 py-0">
+            <v-autocomplete
+              v-model="formData.icon"
+              :items="icons"
+              clearable
+              item-text="name"
+              item-value="key"
+              name="icon"
+              label="Ícone"
+              v-validate="'required'"
+              data-vv-name="icon"
+              :error-messages="showFormErrors('icon') || errors.collect('icon')"
+            ></v-autocomplete>
+            <v-avatar v-if="formData.icon" color="grey lighten-2">
+              <v-icon large color="primary">{{ formData.icon }}</v-icon>
+            </v-avatar>
+          </v-col>
         </v-row>
       </v-form>
     </v-card-text>
@@ -101,7 +119,21 @@ export default {
 
   data() {
     return {
-      sending: false
+      sending: false,
+       icons: [
+        { key: "mdi-eye", name: "Valores" },
+        { key: "mdi-hand-heart", name: "Visão" },
+        { key: "mdi-bullseye-arrow", name: "Missão" },
+        { key: "mdi-heart", name: "Coração" },
+        { key: "mdi-flower", name: "Crescimento" },
+        { key: "mdi-hand-heart", name: "Amor" },
+        { key: "mdi-handshake", name: "Negócio" },
+        { key: "mdi-home-heart", name: "Família" },
+        { key: "mdi-currency-usd", name: "Dinheiro" },
+        { key: "mdi-diamond", name: "Furtuna" },
+        { key: "mdi-key-chain", name: "Chave" },
+        { key: "mdi-key-chain", name: "Chave" },
+      ]
     };
   },
 

@@ -1,10 +1,10 @@
 <template>
-  <v-container grid-list-xs mb-0 pb-0>
+  <v-container grid-list-xs>
     <v-row wrap>
       <v-col cols="12" class="pa-0">
         <base-aside-title>Propriedades em destaque</base-aside-title>
       </v-col>
-      <v-col cols="12" class="pa-0">
+      <v-col cols="12">
         <client-only>
           <vueper-slides
             autoplay

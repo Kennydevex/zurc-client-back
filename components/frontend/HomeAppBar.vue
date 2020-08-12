@@ -12,7 +12,7 @@
       <img :src="'logo.png'" contain max-width="10"  />-->
 
       <base-img
-        :src="'zurconstroi.jpeg'"
+        :src="'/zurconstroi.jpeg'"
         class="mr-3 hidden-xs-only"
         contain
         max-width="120"
@@ -29,7 +29,7 @@
             <v-tab
               :key="menu.id"
               :ripple="false"
-              @click="frontNavegation(menu.link)"
+                :to="menu.link"
               :exact="menu.name === 'Home'"
               active-class="text--primary"
               class="font-weight-bold"

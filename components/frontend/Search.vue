@@ -1,7 +1,15 @@
 <template>
   <v-row>
     <v-col>
-      <v-menu
+      <v-text-field
+        dense
+        outlined
+        prepend-inner-icon="mdi-magnify"
+        name="name"
+        label="Procurar propriedades"
+        v-model="search"
+      ></v-text-field>
+      <!--<v-menu
         tile
         allow-overflow
         nudge-bottom="40"
@@ -27,13 +35,14 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu>-->
     </v-col>
   </v-row>
 </template>
 
 <script>
 export default {
+  props: ["search"],
   data() {
     return {
       showMenu: false,

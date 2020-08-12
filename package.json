@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@neneos/nuxt-animate.css": "^0.0.1",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
     "aos": "^3.0.0-beta.6",
@@ -17,7 +18,9 @@
     "swiper": "^6.1.1",
     "v-mask": "^2.2.3",
     "vee-validate": "<3.0.0",
+    "view-design": "^4.3.2",
     "vue-scrollto": "^2.18.2",
+    "vue-social-sharing": "^3.0.0-beta.11",
     "vue-sweetalert2": "^3.0.6",
     "vue2-filters": "^0.11.0",
     "vue2-google-maps": "^0.10.7",
@@ -27,6 +30,8 @@
   "devDependencies": {
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/vuetify": "^1.11.2",
+    "babel-plugin-import": "^1.13.0",
+    "install": "^0.13.0",
     "stylus": "^0.54.8",
     "stylus-loader": "^3.0.2"
   }

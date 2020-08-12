@@ -1,7 +1,8 @@
 <template>
   <section id="home-slider">
-    <client-only placeholder="Loading...">
+    <client-only>
       <vueper-slides
+        class="no-shadow"
         :slide-ratio="1 / 2"
         fixed-height="600px"
         lazy
@@ -9,6 +10,7 @@
         fade
         ref="myVueperSlides"
         autoplay
+        @image-loaded="lazy_progress = false"
         :pause-on-hover="pauseOnHover"
         @autoplay-pause="internalAutoPlaying = false"
         @autoplay-resume="internalAutoPlaying = true"
@@ -16,7 +18,6 @@
         <vueper-slide
           v-for="slide in slides"
           :key="slide.id"
-          :title="slide.title"
           :image="slide.image"
         >
           <template v-slot:content>
@@ -26,13 +27,10 @@
                 max-width="500"
                 width="100%"
               >
-                <base-heading title="ZURCONSTROI WEB APP" />
+                <base-heading :title="slide.title" />
 
                 <base-body>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  temporibus, sequi adipisci fugiat ipsum quis sunt, quia
-                  nostrum quas voluptates omnis, quod optio aperiam? Ad nesciunt
-                  modi doloremque dolore ipsam?
+                  {{ slide.content }}
                 </base-body>
 
                 <div
@@ -46,17 +44,11 @@
                   <base-btn>
                     Solicitar Orçamento
                   </base-btn>
-
-                  <!--<span class="font-weight-bold ml-6 mr-4 my-4">or</span>
-
-            <base-btn :ripple="false" class="pa-1" height="auto" text>
-              Get Started Now
-            </base-btn>-->
                 </div>
               </v-responsive>
             </v-container>
           </template>
-          <template v-slot:loader>
+          <template v-if="lazy_progress" v-slot:loader>
             <v-progress-circular
               :size="70"
               :width="7"
@@ -86,40 +78,27 @@ export default {
 
   data() {
     return {
-      breakpoints: {
-        1200: {
-          slideRatio: 1 / 2
-        },
-        900: {
-          slideRatio: 1 / 3
-        },
-        600: {
-          slideRatio: 1 / 2,
-          arrows: false,
-          bulletsOutside: true
-        },
-        // The order you list breakpoints does not matter, Vueper Slides will sort them for you.
-        1100: {
-          slideRatio: 1 / 4
-        }
-      },
+      lazy_progress: true,
+
       pauseOnHover: true,
       autoPlaying: true,
       internalAutoPlaying: true,
       slides: [
         {
           id: "slide-1",
-          title: 'Slide <b style="font-size: 1.3em;color: yellow">#1</b>',
+          title: "Projectos",
           content:
-            'Slide title can be HTML.<br>And so does the slide content, <span style="font-size: 1.2em;color: yellow">why not?</span>',
-          image: "sliders/slider1.jpg"
+            "Quisque hac turpis tortor massa suscipit fringilla curae platea diam, erat hendrerit vivamus eros in vel est sodales, donec dis lacinia nam integer pellentesque netus duis.",
+          image: "sliders/slider1.jpg",
+         
         },
         {
           id: "slide-2",
-          title: 'Slide <b style="font-size: 1.3em;color: yellow">#1</b>',
+          title: "Arrendar ou Comprar",
           content:
-            'Slide title can be HTML.<br>And so does the slide content, <span style="font-size: 1.2em;color: yellow">why not?</span>',
-          image: "sliders/slider2.jpg"
+            "Luctus ligula faucibus rhoncus convallis lectus habitant nulla natoque tempus primis sed, dis tellus enim consequat aliquam ultrices neque fusce risus bibendum",
+          image: "sliders/slider2.jpg",
+         
         }
       ]
     };

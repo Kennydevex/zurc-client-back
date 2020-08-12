@@ -1,11 +1,5 @@
 <template>
   <base-section id="home-fetured-proprerties" space="15">
-    <!--<base-section-heading title="Valores">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, in!
-      Asperiores, impedit libero. Veniam rerum saepe unde nihil possimus
-      quibusdam esse accusamus mollitia magni fuga.
-    </base-section-heading>-->
-
     <v-container fluid>
       <v-col cols="12"
         ><base-section-heading
@@ -21,56 +15,31 @@
                 :infinite="true"
                 :bullets="false"
                 class="no-shadow"
-                :visible-slides="4"
+                :visible-slides="3"
+                fixed-height="370px"
                 slide-multiple
                 :gap="2"
                 :slide-ratio="1 / 4"
                 :dragging-distance="200"
                 :breakpoints="{
-                  800: { visibleSlides: 2, slideMultiple: 2 }
+                  800: { visibleSlides: 2, slideMultiple: 2 },
+                  640: { visibleSlides: 1, slideMultiple: 1 }
                 }"
               >
-                <vueper-slide v-for="i in 10" :key="i">
-                  <template v-slot:content>
-                    <v-card tile>
-                      <v-img
-                        :src="
-                          `https://cdn.vuetifyjs.com/images/cards/desert.jpg`
-                        "
-                        height="120px"
-                        aspect-ratio="2.75"
-                        class="white--text align-end"
-                      >
-                        <v-card-title class="body-1 font-weight-regular"
-                          >Titulo</v-card-title
-                        >
-                      </v-img>
-
-                      <v-card-text>
-                        <div class="text-capitalize">
-                          <small>Data</small>
-                        </div>
-                        <div
-                          class="grey--text text--darken-4 font-weight-regular pr-5"
-                        >
-                          <span>Descrição</span>
-                        </div>
-                      </v-card-text>
-
-                      <v-card-actions class="pb-3 pt-0 pl-2">
-                        <v-btn
-                          color="primary"
-                          text
-                          small
-                          left
-                          :ripple="false"
-                          class="font-weight-regular"
-                          >Ler</v-btn
-                        >
-                      </v-card-actions>
-                    </v-card>
+                <template v-if="featured_properties.length != 0">
+                  <template v-for="(property, i) in featured_properties">
+                    <vueper-slide :key="'fatrd_proprt_' + i">
+                      <template v-slot:content>
+                        <v-container grid-list-xs fluid pa-0 ma-1>
+                          <base-properties-card
+                            :trunc="50"
+                            :property="property"
+                          ></base-properties-card>
+                        </v-container>
+                      </template>
+                    </vueper-slide>
                   </template>
-                </vueper-slide>
+                </template>
               </vueper-slides>
             </v-col>
           </v-row>

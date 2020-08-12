@@ -19,8 +19,9 @@ export default {
     return {
       formData: {
         id: "",
-        designation: "",
-        presentation: ""
+        name: "",
+        description: "",
+        icon: "",
       }
     };
   },

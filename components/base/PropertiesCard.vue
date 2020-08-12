@@ -1,5 +1,6 @@
 <template>
   <v-card
+  class="mx-2"
     tile
     v-bind="$attrs"
     v-on="$listeners"
@@ -12,7 +13,7 @@
     <v-img
       class="white--text"
       height="130px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+      :src="`${publicURL}/uploads/${property.cover}`"
     >
       <v-container grid-list-xs>
         <v-row no-gutters>

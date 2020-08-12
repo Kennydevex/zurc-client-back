@@ -23,7 +23,7 @@ export default {
         id: "",
         name: "",
         description: "",
-        price: 0,
+        price: "",
         type: "",
         typology: "",
         leisure: "",
@@ -31,6 +31,7 @@ export default {
         status: false,
         featured: false,
         destinations: [],
+        galleries: [],
         cover: null,
         location: {
           id: "",

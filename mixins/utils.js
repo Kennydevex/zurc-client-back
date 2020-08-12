@@ -8,7 +8,17 @@ const handleForms = {
       methods: {
         resetForm() {
           this.$refs.form.reset();
+        }
+      },
+
+      computed: {
+        publicURL() {
+          return process.env.PUBLIC_URL;
         },
+
+        siteURL() {
+          return process.env.SITE_URL;
+        }
       }
     });
   }

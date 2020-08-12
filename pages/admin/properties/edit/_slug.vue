@@ -36,6 +36,7 @@ export default {
         dimension: "", // Em mt quadrado
         status: false,
         featured: false,
+        galleries: [],
         destinations: [],
         cover: null,
         location: {

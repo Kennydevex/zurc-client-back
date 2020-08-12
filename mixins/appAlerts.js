@@ -1,10 +1,11 @@
 export const alerts = {
   methods: {
-    feedback(alert_type, msg) {
+    feedback(alert_type, title, text = "") {
       this.$swal({
         toast: true,
         position: "top-end",
-        title: msg,
+        title: title,
+        text: text,
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,

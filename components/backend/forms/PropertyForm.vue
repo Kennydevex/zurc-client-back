@@ -108,7 +108,7 @@
                   'V6'
                 ]"
                 v-model="formData.typology"
-                label="Tipo de propriedade"
+                label="Tipologia"
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" md="6" class="py-0">
@@ -316,18 +316,133 @@
           data-vv-scope="form-step-4"
         >
           <v-row>
-            <v-col cols="12">
-              <v-subheader>Imagem de Capa</v-subheader>
-              <small>Carregue uma imagem da capa desta propriedade</small>
+            <!-- ======================================================== -->
+            <v-col cols="6">
+              <v-row>
+                <v-col cols="12">
+                  <v-subheader>Imagem de Capa</v-subheader>
+                  <small class="primary--text"
+                    >Carregue uma imagem da capa desta propriedade
+                  </small>
+                </v-col>
+
+                <v-col cols="12">
+                  <Upload
+                    :disabled="uploadCoverList && uploadCoverList.length == 1"
+                    ref="uploadCover"
+                    :show-upload-list="false"
+                    :on-success="handleCoverSuccess"
+                    :max-size="2048"
+                    :on-format-error="handleFormatError"
+                    :format="['jpg', 'jpeg', 'png']"
+                    :on-exceeded-size="handleMaxSize"
+                    :on-error="handleError"
+                    type="drag"
+                    :action="`${$axios.defaults.baseURL}/upload-property-cover`"
+                    :headers="{ 'X-Requested-With': 'XMLHttpRequest' }"
+                  >
+                    <div style="padding: 20px 0">
+                      <v-icon color="primary" x-large>mdi-cloud-upload</v-icon>
+                      <p>Clique ou largue a sua imagem aqui</p>
+                    </div>
+                  </Upload>
+                  <div
+                    class="demo-upload-list"
+                    v-for="(item, i) in uploadCoverList"
+                    :key="i"
+                  >
+                    <template v-if="item.status === 'finished'">
+                      <img
+                        v-if="formData.cover"
+                        :src="`${publicURL}/uploads/${formData.cover}`"
+                      />
+                      <div class="demo-upload-list-cover">
+                        <v-icon dark @click.native="handleRemoveCover(item)"
+                          >mdi-delete</v-icon
+                        >
+                      </div>
+                    </template>
+                    <template v-else>
+                      <Progress
+                        v-if="item.showProgress"
+                        :percent="item.percentage"
+                        hide-info
+                      ></Progress>
+                    </template>
+                  </div>
+                </v-col>
+              </v-row>
             </v-col>
-            <v-col cols="12">
-              <v-file-input show-size label="File input"></v-file-input>
+            <!-- ======================================================== -->
+
+            <!-- ======================================================== -->
+
+            <v-col cols="6">
+              <v-row>
+                <v-col cols="12">
+                  <v-subheader>Imagens da Galeria</v-subheader>
+                  <small class="primary--text"
+                    >Carregue todas as outras imagens desta propriedade</small
+                  >
+                </v-col>
+
+                <v-col cols="12">
+                  <Upload
+                    ref="uploadGallery"
+                    :show-upload-list="false"
+                    :on-success="handleGallerySuccess"
+                    :format="['jpg', 'jpeg', 'png']"
+                    :max-size="2048"
+                    :on-format-error="handleFormatError"
+                    :on-exceeded-size="handleMaxSize"
+                    :on-error="handleError"
+                    type="drag"
+                    :action="
+                      `${$axios.defaults.baseURL}/upload-property-gallery`
+                    "
+                    :headers="{ 'X-Requested-With': 'XMLHttpRequest' }"
+                  >
+                    <div style="padding: 20px 0">
+                      <v-icon color="primary" x-large>mdi-cloud-upload</v-icon>
+                      <p>Clique ou largue a sua imagem aqui</p>
+                    </div>
+                  </Upload>
+
+                  <div
+                    class="demo-upload-list"
+                    v-for="(item, i) in uploadGalleryList"
+                    :key="i"
+                  >
+                    <template v-if="item.status === 'finished'">
+                      <img
+                        v-if="formData.galleries[i]"
+                        :src="
+                          `${publicURL}/uploads/gallery/${formData.galleries[i].name}`
+                        "
+                      />
+                      <div class="demo-upload-list-cover">
+                        <v-icon
+                          dark
+                          @click.native="handleRemoveGallery(item, i)"
+                          >mdi-delete</v-icon
+                        >
+                      </div>
+                    </template>
+                    <template v-else>
+                      <Progress
+                        v-if="item.showProgress"
+                        :percent="item.percentage"
+                        hide-info
+                      ></Progress>
+                    </template>
+                  </div>
+                </v-col>
+              </v-row>
             </v-col>
-            <v-col cols="12">
-              <v-subheader>Fotos da galheria</v-subheader>
-            </v-col>
-            <v-col cols="12"> Upload mult galary </v-col>
+            <!-- ======================================================== -->
           </v-row>
+
+          <v-divider></v-divider>
           <v-row>
             <v-col cols="12">
               <v-subheader>Ativação e Destaque</v-subheader>
@@ -375,14 +490,20 @@
 <script>
 import { mapGetters } from "vuex";
 import { alerts } from "@/mixins/appAlerts";
+import { Upload } from "view-design";
+import { uploadFeedback } from "@/mixins/handleFileUploads";
+
 export default {
   props: ["formData", "creating"],
 
-  mixins: [alerts],
+  mixins: [alerts, uploadFeedback],
 
   data() {
     return {
       step: 1,
+      teste: [],
+      uploadCoverList: [],
+      uploadGalleryList: [],
       types: [
         { id: "1", name: "Apartamento" },
         { id: "2", name: "Moradia" },
@@ -400,21 +521,103 @@ export default {
     };
   },
 
+  mounted() {
+    this.creating
+      ? (this.uploadCoverList = this.$refs.uploadCover.fileList)
+      : this.uploadCoverList.push({
+          response: this.formData.cover,
+          status: "finished"
+        });
+
+    this.setGalleryList();
+  },
+
   computed: {
     ...mapGetters({
       destinations: "destinations/destinations"
     })
   },
 
+  components: {
+    Upload
+  },
+
   methods: {
-    selectcCover(event) {
-      // `files` is always an array because the file input may be in multiple mode
-      this.cover = event.target.files[0];
+    setGalleryList() {
+      if (this.creating) {
+        this.formData.galleries = [];
+      }
+      let mthis = this;
+      if (!this.creating && this.formData.galleries.length > 0) {
+        this.formData.galleries.forEach(function(gallery) {
+          mthis.uploadGalleryList.push({
+            response: gallery.name,
+            status: "finished"
+          });
+        });
+        return;
+      }
+      this.uploadGalleryList = this.$refs.uploadGallery.fileList;
     },
+    // Upload files
+    handleCoverSuccess(res, file) {
+      this.formData.cover = res;
+      this.uploadCoverList = this.$refs.uploadCover.fileList;
+    },
+
+    async handleRemoveCover() {
+      let cover = this.formData.cover;
+      this.formData.cover = "";
+      const res = await this.$axios.post("remove-property-cover", {
+        cover: cover
+      });
+      if (res.status != 200) {
+        this.formData.cover = cover;
+        this.feedback(
+          "error",
+          "Erro de operação",
+          "Algo correu mal e a imagem não foi iliminada"
+        );
+        return;
+      }
+      this.uploadCoverList = this.$refs.uploadCover.clearFiles();
+    },
+
+    // =================================================
+
+    handleGallerySuccess(res, file) {
+      this.formData.galleries.push({ name: res });
+      this.uploadGalleryList = this.$refs.uploadGallery.fileList;
+    },
+
+    async handleRemoveGallery(item, k) {
+      let gallery = this.formData.galleries[k].name;
+
+      this.formData.galleries.splice(k, 1);
+
+      const res = await this.$axios.post("remove-property-gallery", {
+        gallery: gallery
+      });
+
+      if (res.status != 200 || !res.data.exist) {
+        this.formData.galleries.push({ name: gallery });
+        this.feedback(
+          "error",
+          "Erro de operação",
+          "Algo correu mal e a imagem não foi iliminada"
+        );
+        return;
+      }
+      this.uploadGalleryList.splice(k, 1);
+    },
+
+    // =================================================
+
     propertyForm1Error() {
       if (this.backend_form_errors && this.showFormErrors("name")) return false;
       return true;
     },
+
     nextStep(scope) {
       // this.$validator.validateAll(scope).then(result => {
       //   if (result) {
@@ -469,3 +672,42 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+.demo-upload-list {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+  position: relative;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  margin-right: 4px;
+}
+.demo-upload-list img {
+  width: 100%;
+  height: 100%;
+}
+.demo-upload-list-cover {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.demo-upload-list:hover .demo-upload-list-cover {
+  display: block;
+}
+.demo-upload-list-cover i {
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 2px;
+}
+</style>

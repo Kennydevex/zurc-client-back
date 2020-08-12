@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-row>
             <v-col cols="12" md="4">
-              <base-info-card title="Contactos" />
+              <base-info-card name="Contactos" />
 
               <base-business-contact dense />
             </v-col>

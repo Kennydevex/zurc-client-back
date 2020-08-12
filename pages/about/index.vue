@@ -29,8 +29,8 @@ export default {
 
   mixins: [
     LoadSections([
-      // "hero-alt",
-      "pro-features",
+      "about-page-header",
+      "about-company",
       "HomeFooter"
     ])
   ],

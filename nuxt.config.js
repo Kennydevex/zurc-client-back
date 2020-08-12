@@ -5,6 +5,11 @@ export default {
 
   target: "server",
 
+  env: {
+    PUBLIC_URL: "http://zurc_api.test:8000",
+    SITE_URL: "http://zurc_api.test:8000"
+  },
+
   head: {
     titleTemplate: "%s - Zurconstroi",
     title: "Zurconstroi",
@@ -20,7 +25,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
-  css: ["@/assets/styles/main.css"],
+  css: ["@/assets/styles/main.css", "view-design/dist/styles/iview.css"],
 
   loading: { color: "#3adced" },
 
@@ -61,7 +66,9 @@ export default {
         cancelButtonColor: "#ff7674"
       }
     ],
-    ["vue-scrollto/nuxt", { container: "body", duration: 500, easing: "ease" }]
+    ["vue-scrollto/nuxt", { container: "body", duration: 500, easing: "ease" }],
+    "vue-social-sharing/nuxt",
+    // "@neneos/nuxt-animate.css"
   ],
 
   axios: {

@@ -29,7 +29,9 @@ export default {
 
   extends: View,
 
-  mixins: [LoadSections(["LandingPageSlider"])],
+  mixins: [
+    LoadSections(["ContactsPageHeader", "PrincipalContacts", "HomeFooter"])
+  ],
 
   props: {
     id: {

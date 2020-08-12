@@ -110,12 +110,12 @@ export default {
       headers: [
         {
           text: "Designação",
-          value: "designation"
+          value: "name"
         },
 
         {
           text: "Descrição",
-          value: "presentation"
+          value: "description"
         },
         {
           text: "Operação",

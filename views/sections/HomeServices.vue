@@ -1,23 +1,35 @@
 <template>
   <base-section id="home-services" space="40">
-    <!--<base-section-heading title="Valores">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, in!
-      Asperiores, impedit libero. Veniam rerum saepe unde nihil possimus
-      quibusdam esse accusamus mollitia magni fuga.
-    </base-section-heading>-->
-
     <v-container>
       <v-row>
         <v-col cols="12"
-          ><base-section-heading title="Serviços"></base-section-heading
-        ></v-col>
-        <v-col v-for="(service, i) in services" :key="i" cols="12" md="4">
-          <base-card-service v-bind="service" align="left" horizontal>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
-            illum veniam cum dolores ratione commodi beatae quas maxime,
-            laboriosam excepturi solut!
-          </base-card-service>
+          ><base-section-heading title="Serviços"></base-section-heading>
         </v-col>
+
+        <template v-if="services.length != 0">
+          <v-col
+            v-for="(service, i) in limitBy(services, 3)"
+            :key="i"
+            cols="12"
+            md="4"
+          >
+            <base-card-service v-bind="service" align="left" horizontal>
+              {{ service.description | truncate(100) }}
+            </base-card-service>
+          </v-col>
+        </template>
+
+        <v-col class="pa-0" align="center" justify="center"
+          ><v-btn
+            nuxt
+            to="/services"
+            color="accent"
+            text
+            small
+            class="text-none font-weight-regular text-decoration-underline"
+            >Ver Todos</v-btn
+          ></v-col
+        >
       </v-row>
     </v-container>
   </base-section>
@@ -25,13 +37,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Vue2Filters from "vue2-filters";
 
 export default {
   name: "SectionThemeFeatures",
 
-  async created() {
-    await this.$store.dispatch("services/getServices");
-  },
+  mixins: [Vue2Filters.mixin],
+
+  // async created() {
+  //   await this.$store.dispatch("services/getServices");
+  // },
 
   computed: {
     ...mapGetters({ services: "services/services" })
@@ -39,39 +54,7 @@ export default {
 
   data() {
     return {
-      title: [],
-      features: [
-        {
-          color: "primary",
-          dark: true,
-          title: "Pixel Perfect Design",
-          icon: "mdi-fountain-pen-tip"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Retina Ready",
-          icon: "mdi-cellphone"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Easily Customizable",
-          icon: "mdi-pencil-box-outline"
-        }
-        // {
-        //   title: "Image Parallax",
-        //   icon: "mdi-image-size-select-actual"
-        // },
-        // {
-        //   title: "Seo Optimized",
-        //   icon: "mdi-ice-pop"
-        // },
-        // {
-        //   title: "24/7 Support",
-        //   icon: "mdi-help-circle-outline"
-        // }
-      ]
+      title: []
     };
   }
 };

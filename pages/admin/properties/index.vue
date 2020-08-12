@@ -92,13 +92,14 @@
             @mouseleave.stop="$set(show_actions, property.id, false)"
           >
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="200px"
+              :src="`${publicURL}/uploads/${property.cover}`"
+              height="170px"
             ></v-img>
 
-            <v-card-title v-text="property.name"> </v-card-title>
+            <v-card-title>{{ property.name }}} </v-card-title>
 
-            <v-card-subtitle v-text="$moment(property.created_at).fromNow()">
+            <v-card-subtitle
+              >{{ $moment(property.created_at).fromNow() }}
             </v-card-subtitle>
 
             <v-card-actions>

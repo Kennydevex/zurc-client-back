@@ -8,19 +8,50 @@
       </v-row>
     </v-container>
 
-    <v-container grid-list-xs fluid>
+    <v-container grid-list-xs>
       <v-row no-gutters>
         <v-col cols="12">
           <v-row>
+            <v-col cols="12" md="3">
+              <v-row>
+                <v-col cols="12" class="pb-0">
+                  <!--<search :search="search"></search>-->
+                  <v-text-field
+                    rounded
+                    dense
+                    outlined
+                    prepend-inner-icon="mdi-magnify"
+                    name="name"
+                    label="Procurar propriedades"
+                    v-model="search"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" class="pb-0">
+                  <v-subheader>Filtros</v-subheader>
+                </v-col>
+              </v-row>
+
+              <v-divider></v-divider>
+
+              <v-row>
+                <v-col>
+                  <properties-featured-properties></properties-featured-properties>
+                </v-col>
+              </v-row>
+            </v-col>
+
             <v-col cols="12" md="9">
-              <v-container grid-list-xs>
+              <v-container grid-list-xs ma-0 pa-0>
                 <v-row>
-                  <template v-for="(property, index) in actived_properties">
-                    <v-col
-                      cols="12"
-                      md="4"
-                      :key="'actd_proprt_' + index"
-                    >
+                  <template
+                    v-for="(property, index) in filterBy(
+                      actived_properties,
+                      search,
+                      'name',
+                      'description'
+                    )"
+                  >
+                    <v-col cols="12" md="4" :key="'actd_proprt_' + index">
                       <!--:to="{
                           name: 'properties-ver-slug',
                           params: { slug: property.slug }
@@ -34,22 +65,6 @@
                 </v-row>
               </v-container>
             </v-col>
-
-            <v-col cols="12" md="3" order="first">
-              <v-row>
-                <v-col class="pb-0">
-                  <search></search>
-                </v-col>
-              </v-row>
-
-              <v-divider></v-divider>
-
-              <v-row>
-                <v-col>
-                  <properties-featured-properties></properties-featured-properties>
-                </v-col>
-              </v-row>
-            </v-col>
           </v-row>
         </v-col>
       </v-row>
@@ -59,9 +74,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Vue2Filters from "vue2-filters";
+
 export default {
   layout: "frontend",
   name: "PropertiesPages",
+  mixins: [Vue2Filters.mixin],
 
   head() {
     return {
@@ -82,7 +100,8 @@ export default {
 
   data() {
     return {
-      currency_type: 1
+      currency_type: 1,
+      search: ""
     };
   },
 

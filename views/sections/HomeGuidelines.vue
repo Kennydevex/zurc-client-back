@@ -1,26 +1,16 @@
 <template>
-  <base-section
-    id="features"
-    class="grey lighten-2"
-  >
-    <v-responsive
-      class="mx-auto"
-      max-width="1350"
-    >
+  <base-section id="features" class="grey lighten-2">
+    <v-responsive class="mx-auto" max-width="1350">
       <v-container fluid>
         <v-row justify="center">
           <v-col
-            v-for="card in cards"
-            :key="card.title"
+            v-for="guideline in guidelines"
+            :key="guideline.id"
             cols="12"
             sm="4"
             md="3"
           >
-            <base-info-card
-              align="center"
-              
-              v-bind="card"
-            />
+            <base-info-card align="center" v-bind="guideline">{{guideline.description}}</base-info-card>
           </v-col>
         </v-row>
       </v-container>
@@ -29,28 +19,16 @@
 </template>
 
 <script>
-  export default {
-    name: 'SectionFeatures',
+import { mapGetters } from "vuex";
+export default {
+  name: "HomeGuidelines",
 
-    data: () => ({
-      cards: [
-        {
-          icon: 'mdi-keyboard-outline',
-          title: 'Missão',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-        {
-          icon: 'mdi-camera-outline',
-          title: 'Visão',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Valores',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-      
-      ],
-    }),
+  async created() {
+    await this.$store.dispatch("guidelines/getGuidelines");
+  },
+
+  computed: {
+    ...mapGetters({ guidelines: "guidelines/guidelines" })
   }
+};
 </script>

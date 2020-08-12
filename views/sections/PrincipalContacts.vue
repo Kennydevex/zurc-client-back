@@ -13,6 +13,8 @@
           </base-business-info>
         </v-col>
 
+        <v-divider vertical></v-divider>
+
         <v-col
           cols="12"
           md="6"
