@@ -43,8 +43,10 @@ export const mutations = {
 
 export const actions = {
   async getPermissions({ commit }) {
-    let permissions = await this.$axios.$get("permissions");
-    commit("SET_PERMISSIONS", permissions.data);
+    try {
+      let permissions = await this.$axios.$get("permissions");
+      commit("SET_PERMISSIONS", permissions.data);
+    } catch (error) {}
   },
 
   async getPermission({ commit, getters }, id) {
@@ -55,13 +57,17 @@ export const actions = {
       commit("SET_PERMISSION", permission);
       return;
     }
-    permission = await this.$axios.$get(`permissions/${id}`);
-    commit("SET_PERMISSION", permission);
+    try {
+      permission = await this.$axios.$get(`permissions/${id}`);
+      commit("SET_PERMISSION", permission);
+    } catch (error) {}
   },
 
   async getRoles({ commit }) {
-    let roles = await this.$axios.$get("roles");
-    commit("SET_ROLES", roles.data);
+    try {
+      let roles = await this.$axios.$get("roles");
+      commit("SET_ROLES", roles.data);
+    } catch (error) {}
   },
 
   async getRole({ commit, getters }, id) {
@@ -70,7 +76,9 @@ export const actions = {
       commit("SET_ROLE", role);
       return;
     }
-    role = await this.$axios.$get(`roles/${id}`);
-    commit("SET_ROLE", role);
+    try {
+      role = await this.$axios.$get(`roles/${id}`);
+      commit("SET_ROLE", role);
+    } catch (error) {}
   }
 };

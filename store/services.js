@@ -48,7 +48,9 @@ export const actions = {
     commit("CLEAN_SERVICES", {});
   },
   async getServices({ commit }) {
-    let services = await this.$axios.$get("services");
-    commit("SET_SERVICES", services.data);
+    try {
+      let services = await this.$axios.$get("services");
+      commit("SET_SERVICES", services.data);
+    } catch (error) {}
   }
 };

@@ -31,10 +31,7 @@
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" text icon color="primary">
             <v-avatar size="28px">
-              <img
-                :src="`https://cdn.vuetifyjs.com/images/john.jpg`"
-                alt="User Avatar"
-              />
+              <img src="/users/default.png" alt="User Avatar" />
             </v-avatar>
           </v-btn>
         </template>
@@ -50,11 +47,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item
-              nuxt
-              to="/"
-              :ripple="false"
-            >
+            <v-list-item nuxt to="/" :ripple="false">
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
               </v-list-item-icon>

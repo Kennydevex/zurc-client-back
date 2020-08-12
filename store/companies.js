@@ -24,8 +24,10 @@ export const mutations = {
 
 export const actions = {
   async getCompanies({ commit }) {
-    let companies = await this.$axios.$get("companies");
-    commit("SET_COMPANIES", companies.data);
+    try {
+      let companies = await this.$axios.$get("companies");
+      commit("SET_COMPANIES", companies.data);
+    } catch (error) {}
   },
 
   async getCompany({ commit, getters }, slug) {
@@ -36,7 +38,9 @@ export const actions = {
       return;
     }
 
-    company = await this.$axios.$get(`companies/${slug}`);
-    commit("SET_COMPANY", company.data);
+    try {
+      company = await this.$axios.$get(`companies/${slug}`);
+      commit("SET_COMPANY", company.data);
+    } catch (error) {}
   }
 };
