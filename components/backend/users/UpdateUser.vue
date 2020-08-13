@@ -46,6 +46,7 @@ export default {
     if (process.client) {
       window.getApp.$on("APP_UPDATE_USER", user => {
         if (user) this.setUserUpdateForm(user);
+        console.log('Sa ta txiga li');
       });
     }
   },
@@ -65,8 +66,6 @@ export default {
     async setUserUpdateForm(user) {
       this.formData = user;
       this.$store.commit("dialogs/toggleUpdateUserDialog");
-      await this.$store.dispatch("permissions/getRoles");
-      await this.$store.dispatch("permissions/getPermissions");
     }
   }
 };

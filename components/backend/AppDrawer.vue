@@ -78,8 +78,10 @@
               </v-list-item>
             </v-list-group>
             <!--child item-->
+
             <v-list-item
               v-else
+              v-role:any="subItem.roles"
               :key="i"
               :to="subItem.href ? subItem.href : null"
               :disabled="subItem.disabled"
@@ -104,6 +106,7 @@
         <v-divider v-else-if="item.divider" :key="i"></v-divider>
         <!--top-level link-->
         <v-list-item
+          v-role:any="item.roles"
           v-else
           :to="item.href ? item.href : null"
           ripple="ripple"

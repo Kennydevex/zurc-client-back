@@ -399,6 +399,8 @@ export default {
             .then(res => {
               this.redirectToPage("admin/companies");
               this.resetForm();
+              this.$validator.reset();
+
               this.feedback("success", res.data.msg);
               process.client
                 ? window.getApp.$emit("APP_UPDATE_COMPANIES_DATA")
@@ -417,6 +419,7 @@ export default {
             .then(res => {
               this.redirectToPage("admin/companies");
               this.resetForm();
+              this.$validator.reset();
               this.feedback("success", res.data.msg);
               process.client
                 ? window.getApp.$emit("APP_UPDATE_COMPANIES_DATA")

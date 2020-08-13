@@ -36,19 +36,17 @@ export default {
 
   plugins: [
     "@/plugins/base",
-    "@/plugins/veevalidate",
-    "@/plugins/axios",
-    { src: "@/plugins/aos", ssr: false },
-    "@/plugins/laravel-permissions",
-    "@/plugins/vue2-filters",
-    // "@/plugins/google-maps",
-    // "@/plugins/vue2-google-maps",
-    "@/plugins/v-mask",
     "@/mixins/user",
     "@/mixins/acl",
-    "@/mixins/validationErrors",
     "@/mixins/utils",
     "@/mixins/goToPage",
+    "@/mixins/validationErrors",
+    "@/plugins/axios",
+    "@/plugins/v-mask",
+    "@/plugins/veevalidate",
+    "@/plugins/vue2-filters",
+    "@/plugins/laravel-permissions",
+    { src: "@/plugins/aos", ssr: false },
     { src: "@/plugins/vue2-google-maps", ssr: false }
   ],
 
@@ -67,7 +65,7 @@ export default {
       }
     ],
     ["vue-scrollto/nuxt", { container: "body", duration: 500, easing: "ease" }],
-    "vue-social-sharing/nuxt",
+    "vue-social-sharing/nuxt"
     // "@neneos/nuxt-animate.css"
   ],
 

@@ -5,7 +5,8 @@ const Menu = [
     group: "apps",
     icon: "mdi-view-dashboard",
     name: "Dashboard",
-    href: "/admin"
+    href: "/admin",
+    roles: "Admin|Gestor"
   },
   { header: "Sistema" },
 
@@ -14,7 +15,15 @@ const Menu = [
     group: "sys",
     component: "sys",
     icon: "mdi-account-multiple",
-    items: [{ name: "users", title: "Users", href: "/admin/users" }]
+
+    items: [
+      {
+        name: "users",
+        title: "Users",
+        href: "/admin/users",
+        roles: "Admin|Gestor"
+      }
+    ]
   },
 
   { header: "Negócio" },
@@ -25,21 +34,32 @@ const Menu = [
     component: "buisnis",
     icon: "mdi-domain",
     items: [
-      { name: "companies", title: "Company", href: "/admin/companies" },
-      { name: "properties", title: "Preperties", href: "/admin/properties" }
+      {
+        name: "companies",
+        title: "Company",
+        href: "/admin/companies",
+        roles: "Admin|Gestor"
+      },
+      {
+        name: "properties",
+        title: "Preperties",
+        href: "/admin/properties",
+        roles: "Admin|Gestor"
+      }
     ]
   },
 
   { header: "UI Elements" },
 
   { divider: true },
-  { header: "Extras" }
-  // {
-  //   title: "Login",
-  //   group: "extra",
-  //   icon: "mdi-login",
-  //   href: "/o"
-  // }
+  { header: "Extras" },
+  {
+    title: "Login",
+    group: "extra",
+    icon: "mdi-login",
+    href: "/",
+    roles: "Admsin|Gesetor"
+  }
 ];
 // reorder menu
 Menu.forEach(item => {

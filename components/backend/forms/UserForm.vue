@@ -238,11 +238,6 @@ export default {
   props: ["formData", "creating"],
   mixins: [dateFormat],
 
-  // async fetch({ store }) {
-  //   await store.dispatch("permissions/getPermissions");
-  //   await store.dispatch("permissions/getRoles");
-  // },
-
   data() {
     return {
       sending: false,
@@ -284,6 +279,7 @@ export default {
             this.toggleCreateUserDialog();
           }
           this.resetForm();
+          this.$validator.reset();
 
           process.client ? window.getApp.$emit("APP_UPDATE_USERS_DATA") : "";
         }
@@ -303,6 +299,7 @@ export default {
 
           this.toggleUpdateUserDialog();
           this.resetForm();
+          this.$validator.reset();
 
           process.client ? window.getApp.$emit("APP_UPDATE_USERS_DATA") : "";
         }

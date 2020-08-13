@@ -1,6 +1,16 @@
 <template>
   <base-section id="map" space="0">
-    <v-row align="center" justify="center">
+    <v-row v-if="properties.length == 0">
+      <v-col cols="12" class="pa-0">
+        <v-skeleton-loader
+          loading
+          class="mx-auto"
+          type="image"
+          max-height="500"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <v-row v-else align="center" justify="center">
       <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="7.5">
         <template v-for="(item, index) in properties">
           <div :key="index">
@@ -31,7 +41,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ properties: "properties/properties" })
+    ...mapGetters({ properties: "properties/actived_properties" })
   },
 
   data() {
@@ -40,10 +50,6 @@ export default {
       mapTypeId: "terrain",
       info_window: {}
     };
-  },
-
-  async created() {
-    await this.$store.dispatch("properties/getProperties");
   },
 
   methods: {

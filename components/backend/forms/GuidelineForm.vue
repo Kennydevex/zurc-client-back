@@ -147,7 +147,8 @@ export default {
             this.sending = false;
             this.feedback("success", res.data.msg);
             this.resetForm();
-            process.client
+              this.$validator.reset();
+                        process.client
               ? window.getApp.$emit("APP_UPDATE_GUIDELINES_DATA")
               : "";
           });
@@ -171,6 +172,8 @@ export default {
               this.toggleUpdateGuidelineDialog();
               this.feedback("success", res.data.msg);
               this.resetForm();
+              this.$validator.reset();
+
               process.client
                 ? window.getApp.$emit("APP_UPDATE_GUIDELINES_DATA")
                 : "";

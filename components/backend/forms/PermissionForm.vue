@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <span class="primary--text font-weight-regular">{{
-        creating ? "Registo de finalidade" : "Atualizar finalidade"
+        creating ? "Criar permissões" : "Atualizar permissões"
       }}</span>
     </v-card-title>
     <v-card-text>
@@ -13,26 +13,28 @@
               v-model.trim="formData.name"
               dense
               name="name"
-              label="Nome da finalidade*"
+              label="Permissão*"
               v-validate="'required|alpha_spaces'"
               data-vv-name="name"
               :error-messages="showFormErrors('name') || errors.collect('name')"
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12">
-            <v-textarea
-              filled
-              auto-grow
-              label="Descrição"
-              name="description"
-              v-model.trim="formData.description"
-              v-validate="'max:500'"
-              data-vv-name="description"
-              :error-messages="
-                showFormErrors('description') || errors.collect('description')
-              "
-            ></v-textarea>
+          <v-col cols="12" class="mb-0 py-0">
+            <v-autocomplete
+              chips
+              small-chips
+              hide-details
+              dense
+              v-model="formData.roles"
+              :items="roles"
+              clearable
+              multiple
+              item-text="name"
+              item-value="id"
+              name="roles"
+              label="Vincular Funções"
+            ></v-autocomplete>
           </v-col>
         </v-row>
       </v-form>
@@ -41,15 +43,14 @@
       <v-spacer></v-spacer>
       <v-btn
         class="text-none"
-        rounded
-        depressed
+        text
         small
         :ripple="false"
         color="accent"
         @click.stop="
           creating
-            ? toggleCreateDestinationDialog()
-            : toggleUpdateDestinationDialog()
+            ? toggleCreatePermissionDialog()
+            : toggleUpdatePermissionDialog()
         "
         >Cancelar</v-btn
       >
@@ -57,23 +58,21 @@
       <template v-if="creating">
         <v-btn
           class="text-none"
-          rounded
-          depressed
+          text
           small
           :ripple="false"
           color="primary"
-          @click.stop="addDestination(false)"
+          @click.stop="addPermission(false)"
           >Registar e Sair</v-btn
         >
 
         <v-btn
           class="text-none"
-          rounded
-          depressed
+          text
           small
           :ripple="false"
           color="primary"
-          @click.stop="addDestination(true)"
+          @click.stop="addPermission(true)"
           >Registar e Novo</v-btn
         >
       </template>
@@ -81,12 +80,11 @@
       <v-btn
         v-if="!creating"
         class="text-none"
-        rounded
-        depressed
+        text
         small
         :ripple="false"
         color="primary"
-        @click.stop="updateDestination()"
+        @click.stop="updatePermission()"
         >Guardar Arterações</v-btn
       >
     </v-card-actions>
@@ -99,7 +97,7 @@ import { dateFormat } from "@/mixins/dateTime";
 import { alerts } from "@/mixins/appAlerts";
 
 export default {
-  name: "DestinationForm",
+  name: "PermissionForm",
   props: ["formData", "creating"],
   mixins: [dateFormat, alerts],
 
@@ -109,27 +107,32 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters({
+      roles: "permissions/roles"
+    })
+  },
+
   methods: {
-    async addDestination(addNew) {
+    async addPermission(addNew) {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
           this.sending = true;
           await this.$axios
-            .post("destinations", this.$props.formData)
+            .post("permissions", this.$props.formData)
             .then(res => {
               this.sending = false;
               this.feedback("success", res.data.msg);
               this.resetForm();
               this.$validator.reset();
-
               process.client
-                ? window.getApp.$emit("APP_UPDATE_DESTINATIONS_DATA")
+                ? window.getApp.$emit("APP_UPDATE_PERMISSIONS_DATA")
                 : "";
             });
 
           if (!addNew) {
-            this.toggleCreateDestinationDialog();
+            this.toggleCreatePermissionDialog();
           }
         }
       } catch (error) {
@@ -137,34 +140,30 @@ export default {
       }
     },
 
-    async updateDestination() {
+    async updatePermission() {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
           await this.$axios
-            .put(
-              `destinations/${this.$props.formData.id}`,
-              this.$props.formData
-            )
+            .put(`permissions/${this.$props.formData.id}`, this.$props.formData)
             .then(res => {
-              this.toggleUpdateDestinationDialog();
+              this.toggleUpdatePermissionDialog();
               this.feedback("success", res.data.msg);
               this.resetForm();
               this.$validator.reset();
-
               process.client
-                ? window.getApp.$emit("APP_UPDATE_DESTINATIONS_DATA")
+                ? window.getApp.$emit("APP_UPDATE_PERMISSIONS_DATA")
                 : "";
             });
         }
       } catch (error) {}
     },
 
-    toggleCreateDestinationDialog() {
-      this.$store.commit("destinations/toggleCreateDestinationDialog");
+    toggleCreatePermissionDialog() {
+      this.$store.commit("permissions/toggleCreatePermissionDialog");
     },
-    toggleUpdateDestinationDialog() {
-      this.$store.commit("destinations/toggleUpdateDestinationDialog");
+    toggleUpdatePermissionDialog() {
+      this.$store.commit("permissions/toggleUpdatePermissionDialog");
     }
   }
 };

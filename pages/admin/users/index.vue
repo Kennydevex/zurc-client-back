@@ -41,8 +41,6 @@
 
     <v-layout row wrap>
       <v-flex lg12>
-        <span>Estefanio Silva</span>
-        <v-btn v-can="'Add'" color="success">text</v-btn>
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -142,6 +140,7 @@
                   <v-icon>mdi-information</v-icon>
                 </v-btn>-->
                 <v-btn
+                  v-permission:any="'Editar Utilizador|Gerir Utilizador'"
                   color="grey darken-2"
                   small
                   text
@@ -154,6 +153,7 @@
                 </v-btn>
                 <!-- :disabled="selected.length > 0" -->
                 <v-btn
+                  v-role-or-permission="'Gerir Utilizador|Eliminar Utilizador'"
                   color="grey darken-2"
                   small
                   text
@@ -185,16 +185,45 @@
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
-            <v-btn
-              :loading="add_sending"
-              fab
-              dark
-              small
-              color="primary"
-              @click.stop="onCreateUser()"
+
+            <v-tooltip
+              bottom
+              v-permission:any="'Criar Utilizador|Gerir Utilizador'"
             >
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  :loading="add_sending"
+                  fab
+                  dark
+                  small
+                  color="primary"
+                  @click.stop="onCreateUser()"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-account-plus</v-icon>
+                </v-btn>
+              </template>
+              <span>Criar utilizador</span>
+            </v-tooltip>
+
+            <v-tooltip bottom v-permission:any="'Gerir Permissão'">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  :loading="load_permissions"
+                  fab
+                  dark
+                  small
+                  color="primary"
+                  @click.stop="onManagePermissions()"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-account-key</v-icon>
+                </v-btn>
+              </template>
+              <span>Gerir permissões de acessos</span>
+            </v-tooltip>
           </v-speed-dial>
         </v-card>
       </v-col>
@@ -203,6 +232,7 @@
     <v-row>
       <create-user></create-user>
       <update-user></update-user>
+      <manage-permissions></manage-permissions>
     </v-row>
   </v-container>
 </template>
@@ -211,6 +241,7 @@
 import { mapGetters } from "vuex";
 import { deleteDatas } from "@/mixins/formActions";
 import { handleActivations } from "@/mixins/formActions";
+import { Tooltip } from "view-design";
 
 export default {
   mixins: [deleteDatas, handleActivations],
@@ -233,6 +264,7 @@ export default {
       permissions: [],
       add_sending: false,
       update_sending: {},
+      load_permissions: false,
       fab: false,
       search: "",
       selected: [],
@@ -257,7 +289,7 @@ export default {
           align: "center"
         },
         {
-          text: "Criado em:",
+          text: "Criado",
           value: "created_at",
           align: "center"
         },
@@ -272,7 +304,9 @@ export default {
     };
   },
 
-  created() {
+ async created() {
+    await this.$store.dispatch("permissions/getPermissions");
+      await this.$store.dispatch("permissions/getRoles");
     if (process.client) {
       window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
         this.getUsers();
@@ -283,7 +317,9 @@ export default {
   components: {
     MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
     CreateUser: () => import("@/components/backend/users/CreateUser"),
-    UpdateUser: () => import("@/components/backend/users/UpdateUser")
+    UpdateUser: () => import("@/components/backend/users/UpdateUser"),
+    ManagePermissions: () =>
+      import("@/components/backend/permissions/ManagePermissions")
   },
 
   methods: {
@@ -293,20 +329,32 @@ export default {
 
     async onCreateUser() {
       this.add_sending = true;
-      await this.$store.dispatch("permissions/getPermissions");
-      await this.$store.dispatch("permissions/getRoles");
+      // await this.$store.dispatch("permissions/getPermissions");
+      // await this.$store.dispatch("permissions/getRoles");
       this.add_sending = false;
       this.$store.commit("dialogs/toggleCreateUserDialog");
     },
 
     async onUpdateUser(id) {
       this.$set(this.update_sending, id, true);
-      let { data } = await this.$axios.$get(`users/${id}`);
-      this.$data.single_user = data;
-      this.$set(this.update_sending, id, false);
-      process.client
-        ? window.getApp.$emit("APP_UPDATE_USER", this.$data.single_user)
-        : "";
+      // await this.$store.dispatch("permissions/getPermissions");
+      // await this.$store.dispatch("permissions/getRoles");
+      try {
+        let { data } = await this.$axios.$get(`users/${id}`);
+        this.$data.single_user = data;
+        this.$set(this.update_sending, id, false);
+        process.client
+          ? window.getApp.$emit("APP_UPDATE_USER", this.$data.single_user)
+          : "";
+      } catch (error) {}
+    },
+    async onManagePermissions() {
+      this.load_permissions = true;
+      // await this.$store.dispatch("permissions/getPermissions");
+      // await this.$store.dispatch("permissions/getRoles");
+      this.load_permissions = false;
+
+      this.$store.commit("permissions/toggleListPermissionsDialog");
     }
   }
 };

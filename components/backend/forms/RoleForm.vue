@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <span class="primary--text font-weight-regular">{{
-        creating ? "Registo de finalidade" : "Atualizar finalidade"
+        creating ? "Criar função" : "Atualizar função"
       }}</span>
     </v-card-title>
     <v-card-text>
@@ -13,26 +13,28 @@
               v-model.trim="formData.name"
               dense
               name="name"
-              label="Nome da finalidade*"
+              label="Nome da função*"
               v-validate="'required|alpha_spaces'"
               data-vv-name="name"
               :error-messages="showFormErrors('name') || errors.collect('name')"
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12">
-            <v-textarea
-              filled
-              auto-grow
-              label="Descrição"
-              name="description"
-              v-model.trim="formData.description"
-              v-validate="'max:500'"
-              data-vv-name="description"
-              :error-messages="
-                showFormErrors('description') || errors.collect('description')
-              "
-            ></v-textarea>
+          <v-col cols="12" class="mb-0 py-0">
+            <v-autocomplete
+            chips
+            small-chips
+            hide-details
+              dense
+              v-model="formData.permissions"
+              :items="permissions"
+              clearable
+              multiple
+              item-text="name"
+              item-value="id"
+              name="permissions"
+              label="Vincular permissões"
+            ></v-autocomplete>
           </v-col>
         </v-row>
       </v-form>
@@ -41,15 +43,12 @@
       <v-spacer></v-spacer>
       <v-btn
         class="text-none"
-        rounded
-        depressed
+        text
         small
         :ripple="false"
         color="accent"
         @click.stop="
-          creating
-            ? toggleCreateDestinationDialog()
-            : toggleUpdateDestinationDialog()
+          creating ? toggleCreateRoleDialog() : toggleUpdateRoleDialog()
         "
         >Cancelar</v-btn
       >
@@ -57,23 +56,21 @@
       <template v-if="creating">
         <v-btn
           class="text-none"
-          rounded
-          depressed
+         text
           small
           :ripple="false"
           color="primary"
-          @click.stop="addDestination(false)"
+          @click.stop="addRole(false)"
           >Registar e Sair</v-btn
         >
 
         <v-btn
           class="text-none"
-          rounded
-          depressed
+          text
           small
           :ripple="false"
           color="primary"
-          @click.stop="addDestination(true)"
+          @click.stop="addRole(true)"
           >Registar e Novo</v-btn
         >
       </template>
@@ -81,12 +78,11 @@
       <v-btn
         v-if="!creating"
         class="text-none"
-        rounded
-        depressed
+        text
         small
         :ripple="false"
         color="primary"
-        @click.stop="updateDestination()"
+        @click.stop="updateRole()"
         >Guardar Arterações</v-btn
       >
     </v-card-actions>
@@ -99,7 +95,7 @@ import { dateFormat } from "@/mixins/dateTime";
 import { alerts } from "@/mixins/appAlerts";
 
 export default {
-  name: "DestinationForm",
+  name: "RoleForm",
   props: ["formData", "creating"],
   mixins: [dateFormat, alerts],
 
@@ -109,27 +105,30 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters({
+      permissions: "permissions/permissions"
+    })
+  },
+
   methods: {
-    async addDestination(addNew) {
+    async addRole(addNew) {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
           this.sending = true;
-          await this.$axios
-            .post("destinations", this.$props.formData)
-            .then(res => {
-              this.sending = false;
-              this.feedback("success", res.data.msg);
-              this.resetForm();
-              this.$validator.reset();
-
-              process.client
-                ? window.getApp.$emit("APP_UPDATE_DESTINATIONS_DATA")
-                : "";
-            });
+          await this.$axios.post("roles", this.$props.formData).then(res => {
+            this.sending = false;
+            this.feedback("success", res.data.msg);
+            this.resetForm();
+            this.$validator.reset();
+            process.client
+              ? window.getApp.$emit("APP_UPDATE_ROLES_DATA")
+              : "";
+          });
 
           if (!addNew) {
-            this.toggleCreateDestinationDialog();
+            this.toggleCreateRoleDialog();
           }
         }
       } catch (error) {
@@ -137,34 +136,30 @@ export default {
       }
     },
 
-    async updateDestination() {
+    async updateRole() {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
           await this.$axios
-            .put(
-              `destinations/${this.$props.formData.id}`,
-              this.$props.formData
-            )
+            .put(`roles/${this.$props.formData.id}`, this.$props.formData)
             .then(res => {
-              this.toggleUpdateDestinationDialog();
+              this.toggleUpdateRoleDialog();
               this.feedback("success", res.data.msg);
               this.resetForm();
               this.$validator.reset();
-
               process.client
-                ? window.getApp.$emit("APP_UPDATE_DESTINATIONS_DATA")
+                ? window.getApp.$emit("APP_UPDATE_ROLES_DATA")
                 : "";
             });
         }
       } catch (error) {}
     },
 
-    toggleCreateDestinationDialog() {
-      this.$store.commit("destinations/toggleCreateDestinationDialog");
+    toggleCreateRoleDialog() {
+      this.$store.commit("permissions/toggleCreateRoleDialog");
     },
-    toggleUpdateDestinationDialog() {
-      this.$store.commit("destinations/toggleUpdateDestinationDialog");
+    toggleUpdateRoleDialog() {
+      this.$store.commit("permissions/toggleUpdateRoleDialog");
     }
   }
 };

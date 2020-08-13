@@ -162,6 +162,7 @@ export default {
             this.sending = false;
             this.feedback("success", res.data.msg);
             this.resetForm();
+            this.$validator.reset();
             process.client
               ? window.getApp.$emit("APP_UPDATE_SERVICES_DATA")
               : "";
@@ -186,6 +187,7 @@ export default {
               this.toggleUpdateServiceDialog();
               this.feedback("success", res.data.msg);
               this.resetForm();
+              this.$validator.reset();
               process.client
                 ? window.getApp.$emit("APP_UPDATE_SERVICES_DATA")
                 : "";

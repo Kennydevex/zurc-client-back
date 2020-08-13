@@ -640,6 +640,7 @@ export default {
             this.$router.push("/admin/properties");
           }
           this.resetForm();
+          this.$validator.reset();
 
           process.client
             ? window.getApp.$emit("APP_UPDATE_PROPERTIES_DATA")
@@ -659,6 +660,7 @@ export default {
             )
             .then(res => {
               this.resetForm();
+              this.$validator.reset();
               this.feedback("success", res.data.msg);
               this.$router.push("/admin/properties");
 
