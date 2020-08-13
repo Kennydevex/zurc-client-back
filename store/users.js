@@ -6,7 +6,7 @@ export const state = () => ({
 export const getters = {
   users(state) {
     return state.users;
-  },
+  }
 
   // user(state) {
   //   return state.user;
@@ -16,7 +16,7 @@ export const getters = {
 export const mutations = {
   SET_USERS(state, user) {
     state.users = user;
-  },
+  }
 
   // SET_USER(state, user) {
   //   state.user = user;
@@ -25,9 +25,11 @@ export const mutations = {
 
 export const actions = {
   async getUsers({ commit }) {
-    let users = await this.$axios.$get("users");
-    commit("SET_USERS", users.data);
-  },
+    try {
+      let users = await this.$axios.$get("users");
+      commit("SET_USERS", users.data);
+    } catch (error) {}
+  }
 
   // Esta ação não é muito necessária, sendo que um utilizador pode ser encontrado nos dados de utilizador mantido em state.
   // async getUser({ commit, getters }, id) {

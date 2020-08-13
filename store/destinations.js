@@ -48,7 +48,9 @@ export const actions = {
     commit("CLEAN_DESTINATIONS", {});
   },
   async getDestinations({ commit }) {
-    let destinations = await this.$axios.$get("destinations");
-    commit("SET_DESTINATIONS", destinations.data);
+    try {
+      let destinations = await this.$axios.$get("destinations");
+      commit("SET_DESTINATIONS", destinations.data);
+    } catch (error) {}
   }
 };

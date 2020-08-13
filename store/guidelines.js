@@ -41,7 +41,9 @@ export const mutations = {
 
 export const actions = {
   async getGuidelines({ commit }) {
-    let guidelines = await this.$axios.$get("guidelines");
-    commit("SET_GUIDELINES", guidelines.data);
+    try {
+      let guidelines = await this.$axios.$get("guidelines");
+      commit("SET_GUIDELINES", guidelines.data);
+    } catch (error) {}
   }
 };

@@ -38,8 +38,10 @@ export const mutations = {
 
 export const actions = {
   async getProperties({ commit }) {
-    let properties = await this.$axios.$get("properties");
-    commit("SET_PROPERTIES", properties.data);
+    try {
+      let properties = await this.$axios.$get("properties");
+      commit("SET_PROPERTIES", properties.data);
+    } catch (error) {}
   },
 
   async getProperty({ commit, getters }, slug) {
@@ -48,17 +50,24 @@ export const actions = {
       commit("SET_USER", property);
       return;
     }
-    property = await this.$axios.$get(`properties/${slug}`);
-    commit("SET_PROPERTY", property.data);
+
+    try {
+      property = await this.$axios.$get(`properties/${slug}`);
+      commit("SET_PROPERTY", property.data);
+    } catch (error) {}
   },
 
   async getActivedProperties({ commit }) {
-    let { data } = await this.$axios.$get("actived-properties");
-    commit("SET_ACTIVED_PROPERTIES", data);
+    try {
+      let { data } = await this.$axios.$get("actived-properties");
+      commit("SET_ACTIVED_PROPERTIES", data);
+    } catch (error) {}
   },
 
   async getFeaturedProperties({ commit }) {
-    let { data } = await this.$axios.$get("featured-properties");
-    commit("SET_FEATURED_PROPERTIES", data);
+    try {
+      let { data } = await this.$axios.$get("featured-properties");
+      commit("SET_FEATURED_PROPERTIES", data);
+    } catch (error) {}
   }
 };

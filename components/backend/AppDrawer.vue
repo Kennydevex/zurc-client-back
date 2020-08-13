@@ -11,7 +11,7 @@
   >
     <v-toolbar color="primary darken-1" dark v-if="!clipped">
       <img
-        src="https://cdn.vuetifyjs.com/images/john.png"
+        src="/users/default.png"
         height="36"
         alt="Vue Material Admin Template"
       />
@@ -22,7 +22,7 @@
     <v-list>
       <v-list-item :class="miniVariant && 'px-0'">
         <v-list-item-avatar :size="miniVariant ? 50 : 60" class="mx-auto">
-          <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+          <v-img src="/users/default.png"></v-img>
         </v-list-item-avatar>
       </v-list-item>
 
