@@ -43,6 +43,11 @@
             <v-col cols="12" md="9">
               <v-container grid-list-xs ma-0 pa-0>
                 <v-row>
+                   <!-- <loading
+                      :active.sync="isLoading"
+                      :can-cancel="true"
+                      :is-full-page="fullPage"
+                    ></loading>-->
                   <template
                     v-for="(property, index) in filterBy(
                       actived_properties,
@@ -63,6 +68,18 @@
                     </v-col>
                   </template>
                 </v-row>
+
+                <v-divider class="my-5"></v-divider>
+
+                <v-row align="center" justify="center">
+                  <v-col>
+                    <!-- Excelente -->
+                    <Pagination
+                      :data_source="pagination"
+                      @paginate="getProperties($event)"
+                    />
+                  </v-col>
+                </v-row>
               </v-container>
             </v-col>
           </v-row>
@@ -75,6 +92,8 @@
 <script>
 import { mapGetters } from "vuex";
 import Vue2Filters from "vue2-filters";
+// import Loading from "vue-loading-overlay";
+// import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   layout: "frontend",
@@ -95,18 +114,31 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch("properties/getActivedProperties");
+    await store.dispatch("properties/getActivedProperties", 1);
   },
 
   data() {
     return {
       currency_type: 1,
-      search: ""
+      search: "",
+      isLoading: false,
+      fullPage: true
     };
   },
 
+  methods: {
+    async getProperties(page) {
+      this.isLoading = true;
+      await this.$store.dispatch("properties/getActivedProperties", page);
+      this.isLoading = false;
+    }
+  },
+
   computed: {
-    ...mapGetters({ actived_properties: "properties/actived_properties" })
+    ...mapGetters({
+      actived_properties: "properties/actived_properties",
+      pagination: "properties/pagination"
+    })
     // users() {
     //   // return this.$store.state.users.users;
     // }
@@ -115,8 +147,10 @@ export default {
   components: {
     GoogleMaps: () => import("@/views/sections/GoogleMaps"),
     Search: () => import("@/components/frontend/Search"),
+    Pagination: () => import("@/components/common/Pagination"),
     PropertiesFeaturedProperties: () =>
-      import("@/views/sections/PropertiesFeaturedProperties")
+      import("@/views/sections/PropertiesFeaturedProperties"),
+    // Loading
   }
 };
 </script>

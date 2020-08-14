@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       expanded: [],
-      singleExpand: false,
+      singleExpand: true,
       deleting: {},
       update_sending: {},
       search: "",

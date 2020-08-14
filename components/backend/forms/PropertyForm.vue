@@ -339,7 +339,10 @@
                     :on-error="handleError"
                     type="drag"
                     :action="`${$axios.defaults.baseURL}/upload-property-cover`"
-                    :headers="{ 'X-Requested-With': 'XMLHttpRequest' }"
+                    :headers="{
+                      'X-Requested-With': 'XMLHttpRequest',
+                      'Access-Control-Allow-Origin': '*'
+                    }"
                   >
                     <div style="padding: 20px 0">
                       <v-icon color="primary" x-large>mdi-cloud-upload</v-icon>
@@ -400,7 +403,10 @@
                     :action="
                       `${$axios.defaults.baseURL}/upload-property-gallery`
                     "
-                    :headers="{ 'X-Requested-With': 'XMLHttpRequest' }"
+                    :headers="{
+                      'X-Requested-With': 'XMLHttpRequest',
+                      'Access-Control-Allow-Origin': '*'
+                    }"
                   >
                     <div style="padding: 20px 0">
                       <v-icon color="primary" x-large>mdi-cloud-upload</v-icon>

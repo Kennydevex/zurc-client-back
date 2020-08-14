@@ -2,12 +2,16 @@ export const state = () => ({
   properties: [],
   property: [],
   actived_properties: [],
-  featured_properties: []
+  featured_properties: [],
+  pagination: {}
 });
 
 export const getters = {
   properties(state) {
     return state.properties;
+  },
+  pagination(state) {
+    return state.pagination;
   },
   property(state) {
     return state.property;
@@ -23,6 +27,9 @@ export const getters = {
 export const mutations = {
   SET_PROPERTIES(state, property) {
     state.properties = property;
+  },
+  SET_PAGINATION(state, property) {
+    state.pagination = property;
   },
   SET_PROPERTY(state, property) {
     state.property = property;
@@ -57,10 +64,12 @@ export const actions = {
     } catch (error) {}
   },
 
-  async getActivedProperties({ commit }) {
+  async getActivedProperties({ commit }, page) {
     try {
-      let { data } = await this.$axios.$get("actived-properties");
-      commit("SET_ACTIVED_PROPERTIES", data);
+      // let res = await this.$axios.$get("actived-properties"); Original ya
+      let res = await this.$axios.$get("actived-properties?page=" + page);
+      commit("SET_ACTIVED_PROPERTIES", res.data);
+      commit("SET_PAGINATION", res);
     } catch (error) {}
   },
 

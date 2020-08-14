@@ -14,6 +14,7 @@
     "@nuxtjs/axios": "^5.12.0",
     "aos": "^3.0.0-beta.6",
     "laravel-permissions": "^1.5.3",
+    "lodash": "^4.17.20",
     "nuxt": "^2.14.0",
     "swiper": "^6.1.1",
     "v-mask": "^2.2.3",
