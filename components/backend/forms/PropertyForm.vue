@@ -19,7 +19,7 @@
           <v-row class="mt-2">
             <v-col cols="12" class="py-0">
               <v-text-field
-                outlined
+                dense
                 name="name"
                 label="Nome da propriedade"
                 v-model="formData.name"
@@ -33,7 +33,7 @@
 
             <v-col cols="12" class="py-0">
               <v-textarea
-                outlined
+                dense
                 rows="4"
                 name="description"
                 label="Descrição da propriedade"
@@ -80,7 +80,6 @@
           <v-row class="mt-2">
             <v-col cols="12" md="6" class="py-0">
               <v-autocomplete
-                outlined
                 name="type"
                 :items="types"
                 item-text="name"
@@ -91,7 +90,6 @@
             </v-col>
             <v-col cols="12" md="6" class="py-0">
               <v-autocomplete
-                outlined
                 name="typology"
                 :items="[
                   'T0',
@@ -113,13 +111,11 @@
             </v-col>
             <v-col cols="12" md="6" class="py-0">
               <v-autocomplete
-                outlined
+                dense
                 name="destinations"
                 :items="destinations"
                 item-text="name"
                 item-value="id"
-                prefix="Para:"
-                multiple
                 v-model="formData.destinations"
                 label="Finalidades da propriedade"
               ></v-autocomplete>
@@ -128,11 +124,10 @@
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
                 type="number"
-                outlined
+                dense
                 name="leisure"
                 label="Espaço de lazer"
-                prepend-icon="mdi-coffee"
-                v-model="formData.leisure"
+                v-model.number="formData.leisure"
                 v-validate="'numeric'"
                 data-vv-name="form-step-1.leisure"
                 :error-messages="errors.collect('form-step-1.leisure')"
@@ -143,16 +138,15 @@
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
                 type="number"
-                outlined
                 name="price"
                 label="Preço"
-                prefix="$"
+                suffix="ECV"
                 :hint="
                   `Insira o preço em ECV que pode ser igual  ${Math.round(
                     formData.price * 0.0091
                   )} EURO`
                 "
-                v-model="formData.price"
+                v-model.number="formData.price"
                 v-validate="'required|numeric'"
                 data-vv-name="form-step-1.price"
                 :error-messages="errors.collect('form-step-1.price')"
@@ -163,10 +157,9 @@
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
                 type="number"
-                outlined
                 name="dimension"
                 label="Demensão"
-                suffix="Km2"
+                suffix="m²"
                 v-model="formData.dimension"
                 v-validate="'numeric'"
                 data-vv-name="form-step-1.dimension"
@@ -210,10 +203,9 @@
           <v-row class="mt-2">
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
-                outlined
                 name="state"
                 label="Ilha/Estado"
-                v-model="formData.location.state"
+                v-model.trim="formData.location.state"
                 v-validate="'required'"
                 data-vv-name="form-step-3.state"
                 :error-messages="errors.collect('form-step-3.state')"
@@ -222,10 +214,9 @@
 
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
-                outlined
                 name="city"
                 label="Cidade"
-                v-model="formData.location.city"
+                v-model.trim="formData.location.city"
                 v-validate="'required'"
                 data-vv-name="form-step-3.city"
                 :error-messages="errors.collect('form-step-3.city')"
@@ -234,10 +225,9 @@
 
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
-                outlined
                 name="zone"
                 label="Zona"
-                v-model="formData.location.zone"
+                v-model.trim="formData.location.zone"
                 v-validate="'required'"
                 data-vv-name="form-step-3.zone"
                 :error-messages="errors.collect('form-step-3.zone')"
@@ -247,10 +237,9 @@
             <v-col cols="12" md="6" class="py-0">
               <v-text-field
                 type="number"
-                outlined
                 name="postcode"
                 label="Código Postal"
-                v-model="formData.location.postcode"
+                v-model.trim="formData.location.postcode"
                 v-validate="'required'"
                 data-vv-name="form-step-3.postcode"
                 :error-messages="errors.collect('form-step-3.postcode')"
@@ -265,10 +254,9 @@
               <v-text-field
                 type="number"
                 dense
-                outlined
                 name="lat"
                 label="Latitude"
-                v-model="formData.location.geo.lat"
+                v-model.number="formData.location.geo.lat"
               ></v-text-field>
             </v-col>
 
@@ -276,10 +264,9 @@
               <v-text-field
                 type="number"
                 dense
-                outlined
                 name="lng"
                 label="Longitude"
-                v-model="formData.location.geo.lng"
+                v-model.number="formData.location.geo.lng"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -340,12 +327,24 @@
                     type="drag"
                     :action="`${$axios.defaults.baseURL}/upload-property-cover`"
                     :headers="{
-                      'X-Requested-With': 'XMLHttpRequest',
-                      'Access-Control-Allow-Origin': '*'
+                      'Access-Control-Allow-Origin': '*',
+                      'X-Requested-With': 'XMLHttpRequest'
                     }"
                   >
                     <div style="padding: 20px 0">
-                      <v-icon color="primary" x-large>mdi-cloud-upload</v-icon>
+                      <v-icon
+                        :color="
+                          uploadCoverList && uploadCoverList.length == 1
+                            ? 'grey'
+                            : 'primary'
+                        "
+                        x-large
+                        >{{
+                          uploadCoverList && uploadCoverList.length == 1
+                            ? "mdi-cloud-check"
+                            : "mdi-cloud-upload"
+                        }}</v-icon
+                      >
                       <p>Clique ou largue a sua imagem aqui</p>
                     </div>
                   </Upload>
@@ -605,7 +604,7 @@ export default {
         gallery: gallery
       });
 
-      if (res.status != 200 || !res.data.exist) {
+      if (res.status != 200) {
         this.formData.galleries.push({ name: gallery });
         this.feedback(
           "error",
@@ -625,11 +624,11 @@ export default {
     },
 
     nextStep(scope) {
-      // this.$validator.validateAll(scope).then(result => {
-      //   if (result) {
-      this.step++;
-      //   }
-      // });
+      this.$validator.validateAll(scope).then(result => {
+        if (result) {
+          this.step++;
+        }
+      });
     },
 
     prevStep: function() {

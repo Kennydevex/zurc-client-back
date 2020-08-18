@@ -16,16 +16,16 @@ export default function({ $axios, store, redirect, app }) {
     }
 
     if (error.response.status === 401) {
-      redirect("/login");
-      app.$swal({
-        icon: "warning",
-        title: "Autorização",
-        text: "Reinicie a sua sessão para atualizar o Token",
+      // redirect("/login");
+      // app.$swal({
+      //   icon: "warning",
+      //   title: "Autorização",
+      //   text: "Reinicie a sua sessão para atualizar o Token",
 
-        confirmButtonText: "Ok",
-        timer: 6000,
-        timerProgressBar: true
-      });
+      //   confirmButtonText: "Ok",
+      //   timer: 6000,
+      //   timerProgressBar: true
+      // });
       return;
     }
 

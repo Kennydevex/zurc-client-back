@@ -57,6 +57,8 @@ export default {
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/auth",
+    "@nuxtjs/proxy",
+
     [
       "vue-sweetalert2/nuxt",
       {
@@ -68,6 +70,16 @@ export default {
     "vue-social-sharing/nuxt"
     // "@neneos/nuxt-animate.css"
   ],
+
+  // Esta configuração não tem um impacto bem definido
+  proxy: {
+    "/api": {
+      target: "http://zurk_api.teste:8000",
+      pathRewrite: {
+        "^/api": "/"
+      }
+    }
+  },
 
   axios: {
     baseURL: "http://zurc_api.test:8000/api"

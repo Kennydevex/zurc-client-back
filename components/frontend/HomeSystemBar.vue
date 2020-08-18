@@ -60,13 +60,17 @@
           <v-btn
             class="text-capitalize subtitle-2 font-weight-light"
             color="white"
-            small
-            text
+            x-small
+            outlined
+            tile
+            depressed
+            :ripple="false"
             dark
             v-bind="attrs"
             v-on="on"
           >
-            {{ user.username }}
+            <!--{{ user.username }}-->
+            Minha Conta
           </v-btn>
         </template>
 

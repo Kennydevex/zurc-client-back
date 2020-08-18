@@ -1,52 +1,53 @@
 <template>
-  <v-container grid-list-xs pa-0>
+  <v-container grid-list-xs>
     <v-row no-gutters>
       <v-col cols="12">
-        <div>
-          <vueper-slides
-            ref="vueperslides1"
-            @slide="
-              $refs.vueperslides2 &&
-                $refs.vueperslides2.goToSlide($event.currentSlide.index, {
-                  emit: false
-                })
+        <vueper-slides
+          class="mb-3 no-shadow"
+          ref="vueperslides1"
+          :arrows="false"
+          fade
+          @slide="
+            $refs.vueperslides2 &&
+              $refs.vueperslides2.goToSlide($event.currentSlide.index, {
+                emit: false
+              })
+          "
+          :slide-ratio="1 / 2"
+          :bullets="false"
+        >
+          <vueper-slide
+            v-for="(gallery, i) in property.galleries"
+            :key="i"
+            :image="`${publicURL}/uploads/gallery/${gallery.name}`"
+          />
+        </vueper-slides>
+        <vueper-slides
+          class="no-shadow"
+          ref="vueperslides2"
+          :gap="1"
+          :bullets="false"
+          :slide-ratio="1 / 8"
+          :dragging-distance="50"
+          @slide="
+            $refs.vueperslides1 &&
+              $refs.vueperslides1.goToSlide($event.currentSlide.index, {
+                emit: false
+              })
+          "
+          :visible-slides="4"
+          fixed-height="120px"
+        >
+          <vueper-slide
+            v-for="(gallery, i) in property.galleries"
+            :key="i"
+            @click.native="
+              $refs.vueperslides2 && $refs.vueperslides2.goToSlide(i)
             "
-            :slide-ratio="1 / 2"
-            :bullets="false"
+            :image="`${publicURL}/uploads/gallery/${gallery.name}`"
           >
-            <vueper-slide
-              v-for="(gallery, i) in property.galleries"
-              :key="i"
-              :image="`${publicURL}/uploads/gallery/${gallery.name}`"
-            />
-          </vueper-slides>
-          <br />
-          <vueper-slides
-            class="no-shadow"
-            ref="vueperslides2"
-            :gap="1"
-            :slide-ratio="1 / 8"
-            :dragging-distance="50"
-            @slide="
-              $refs.vueperslides1 &&
-                $refs.vueperslides1.goToSlide($event.currentSlide.index, {
-                  emit: false
-                })
-            "
-            :visible-slides="3"
-            fixed-height="100px"
-          >
-            <vueper-slide
-              v-for="(gallery, i) in property.galleries"
-              :key="i"
-              @click.native="
-                $refs.vueperslides2 && $refs.vueperslides2.goToSlide(i)
-              "
-              :image="`${publicURL}/uploads/gallery/${gallery.name}`"
-            >
-            </vueper-slide>
-          </vueper-slides>
-        </div>
+          </vueper-slide>
+        </vueper-slides>
       </v-col>
 
       <v-col cols="12">
@@ -287,7 +288,7 @@ export default {
   },
 
   async fetch({ store, params }) {
-    await store.dispatch("properties/getProperty", params.slug);
+    await store.dispatch("properties/getActivedProperty", params.slug);
   },
 
   data() {
@@ -349,16 +350,16 @@ export default {
   components: { VueperSlides, VueperSlide },
 
   computed: {
-    ...mapGetters({ property: "properties/property" }),
+    ...mapGetters({ property: "properties/actived_property" }),
 
     mapPisotion() {
-      return this.property.location.geo;
+      return this.property ? this.property.location.geo : "";
     },
     proName() {
-      return this.property.name;
+      return this.property ? this.property.name : "";
     },
     proDescription() {
-      return this.property.description;
+      return this.property ? this.property.description : "";
     },
 
     propertyType() {

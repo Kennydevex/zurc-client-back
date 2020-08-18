@@ -15,11 +15,16 @@ export const uploadFeedback = {
       );
     },
 
-    handleError(file) {
+    handleError(res, file) {
+      console.log(res);
       this.feedback(
         "warning",
         "Formato do arquivo",
-        `${file.errors.file.length ? file.errors.file[0] : "Algo correu mal"}`
+        `${
+          file && file.errors.file.length
+            ? file.errors.file[0]
+            : "Algo correu mal, o arquivo não foi carregado"
+        }`
       );
     }
   }

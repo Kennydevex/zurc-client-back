@@ -41,8 +41,8 @@ export default {
           postcode: "",
           geo: {
             id: "",
-            lat: 0,
-            lng: 0
+            lat: null,
+            lng: null
           }
         }
       }

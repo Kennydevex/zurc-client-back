@@ -1,6 +1,6 @@
 <template>
   <v-card
-  class="mx-2"
+    class="mx-2"
     tile
     v-bind="$attrs"
     v-on="$listeners"
@@ -21,7 +21,8 @@
             <template v-for="(destination, index) in property.destinations">
               <v-chip
                 :key="index"
-                class="white--text font-weight-bold text-uppercase text-decoration-underline ma-1"
+                label
+                class="white--text font-weight-bold text-uppercase ma-1"
                 small
                 color="compl_prim"
                 >{{ destination.name }}</v-chip
@@ -30,6 +31,7 @@
             <v-chip
               class="white--text font-weight-bold text-uppercase"
               small
+              label
               color="accent"
               >{{ propertyType }}</v-chip
             >
@@ -94,14 +96,19 @@
           &#8364;
         </v-btn>
       </v-btn-toggle>
-      <v-chip label color="grey lighten-1" small>{{ propertyPrice }}</v-chip>
+      <v-chip v-if="currency_type === 1" label color="grey lighten-1" small>{{
+        property.price | currency
+      }}</v-chip>
+      <v-chip v-else label color="grey lighten-1" small>{{
+        (property.price * 0.00907) | currency('€')
+      }}</v-chip>
       <v-spacer></v-spacer>
-      <v-badge bordered left color="primary">
+      <!--<v-badge bordered right color="primary">
         <span slot="badge">20</span>
         <v-btn color="primary" small icon>
-          <v-icon>mdi-hand-pointing-up</v-icon>
+          <v-icon>mdi-thumb-up</v-icon>
         </v-btn>
-      </v-badge>
+      </v-badge>-->
     </v-card-actions>
   </v-card>
 </template>
@@ -125,14 +132,15 @@ export default {
   },
 
   computed: {
-    propertyPrice() {
-      if (this.property) {
-        return this.currency_type === 1
-          ? this.property.price + "$00"
-          : Math.round(this.property.price * 0.00907, 1) + "\u20ac";
-      }
-      return;
-    },
+    // propertyPrice() {
+    //   if (this.property) {
+
+    //     return this.currency_type === 1
+    //       ? this.property.price + " $00"
+    //       : Math.round(this.property.price * 0.00907, 1) + "\u20ac";
+    //   }
+    //   return;
+    // },
     propertyType() {
       if (this.property) {
         let m_type = [

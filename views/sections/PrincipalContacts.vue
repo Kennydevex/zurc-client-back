@@ -5,6 +5,11 @@
   >
     <v-container>
       <v-row justify="space-between">
+       <v-col cols="12"
+        ><base-section-heading
+          title="Contactar"
+        ></base-section-heading
+      ></v-col>
         <v-col
           cols="12"
           md="5"

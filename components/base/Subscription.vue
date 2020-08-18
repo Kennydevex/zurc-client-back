@@ -98,7 +98,7 @@
                               v-model="email"
                               label="Email"
                               name="cancel_email"
-                              placeholder="exemplo@eicm.cv"
+                              placeholder="Introduza o email registado"
                               v-validate="'required|email'"
                               data-vv-name="form-unsubscribe.cancel_email"
                               :error-messages="
@@ -317,7 +317,6 @@ export default {
       this.code = "";
       this.$validator.reset();
       this.resetForm();
-      
     },
     async subscribe(scope) {
       let formIsValid = await this.$validator.validateAll(scope);

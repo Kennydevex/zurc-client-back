@@ -12,6 +12,7 @@
     "@neneos/nuxt-animate.css": "^0.0.1",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/proxy": "^2.0.1",
     "aos": "^3.0.0-beta.6",
     "laravel-permissions": "^1.5.3",
     "lodash": "^4.17.20",

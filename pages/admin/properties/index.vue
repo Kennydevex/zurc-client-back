@@ -106,6 +106,7 @@
               <v-btn color="primary" rounded small text>Ver</v-btn>
               <template v-if="show_actions[property.id]">
                 <v-btn
+                  v-permission:any="'Editar propriedade|Gerir propriedade'"
                   class="text-none"
                   color="grey darken-1"
                   text
@@ -120,6 +121,7 @@
                 </v-btn>
 
                 <v-btn
+                  v-permission:any="'Eliminar propriedade|Gerir propriedade'"
                   @click="
                     onDelete(
                       'properties',
@@ -175,7 +177,10 @@
         >
       </v-flex>
 
-      <v-card-text class="company-action">
+      <v-card-text
+        class="company-action"
+        v-permission:any="'Criar propriedade|Gerir propriedade'"
+      >
         <v-fab-transition>
           <v-btn
             nuxt

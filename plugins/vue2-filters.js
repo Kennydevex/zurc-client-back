@@ -18,12 +18,12 @@ var Vue2FiltersConfig = {
     multiplier: 100
   },
   currency: {
-    symbol: "$",
-    decimalDigits: 2,
-    thousandsSeparator: ",",
-    decimalSeparator: ".",
-    symbolOnLeft: true,
-    spaceBetweenAmountAndSymbol: false,
+    symbol: "ECV",
+    decimalDigits: 0,
+    thousandsSeparator: ".",
+    decimalSeparator: ",",
+    symbolOnLeft: false,
+    spaceBetweenAmountAndSymbol: true,
     showPlusSign: false
   },
   pluralize: {

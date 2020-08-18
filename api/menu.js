@@ -11,7 +11,7 @@ const Menu = [
   { header: "Sistema" },
 
   {
-    title: "Users and Accounts",
+    title: "Contas e Utilizadores",
     group: "sys",
     component: "sys",
     icon: "mdi-account-multiple",
@@ -19,30 +19,30 @@ const Menu = [
     items: [
       {
         name: "users",
-        title: "Users",
+        title: "Utilizadores",
         href: "/admin/users",
         roles: "Admin|Gestor"
       }
     ]
   },
 
-  { header: "Negócio" },
+  { header: "Recursos Interno" },
 
   {
-    title: "Minha Empresa",
+    title: "Empresa e Negócios",
     group: "buisnis",
     component: "buisnis",
     icon: "mdi-domain",
     items: [
       {
         name: "companies",
-        title: "Company",
+        title: "Empresa",
         href: "/admin/companies",
         roles: "Admin|Gestor"
       },
       {
         name: "properties",
-        title: "Preperties",
+        title: "Propriedades",
         href: "/admin/properties",
         roles: "Admin|Gestor"
       }

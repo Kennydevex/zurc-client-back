@@ -21,11 +21,10 @@
       </v-btn>
 
       <v-menu
-        rounded="b-xl"
+        tile
         offset-y
         origin="center center"
-        :nudge-right="140"
-        :nudge-bottom="10"
+        :nudge-bottom="8"
         transition="scale-transition"
       >
         <template v-slot:activator="{ on }">
@@ -38,7 +37,7 @@
 
         <v-list dense>
           <v-list-item-group color="primary">
-            <v-list-item @click.stop="handleLogout()">
+            <v-list-item nuxt to="/">
               <v-list-item-icon>
                 <v-icon>mdi-at</v-icon>
               </v-list-item-icon>
@@ -58,7 +57,7 @@
 
             <v-divider></v-divider>
 
-            <v-list-item @click.stop="handleLogout()" :ripple="false">
+            <v-list-item @click.stop="logout()" :ripple="false">
               <v-list-item-icon>
                 <v-icon>mdi-logout-variant</v-icon>
               </v-list-item-icon>
@@ -116,8 +115,11 @@ export default {
     handleFullScreen() {
       Util.toggleFullScreen();
     },
-    handleLogout() {
-      this.$router.push("/login");
+
+    async logout() {
+      try {
+        await this.$auth.logout();
+      } catch (error) {}
     }
   }
 };

@@ -29,12 +29,19 @@ export default {
   },
 
   async asyncData({ $axios, params }) {
-    const { data } = await $axios.$get(`/companies/${params.slug}`);
-    return { formData: data };
+    try {
+      let { data } = await $axios.$get(`/companies/${params.slug}`);
+      return { formData: data };
+      
+    } catch (error) {
+      
+    }
   },
 
+
+
   data() {
-    return {
+      return {
       formData: {
         id: "",
         name: "Zurconstroi",
