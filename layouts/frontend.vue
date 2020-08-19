@@ -28,6 +28,7 @@ export default {
     HomeView: () => import("@/components/frontend/HomeView"),
     HomeFooter: () => import("@/components/frontend/HomeFooter")
   },
+  
   data() {
     return {};
   }
