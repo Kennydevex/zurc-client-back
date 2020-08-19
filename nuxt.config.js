@@ -5,11 +5,6 @@ export default {
 
   target: "server",
 
-  env: {
-    PUBLIC_URL: "http://zurc_api.test:8000",
-    SITE_URL: "http://zurc_api.test:8000"
-  },
-
   head: {
     titleTemplate: "%s - Zurconstroi",
     title: "Zurconstroi",
@@ -72,7 +67,7 @@ export default {
   ],
 
   axios: {
-    baseURL: "http://zurc_api.test:8000/api"
+    baseURL: process.env.BASE_URL || "http://zurc_api.test:8000/api"
   },
 
   router: {
