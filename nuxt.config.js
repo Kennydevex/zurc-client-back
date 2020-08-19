@@ -1,4 +1,4 @@
-import colors from "vuetify/es5/util/colors";
+// import colors from "vuetify/es5/util/colors";
 
 export default {
   mode: "universal",
@@ -97,21 +97,24 @@ export default {
       themes: {
         dark: {
           primary: "#02636F",
-          accent: colors.grey.darken3,
+          accent: "#424242",
           secondary: "#479096",
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.darken1
+          info: "#26A69A",
+          warning: "#FFC107",
+          error: "#DD2C00",
+          success: "#43A047",
+          compl_prim: "#6F0E02",
+          compl_suss: "#2D6F02",
+          compl_info: "#45026F"
         },
         light: {
           primary: "#02636F",
-          accent: colors.grey.darken3,
+          accent: "#424242",
           secondary: "#479096",
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.darken1,
+          info: "#26A69A",
+          warning: "#FFC107",
+          error: "#DD2C00",
+          success: "#43A047",
           compl_prim: "#6F0E02",
           compl_suss: "#2D6F02",
           compl_info: "#45026F"
