@@ -172,7 +172,7 @@ export default {
       genders: [
         { id: "1", name: "Masculino" },
         { id: "2", name: "Feminino" },
-        { id: "3", name: "Outros" }
+        { id: "3", name: "Outro" }
       ]
     };
   },
