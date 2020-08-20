@@ -18,6 +18,7 @@
     "laravel-permissions": "^1.5.3",
     "lodash": "^4.17.20",
     "nuxt": "^2.14.0",
+    "nuxt-lazy-load": "^1.2.4",
     "nuxt-social-meta": "^0.0.5",
     "swiper": "^6.1.1",
     "v-mask": "^2.2.3",

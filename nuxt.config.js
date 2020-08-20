@@ -68,6 +68,13 @@ export default {
     "@nuxtjs/sitemap",
     "vue-social-sharing/nuxt",
     [
+      "nuxt-lazy-load",
+      {
+        images: true,
+        defaultImage: "utils/lazy-bg.jpg"
+      }
+    ],
+    [
       "vue-sweetalert2/nuxt",
       { confirmButtonColor: "#02636F", cancelButtonColor: "#ff7674" }
     ],
@@ -78,7 +85,8 @@ export default {
         url: process.env.SITE_URL || "https://zurconstroi.ml",
         title: process.env.SITE_TITLE || "Zurconstroi",
         site_name: process.env.SITE_NAME || "Zurconstroi",
-        description: process.env.SITE_DESCRIPTION || "Intermediação Imobiliaria",
+        description:
+          process.env.SITE_DESCRIPTION || "Intermediação Imobiliaria",
         img: process.env.SITE_LOGO || "/zurconstroi.jpeg",
         locale: "pt_PT",
         twitter: "@zurconstroi",
