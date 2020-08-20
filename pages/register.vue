@@ -99,7 +99,7 @@
                   text
                   x-small
                   color="primary"
-                  >Já tenho uma conta, quero efetuar o login</v-btn
+                  >Tenho uma conta, quero efetuar o login</v-btn
                 >
 
                 <br />
