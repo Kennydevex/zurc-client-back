@@ -67,13 +67,7 @@ export default {
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "vue-social-sharing/nuxt",
-    [
-      "nuxt-lazy-load",
-      {
-        images: true,
-        defaultImage: "utils/lazy-bg.jpg"
-      }
-    ],
+    "nuxt-lazy-load",
     [
       "vue-sweetalert2/nuxt",
       { confirmButtonColor: "#02636F", cancelButtonColor: "#ff7674" }
@@ -115,7 +109,8 @@ export default {
           },
           logout: { url: "auth/logout", method: "post" },
           user: { url: "auth/user", method: "get", propertyName: "data" }
-        }
+        },
+        autoFetchUser: true
       }
     }
   },

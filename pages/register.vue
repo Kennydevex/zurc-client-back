@@ -1,5 +1,5 @@
 <template>
-  <v-app id="login">
+  <v-app id="login" lazy-background="/background.jpg">
     <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -191,17 +191,16 @@ export default {
           });
         }
         this.$router.push({
-          // Redirecionar o utilizador para a página que pretendia abrir ou para a página de adim
           path: this.$router.query.redirect || "/admin"
         });
       } catch (error) {}
+      // background-image: url("/background.jpg");
     }
   }
 };
 </script>
 <style scoped lang="css">
 #login {
-  background-image: url("/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
