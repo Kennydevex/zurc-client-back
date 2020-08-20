@@ -1,5 +1,5 @@
 <template>
-  <v-app id="login" lazy-background="/background.jpg">
+  <v-app id="login">
     <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -165,13 +165,13 @@ export default {
     //     }
     //   });
     // }
-  //  background-image: url("/background.jpg");
   }
 };
 </script>
 
 <style scoped lang="css">
 #login {
+  background-image: url("/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

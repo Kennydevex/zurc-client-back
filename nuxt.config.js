@@ -67,7 +67,6 @@ export default {
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "vue-social-sharing/nuxt",
-    "nuxt-lazy-load",
     [
       "vue-sweetalert2/nuxt",
       { confirmButtonColor: "#02636F", cancelButtonColor: "#ff7674" }

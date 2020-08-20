@@ -50,13 +50,14 @@
       ></v-col>
     </v-row>
     <v-divider></v-divider>
-    <v-row>
+    <v-row v-if="companies.length != 0">
       <v-col cols="12">
         <v-card max-width="300">
           <v-img
             class="white--text align-end"
+            lazy-src="/loading/lazy-load-img.svg"
             height="100px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="/background.jpg"
           >
             <v-card-title>{{ companies[0].name }}</v-card-title>
           </v-img>
@@ -124,6 +125,7 @@ export default {
       import("@/components/backend/guidelines/GuidelinesIndex")
   },
 
+  // Use asyncServerInit
   async fetch({ store }) {
     await store.dispatch("companies/getCompanies");
   },
