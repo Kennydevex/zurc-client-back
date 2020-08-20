@@ -12,10 +12,13 @@
     "@neneos/nuxt-animate.css": "^0.0.1",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/robots": "^2.4.2",
+    "@nuxtjs/sitemap": "^2.4.0",
     "aos": "^3.0.0-beta.6",
     "laravel-permissions": "^1.5.3",
     "lodash": "^4.17.20",
     "nuxt": "^2.14.0",
+    "nuxt-social-meta": "^0.0.5",
     "swiper": "^6.1.1",
     "v-mask": "^2.2.3",
     "vee-validate": "<3.0.0",
@@ -29,8 +32,8 @@
     "vuetify-loader": "^1.6.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.2",
     "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/vuetify": "^1.11.2",
     "babel-plugin-import": "^1.13.0",
     "install": "^0.13.0",
     "stylus": "^0.54.8",

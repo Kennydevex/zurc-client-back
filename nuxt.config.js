@@ -7,17 +7,29 @@ export default {
 
   head: {
     titleTemplate: "%s - Zurconstroi",
-    title: "Zurconstroi",
+    title: process.env.SITE_TITLE || "Zurconstroi",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || ""
+        content: process.env.SITE_DESCRIPTION || "Intermediação Imobiliaria"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+  },
+
+  robots: {
+    UserAgent: "*",
+    Disallow: "/admin/*"
+  },
+
+  sitemap: {
+    hostname: process.env.SITE_URL || "https://zurconstroi.ml",
+    gzip: true,
+    exclude: ["/admin/**"],
+    routes: ["/properties"]
   },
 
   css: ["@/assets/styles/main.css", "view-design/dist/styles/iview.css"],
@@ -52,18 +64,28 @@ export default {
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/auth",
-    "@nuxtjs/proxy",
-
+    "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
+    "vue-social-sharing/nuxt",
     [
       "vue-sweetalert2/nuxt",
-      {
-        confirmButtonColor: "#02636F",
-        cancelButtonColor: "#ff7674"
-      }
+      { confirmButtonColor: "#02636F", cancelButtonColor: "#ff7674" }
     ],
     ["vue-scrollto/nuxt", { container: "body", duration: 500, easing: "ease" }],
-    "vue-social-sharing/nuxt"
-    // "@neneos/nuxt-animate.css"
+    [
+      "nuxt-social-meta",
+      {
+        url: process.env.SITE_URL || "https://zurconstroi.ml",
+        title: process.env.SITE_TITLE || "Zurconstroi",
+        site_name: process.env.SITE_NAME || "Zurconstroi",
+        description: process.env.SITE_DESCRIPTION || "Intermediação Imobiliaria",
+        img: process.env.SITE_LOGO || "/zurconstroi.jpeg",
+        locale: "pt_PT",
+        twitter: "@zurconstroi",
+        twitter_card: "summary_large_image",
+        themeColor: "#02636F"
+      }
+    ]
   ],
 
   axios: {
