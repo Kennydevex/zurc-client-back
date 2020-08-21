@@ -8,13 +8,13 @@
         <v-row>
           <v-col cols="12">
             <v-text-field
-              v-model.trim="formData.designation"
+              v-model.trim="formData.name"
               dense
-              name="designation"
+              name="name"
               label="Designação do diretriz*"
               v-validate="'required|alpha_spaces'"
-              data-vv-name="designation"
-              :error-messages="showFormErrors('designation') || errors.collect('designation')"
+              data-vv-name="name"
+              :error-messages="showFormErrors('name') || errors.collect('name')"
             ></v-text-field>
           </v-col>
 
@@ -22,13 +22,15 @@
             <v-textarea
               filled
               auto-grow
-              label="Descrição"
-              name="presentation"
-              v-model.trim="formData.presentation"
-              v-validate="'required|max:1000'"
-              data-vv-name="presentation"
+              label="Descrição*"
+              name="description"
+              counter
+              hint="Apresente a descrição desta diretriz com no máximo 200 caracteres"
+              v-model.trim="formData.description"
+              v-validate="'required|max:200'"
+              data-vv-name="description"
               :error-messages="
-                showFormErrors('presentation') || errors.collect('presentation')
+                showFormErrors('description') || errors.collect('description')
               "
             ></v-textarea>
           </v-col>
@@ -41,7 +43,7 @@
               item-text="name"
               item-value="key"
               name="icon"
-              label="Ícone"
+              label="Ícone*"
               v-validate="'required'"
               data-vv-name="icon"
               :error-messages="showFormErrors('icon') || errors.collect('icon')"

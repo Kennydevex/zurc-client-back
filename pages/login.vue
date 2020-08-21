@@ -15,6 +15,19 @@
                     Login
                   </h1>
                 </div>
+                <div>
+                  <v-alert
+                    :value="auth_401_errors ? true : false"
+                    tile
+                    transition="scale-transition"
+                    border="left"
+                    colored-border
+                    type="error"
+                    elevation="2"
+                  >
+                    {{ auth_401_errors }}
+                  </v-alert>
+                </div>
                 <v-form>
                   <v-text-field
                     name="login"
@@ -147,6 +160,7 @@ export default {
           this.sending = false;
         }
 
+        // this.$store.dispatch("validationErrors/clearAuth401Errors");
         this.$router.push({
           // Redirecionar o utilizador para a página que pretendia abrir ou para a página de adim
           path: this.$router.query.redirect || "/admin"

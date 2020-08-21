@@ -8,7 +8,8 @@ const ValidationErrors = {
     Vue.mixin({
       computed: {
         ...mapGetters({
-          backend_form_errors: "validationErrors/backend_form_errors"
+          backend_form_errors: "validationErrors/backend_form_errors",
+          auth_401_errors: "validationErrors/auth_401_errors"
         })
       },
       methods: {
