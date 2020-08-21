@@ -140,7 +140,7 @@
                   <v-icon>mdi-information</v-icon>
                 </v-btn>-->
                 <v-btn
-                  v-permission:any="'Editar Utilizador|Gerir Utilizador'"
+                  v-permission:any="'Editar Utilizador|Gerir Utilizadores'"
                   color="grey darken-2"
                   small
                   text
@@ -153,7 +153,7 @@
                 </v-btn>
                 <!-- :disabled="selected.length > 0" -->
                 <v-btn
-                  v-role-or-permission="'Gerir Utilizador|Eliminar Utilizador'"
+                  v-role-or-permission="'Gerir Utilizadores|Eliminar Utilizador'"
                   color="grey darken-2"
                   small
                   text
@@ -171,7 +171,7 @@
     </v-layout>
     <v-row>
       <v-col>
-        <v-card id="users-action">
+        <v-card id="users-action" v-permission:any="'Gerir Utilizadores|Gerir Permissões'">
           <v-speed-dial
             color="primary"
             v-model="fab"
@@ -188,7 +188,7 @@
 
             <v-tooltip
               bottom
-              v-permission:any="'Criar Utilizador|Gerir Utilizador'"
+              v-permission:any="'Criar Utilizador|Gerir Utilizadores'"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -207,7 +207,7 @@
               <span>Criar utilizador</span>
             </v-tooltip>
 
-            <v-tooltip bottom v-permission:any="'Gerir Permissão'">
+            <v-tooltip bottom v-permission:any="'Gerir Permissões'">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   :loading="load_permissions"

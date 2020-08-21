@@ -106,7 +106,7 @@
               <v-btn color="primary" rounded small text>Ver</v-btn>
               <template v-if="show_actions[property.id]">
                 <v-btn
-                  v-permission:any="'Editar propriedade|Gerir propriedade'"
+                  v-permission:any="'Editar Propriedade|Gerir Propriedades'"
                   class="text-none"
                   color="grey darken-1"
                   text
@@ -121,7 +121,7 @@
                 </v-btn>
 
                 <v-btn
-                  v-permission:any="'Eliminar propriedade|Gerir propriedade'"
+                  v-permission:any="'Eliminar Propriedade|Gerir Propriedades'"
                   @click="
                     onDelete(
                       'properties',
@@ -179,7 +179,7 @@
 
       <v-card-text
         class="company-action"
-        v-permission:any="'Criar propriedade|Gerir propriedade'"
+        v-permission:any="'Criar Propriedade|Gerir Propriedades'"
       >
         <v-fab-transition>
           <v-btn

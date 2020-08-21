@@ -6,7 +6,7 @@ const Menu = [
     icon: "mdi-view-dashboard",
     name: "Dashboard",
     href: "/admin",
-    roles: "Admin|Gestor"
+    roles: "Super Admin|Admin|Gestor"
   },
   { header: "Sistema" },
 
@@ -21,7 +21,7 @@ const Menu = [
         name: "users",
         title: "Utilizadores",
         href: "/admin/users",
-        roles: "Admin|Gestor"
+        roles: "Super Admin|Admin|Gestor"
       }
     ]
   },
@@ -38,13 +38,13 @@ const Menu = [
         name: "companies",
         title: "Empresa",
         href: "/admin/companies",
-        roles: "Admin|Gestor"
+        roles: "Super Admin|Admin|Gestor"
       },
       {
         name: "properties",
         title: "Propriedades",
         href: "/admin/properties",
-        roles: "Admin|Gestor"
+        roles: "Super Admin|Admin|Gestor"
       }
     ]
   },

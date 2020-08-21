@@ -55,10 +55,18 @@
         <v-card max-width="300">
           <v-img
             class="white--text align-end"
-            lazy-src="/loading/lazy-load-img.svg"
+            lazy-src="/loading/lazy-img.webp"
             height="100px"
             src="/background.jpg"
           >
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="primary"
+                ></v-progress-circular>
+              </v-row>
+            </template>
             <v-card-title>{{ companies[0].name }}</v-card-title>
           </v-img>
 
@@ -86,7 +94,10 @@
       </v-col>
 
       <v-flex xs12>
-        <v-card-text class="company-action">
+        <v-card-text
+          class="company-action"
+          v-permission:any="'Criar Empresa|Gerir Empresa'"
+        >
           <v-fab-transition>
             <v-btn
               nuxt
