@@ -28,7 +28,7 @@
                     {{ auth_401_errors }}
                   </v-alert>
                 </div>
-                <v-form>
+                <v-form ref="form">
                   <v-text-field
                     name="login"
                     label="Email"
@@ -157,6 +157,8 @@ export default {
           await this.$auth.loginWith("local", {
             data: this.formData
           });
+          this.resetForm();
+          this.$validator.reset();
           this.sending = false;
         }
 

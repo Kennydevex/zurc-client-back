@@ -26,9 +26,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "SectionThemeFeatures",
 
-  async created() {
-    await this.$store.dispatch("services/getServices");
-  },
+  // async created() {
+  //   await this.$store.dispatch("services/getServices");
+  // },
 
   computed: {
     ...mapGetters({ services: "services/services" })

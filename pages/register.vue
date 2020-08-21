@@ -15,7 +15,7 @@
                     Registar
                   </h1>
                 </div>
-                <v-form>
+                <v-form ref="form">
                   <v-row>
                     <v-col cols="12" class="py-0">
                       <v-text-field
@@ -182,18 +182,37 @@ export default {
       let formIsValid = await this.$validator.validateAll();
       try {
         if (formIsValid) {
+          this.loading = true;
           await this.$axios.post("auth/register", this.formData);
-          await this.$auth.loginWith("local", {
-            data: {
-              email: this.formData.email,
-              password: this.formData.password
-            }
+          this.resetForm();
+          this.$validator.reset();
+          this.loading = false;
+
+          this.$swal({
+            icon: "success",
+            title: "Conta registada",
+            text: "A sua conta foi registada com sucesso",
+            footer: "Aguarde a sua ativação",
+            confirmButtonText: "Ciente",
+            timer: 6000,
+            timerProgressBar: true
           });
+
+          this.$router.push({
+            // path: this.$router.query.redirect || "/admin"
+            path: "/"
+          });
+
+          // await this.$auth.loginWith("local", {
+          //   data: {
+          //     email: this.formData.email,
+          //     password: this.formData.password
+          //   }
+          // });
         }
-        this.$router.push({
-          path: this.$router.query.redirect || "/admin"
-        });
-      } catch (error) {}
+      } catch (error) {
+        this.loading = false;
+      }
     }
   }
 };

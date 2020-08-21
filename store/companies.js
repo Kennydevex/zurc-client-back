@@ -23,6 +23,12 @@ export const mutations = {
 };
 
 export const actions = {
+  // async nuxtServerInit({ commit }, { req }) {
+  //   try {
+  //     let companies = await this.$axios.$get("companies");
+  //     commit("SET_COMPANIES", companies.data);
+  //   } catch (error) {}
+  // },
   async getCompanies({ commit }) {
     try {
       let companies = await this.$axios.$get("companies");
