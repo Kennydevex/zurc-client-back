@@ -97,6 +97,7 @@
         <v-card-text
           class="company-action"
           v-permission:any="'Criar Empresa|Gerir Empresa'"
+          v-role:any="'Admin|Gestor'"
         >
           <v-fab-transition>
             <v-btn

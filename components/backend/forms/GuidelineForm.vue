@@ -73,7 +73,7 @@
       <template v-if="creating">
         <v-btn
           class="text-none"
-          rounded
+          text
           depressed
           small
           :ripple="false"
@@ -84,7 +84,7 @@
 
         <v-btn
           class="text-none"
-          rounded
+          text
           depressed
           small
           :ripple="false"
@@ -97,7 +97,7 @@
       <v-btn
         v-if="!creating"
         class="text-none"
-        rounded
+        text
         depressed
         small
         :ripple="false"

@@ -305,14 +305,14 @@
             class="text-none"
             color="accent"
             @click="redirectToPage('admin/companies')"
-            rounded
+            text
             >Cancelar</v-btn
           >
           <v-btn
             @click="creating ? addCompany() : updateCompany()"
             class="text-none"
             color="primary"
-            rounded
+            text
             >{{ creating ? "Guardar e sair" : "Guardar Alerações" }}</v-btn
           >
         </v-col>

@@ -179,7 +179,8 @@
 
       <v-card-text
         class="company-action"
-        v-permission:any="'Criar Propriedade|Gerir Propriedades'"
+        v-permission:any="'Gerir|Criar Propriedade|Gerir Propriedades'"
+        v-role:any="'Admin|Gestor'"
       >
         <v-fab-transition>
           <v-btn

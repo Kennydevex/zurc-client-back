@@ -47,6 +47,18 @@ export default {
   layout: "backend",
   components: {
     MiniStatistic
-  }
+  },
+
+  created() {
+    // this.myFacebookData();
+  },
+
+  // methods: {
+  //   async myFacebookData() {
+  //     await FB.api("/me", "GET", {}, function(response) {
+  //       // Insert your code here
+  //     });
+  //   }
+  // }
 };
 </script>

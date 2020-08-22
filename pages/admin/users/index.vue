@@ -153,7 +153,7 @@
                 </v-btn>
                 <!-- :disabled="selected.length > 0" -->
                 <v-btn
-                  v-role-or-permission="'Gerir Utilizadores|Eliminar Utilizador'"
+                  v-role-or-permission="'Gerir Utilizadores|Eliminar Utilizador|Admin'"
                   color="grey darken-2"
                   small
                   text
@@ -189,6 +189,7 @@
             <v-tooltip
               bottom
               v-permission:any="'Criar Utilizador|Gerir Utilizadores'"
+              v-role:any="'Admin'"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -207,7 +208,7 @@
               <span>Criar utilizador</span>
             </v-tooltip>
 
-            <v-tooltip bottom v-permission:any="'Gerir Permissões'">
+            <v-tooltip bottom v-role:any="'Admin'" v-permission:any="'Gerir Permissões'">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   :loading="load_permissions"

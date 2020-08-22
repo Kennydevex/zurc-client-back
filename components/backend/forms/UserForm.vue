@@ -180,7 +180,7 @@
       <v-spacer></v-spacer>
       <v-btn
         class="text-none"
-        rounded
+        text
         depressed
         small
         :ripple="false"
@@ -193,7 +193,7 @@
       <v-btn
         v-if="creating"
         class="text-none"
-        rounded
+        text
         depressed
         small
         :ripple="false"
@@ -205,7 +205,7 @@
       <v-btn
         v-if="creating"
         class="text-none"
-        rounded
+        text
         depressed
         small
         :ripple="false"
@@ -217,7 +217,7 @@
       <v-btn
         v-if="!creating"
         class="text-none"
-        rounded
+        text
         depressed
         small
         :ripple="false"
