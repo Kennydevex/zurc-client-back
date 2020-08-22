@@ -153,7 +153,7 @@
                 </v-btn>
                 <!-- :disabled="selected.length > 0" -->
                 <v-btn
-                  v-role-or-permission="'Gerir Utilizadores|Eliminar Utilizador|Admin'"
+                  v-permission:any="'Gerir Utilizadores|Eliminar Utilizador'"
                   color="grey darken-2"
                   small
                   text
