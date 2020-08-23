@@ -20,6 +20,10 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
+  env: {
+    PUBLIC_URL: process.env.PUBLIC_URL || "https://zurconstroi.ml/api"
+  },
+
   robots: {
     UserAgent: "*",
     Disallow: "/admin/*"

@@ -93,6 +93,7 @@
           >
             <v-img
               :src="`${publicURL}/uploads/${property.cover}`"
+              lazy-src="/loading/lazy-img.webp"
               height="170px"
             ></v-img>
 
@@ -104,7 +105,7 @@
 
             <v-card-actions>
               <v-btn color="primary" rounded small text>Ver</v-btn>
-              <template v-if="show_actions[property.id]">
+              <template v-show="show_actions[property.id]">
                 <v-btn
                   v-permission:any="'Editar Propriedade|Gerir Propriedades'"
                   class="text-none"

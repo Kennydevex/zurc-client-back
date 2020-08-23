@@ -14,6 +14,7 @@
       class="white--text"
       height="130px"
       :src="`${publicURL}/uploads/${property.cover}`"
+      lazy-src="/loading/lazy-img.webp"
     >
       <v-container grid-list-xs>
         <v-row no-gutters>
@@ -100,7 +101,7 @@
         property.price | currency
       }}</v-chip>
       <v-chip v-else label color="grey lighten-1" small>{{
-        (property.price * 0.00907) | currency('€')
+        (property.price * 0.00907) | currency("€")
       }}</v-chip>
       <v-spacer></v-spacer>
       <!--<v-badge bordered right color="primary">
