@@ -21,7 +21,8 @@ export default {
   },
 
   env: {
-    PUBLIC_URL: process.env.PUBLIC_URL || "https://zurconstroi.ml/api"
+    PUBLIC_URL: process.env.PUBLIC_URL || "https://zurconstroi.ml/api",
+    SITE_URL: process.env.SITE_URL || "https://zurconstroi.ml"
   },
 
   robots: {

@@ -18,6 +18,10 @@ const handleForms = {
 
         siteURL() {
           return process.env.SITE_URL;
+        },
+
+        siteURL() {
+          return process.env.SITE_URL;
         }
       }
     });

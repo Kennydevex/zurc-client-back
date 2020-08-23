@@ -223,12 +223,12 @@
               v-for="network in networks"
               :network="network.network"
               :key="network.network"
-              :url="sharing.url"
-              :title="proName"
-              :description="proDescription"
+              :url="siteURL + $route.path"
+              :title="property.name"
+              :description="property.description"
               :quote="'Zurconstroi'"
               :hashtags="propertyType"
-              :twitterUser="sharing.twitterUser"
+              :twitterUser="'Zurconstroi'"
             >
               <v-btn
                 dark
@@ -274,7 +274,7 @@ export default {
         {
           hid: "og:image",
           name: "og:image",
-          content: `${this.property.cover}`
+          content: `${process.env.PUBLIC_URL}/uploads/${this.property.cover}`
         },
         { hid: "og:type", name: "og:type", content: "article" },
         {
@@ -294,14 +294,14 @@ export default {
   data() {
     return {
       currency_type: 1,
-      sharing: {
-        url: "https://news.vuejs.org/issues/180",
-        // title: this.proName,
-        // description: this.proDescription,
-        quote: "Zurconstroi",
-        // hashtags: this.propertyType,
-        twitterUser: "Zurconstroi"
-      },
+      // sharing: {
+      //   url: process.env.SITE_URL + this.$route.path,
+      //   title: this.proName,
+      //   description: this.proDescription,
+      //   quote: "Zurconstroi",
+      //   hashtags: this.propertyType,
+      //   twitterUser: "Zurconstroi"
+      // },
 
       networks: [
         {
@@ -354,12 +354,6 @@ export default {
 
     mapPisotion() {
       return this.property ? this.property.location.geo : "";
-    },
-    proName() {
-      return this.property ? this.property.name : "";
-    },
-    proDescription() {
-      return this.property ? this.property.description : "";
     },
 
     propertyType() {
