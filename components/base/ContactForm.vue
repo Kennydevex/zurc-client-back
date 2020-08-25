@@ -22,11 +22,11 @@
       <v-text-field
         outlined
         dense
-        v-model.trim="formData.email"
+        v-model.trim="formData.from"
         v-validate="'required|email'"
-        data-vv-name="email"
-        :error-messages="errors.collect('email')"
-        name="email"
+        data-vv-name="from"
+        :error-messages="errors.collect('from')"
+        name="from"
         label="Email"
       ></v-text-field>
 
@@ -90,7 +90,7 @@ export default {
       sending: false,
       formData: {
         name: "",
-        email: "",
+        from: "",
         subject: "",
         message: ""
       }

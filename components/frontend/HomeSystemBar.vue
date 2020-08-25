@@ -21,14 +21,20 @@
         src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
       />
     </a>-->
-    <v-btn class="text-none font-weight-regular" text nuxt dark
+    <v-btn class="text-none font-weight-regular hidden-xs-only" text nuxt dark
       >Zurconstroi</v-btn
     >
-    <v-divider class="ml-6 mr-3" vertical />
-    <v-btn color="white" text x-small class="text-none"
+     <v-btn class="text-none font-weight-regular hidden-sm-and-up" text nuxt dark
+      >ZC</v-btn
+    >
+    <v-divider class="ml-6 mr-3" vertical /> 
+
+
+    <v-btn color="white" text x-small class="text-none">(+238) 9178599</v-btn>|
+  
+    <v-btn color="white" text x-small class="text-none hidden-xs-only"
       >zurconstroi@gmail.com</v-btn
-    >|
-    <v-btn color="white" text x-small class="text-none">9178599</v-btn>
+    >
     <v-spacer />
     <template v-if="!authenticated">
       <v-btn
