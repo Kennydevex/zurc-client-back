@@ -20,7 +20,7 @@
           :key="slide.id"
           :image="slide.image"
         >
-          <template  v-if="!lazy_progress" v-slot:content>
+          <template  v-if="lazy_progress" v-slot:content>
             <v-container class="fill-height">
               <v-responsive
                 class="d-flex align-center"

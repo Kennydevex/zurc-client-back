@@ -26,50 +26,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "SectionThemeFeatures",
 
-  // async created() {
-  //   await this.$store.dispatch("services/getServices");
-  // },
-
   computed: {
     ...mapGetters({ services: "services/services" })
-  },
-
-  data() {
-    return {
-      title: [],
-      features: [
-        {
-          color: "primary",
-          dark: true,
-          title: "Pixel Perfect Design",
-          icon: "mdi-fountain-pen-tip"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Retina Ready",
-          icon: "mdi-cellphone"
-        },
-        {
-          color: "primary",
-          dark: true,
-          title: "Easily Customizable",
-          icon: "mdi-pencil-box-outline"
-        }
-        // {
-        //   title: "Image Parallax",
-        //   icon: "mdi-image-size-select-actual"
-        // },
-        // {
-        //   title: "Seo Optimized",
-        //   icon: "mdi-ice-pop"
-        // },
-        // {
-        //   title: "24/7 Support",
-        //   icon: "mdi-help-circle-outline"
-        // }
-      ]
-    };
   }
 };
 </script>

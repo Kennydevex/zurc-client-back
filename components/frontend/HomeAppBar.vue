@@ -5,11 +5,11 @@
         :src="'logo.png'"
         class="mr-3 hidden-xs-only"
         contain
-        max-width="52"
+        max-width="52"-->
         
-      />
+      
 
-      <img :src="'logo.png'" contain max-width="10"  />-->
+      <!--<img :src="'/zurconstroi.jpeg'" contain max-width="2"  />-->
 
       <base-img
         :src="'/zurconstroi.jpeg'"
