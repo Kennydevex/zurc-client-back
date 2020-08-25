@@ -494,7 +494,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import { alerts } from "@/mixins/appAlerts";
 import { Upload } from "view-design";
 import { uploadFeedback } from "@/mixins/handleFileUploads";
@@ -523,6 +523,11 @@ export default {
         { id: "10", name: "Escritório" },
         { id: "11", name: "Terreno" },
         { id: "12", name: "Outro" }
+      ],
+       destinations: [
+        { id: "1", name: "À Venda" },
+        { id: "2", name: "Arrendamento" },
+        { id: "3", name: "Para Comprar" },
       ]
     };
   },
@@ -539,9 +544,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      destinations: "destinations/destinations"
-    })
+    // ...mapGetters({
+    //   destinations: "destinations/destinations"
+    // })
   },
 
   components: {

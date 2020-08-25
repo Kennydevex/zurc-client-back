@@ -20,7 +20,7 @@
           :key="slide.id"
           :image="slide.image"
         >
-          <template v-slot:content>
+          <template  v-if="!lazy_progress" v-slot:content>
             <v-container class="fill-height">
               <v-responsive
                 class="d-flex align-center"
@@ -51,7 +51,7 @@
           <template v-if="lazy_progress" v-slot:loader>
             <v-progress-circular
               :size="70"
-              :width="7"
+              :width="2"
               color="primary"
               indeterminate
             ></v-progress-circular>

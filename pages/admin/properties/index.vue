@@ -42,20 +42,19 @@
     <v-divider></v-divider>
 
     <v-row justify="end">
-      <v-col cols="12" sm="6" md="8" align-self="center">
+      <!--<v-col cols="12" sm="6" md="8" align-self="center">
         <v-btn
           text
           color="primary"
           class="font-weight-bold"
           @click="onListDestinations()"
-          :loading="load_destinations"
+          // :loading="load_destinations"
           >Finalidade das propriedades
           <template v-slot:loader>
             <span class="success--text text-none">Carregando...</span>
           </template></v-btn
         >
-      </v-col>
-      <v-spacer></v-spacer>
+      </v-col>-->
       <v-col cols="12" sm="6" md="4" align-self="center">
         <v-text-field
           hide-details
@@ -199,9 +198,9 @@
         </v-fab-transition>
       </v-card-text>
     </v-layout>
-    <v-row>
+    <!--<v-row>
       <destinations-index></destinations-index>
-    </v-row>
+    </v-row>-->
   </v-container>
 </template>
 
@@ -221,7 +220,7 @@ export default {
 
   data() {
     return {
-      load_destinations: false,
+      // load_destinations: false,
       selected: [],
       show_actions: {},
       limitByn: 6,
@@ -257,9 +256,9 @@ export default {
   },
 
   components: {
-    MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic"),
-    DestinationsIndex: () =>
-      import("@/components/backend/destinations/DestinationsIndex")
+    MiniStatistic: () => import("@/components/backend/widgets/MiniStatistic")
+    // DestinationsIndex: () =>
+    //   import("@/components/backend/destinations/DestinationsIndex")
   },
 
   methods: {
@@ -270,15 +269,14 @@ export default {
 
     async getProperties() {
       await this.$store.dispatch("properties/getProperties");
-    },
-
-    async onListDestinations() {
-      this.load_destinations = true;
-      await this.$store.dispatch("destinations/getDestinations");
-      this.load_destinations = false;
-
-      this.$store.commit("destinations/toggleListDestinationDialog");
     }
+
+    // async onListDestinations() {
+    // this.load_destinations = true;
+    //   await this.$store.dispatch("destinations/getDestinations");
+    // this.load_destinations = false;
+    //   this.$store.commit("destinations/toggleListDestinationDialog");
+    // }
   }
 };
 </script>

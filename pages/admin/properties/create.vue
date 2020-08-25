@@ -25,12 +25,13 @@ export default {
         description: "",
         price: "",
         type: "",
+        destination: "",
         typology: "",
         leisure: "",
-        dimension: "", // Em mt quadrado
+        dimension: "",
         status: false,
         featured: false,
-        destinations: [],
+        // destinations: [],
         galleries: [],
         cover: null,
         location: {

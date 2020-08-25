@@ -137,7 +137,7 @@
                                 <td>{{ property.leisure }}</td>
                               </tr>
                             </template>
-                            <tr>
+                            <!--<tr>
                               <td>Finalidade</td>
                               <td>
                                 <v-chip
@@ -148,6 +148,14 @@
                                   :key="i"
                                   >{{ destination.name }}</v-chip
                                 >
+                              </td>
+                            </tr>-->
+                            <tr>
+                              <td>Finalidade</td>
+                              <td>
+                                <v-chip outlined small>{{
+                                  propertyDestination
+                                }}</v-chip>
                               </td>
                             </tr>
                           </tbody>
@@ -377,6 +385,14 @@ export default {
       return;
     },
 
+    propertyDestination() {
+      if (this.property) {
+        let destination = ["À Venda", "Arrendamento", "Para Comprar"];
+        return destination[Number(this.property.destination) - 1];
+      }
+      return;
+    },
+
     propertyPrice() {
       if (this.property) {
         return this.currency_type === 1
@@ -385,6 +401,7 @@ export default {
       }
       return;
     }
+    
   }
 };
 </script>

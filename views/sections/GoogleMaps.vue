@@ -1,16 +1,6 @@
 <template>
-  <base-section id="map" space="0">
-    <v-row v-if="properties.length == 0">
-      <v-col cols="12" class="pa-0">
-        <v-skeleton-loader
-          loading
-          class="mx-auto"
-          type="image"
-          max-height="500"
-        ></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <v-row v-else align="center" justify="center">
+  <div>
+    <client-only>
       <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="7.5">
         <template v-for="(item, index) in properties">
           <div :key="index">
@@ -28,8 +18,8 @@
           </div>
         </template>
       </gmap-map>
-    </v-row>
-  </base-section>
+    </client-only>
+  </div>
 </template>
 
 <script>
@@ -66,6 +56,5 @@ export default {
 <style lang="stylus" scoped>
 .vue-map-container
   height: 450px
-  // max-width 900px
   width: 100%
 </style>

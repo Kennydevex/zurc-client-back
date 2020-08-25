@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mx-2"
-    tile
+    
     v-bind="$attrs"
     v-on="$listeners"
     :ripple="false"
@@ -19,7 +19,7 @@
       <v-container grid-list-xs>
         <v-row no-gutters>
           <v-col align-self="end" class="white--text">
-            <template v-for="(destination, index) in property.destinations">
+            <!--<template v-for="(destination, index) in property.destinations">
               <v-chip
                 :key="index"
                 label
@@ -28,7 +28,14 @@
                 color="compl_prim"
                 >{{ destination.name }}</v-chip
               >
-            </template>
+            </template>-->
+            <v-chip
+              label
+              class="white--text font-weight-bold text-uppercase ma-1"
+              small
+              color="compl_prim"
+              >{{ propertyDestination }}</v-chip
+            >
             <v-chip
               class="white--text font-weight-bold text-uppercase"
               small
@@ -159,6 +166,13 @@ export default {
           "Outro"
         ];
         return m_type[Number(this.property.type) - 1];
+      }
+      return;
+    },
+    propertyDestination() {
+      if (this.property) {
+        let destination = ["À Venda", "Arrendamento", "Para Comprar"];
+        return destination[Number(this.property.destination) - 1];
       }
       return;
     }

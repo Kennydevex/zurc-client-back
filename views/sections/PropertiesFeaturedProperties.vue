@@ -4,7 +4,7 @@
       <v-col cols="12" class="pa-0">
         <base-aside-title>Propriedades em destaque</base-aside-title>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pa-0">
         <client-only>
           <vueper-slides
             autoplay
@@ -23,6 +23,7 @@
                   <template v-slot:content>
                     <v-container grid-list-xs fluid pa-0 ma-0>
                       <base-properties-card
+                      :trunc="25"
                         :property="property"
                       ></base-properties-card>
                     </v-container>

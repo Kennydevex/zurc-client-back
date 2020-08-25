@@ -32,12 +32,13 @@ export default {
         price: 0,
         type: "",
         typology: "",
+        destination: "",
         leisure: "",
-        dimension: "", // Em mt quadrado
+        dimension: "",
         status: false,
         featured: false,
         galleries: [],
-        destinations: [],
+        // destinations: [],
         cover: null,
         location: {
           id: "",

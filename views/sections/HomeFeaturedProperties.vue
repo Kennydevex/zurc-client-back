@@ -6,12 +6,13 @@
           title="Propriedades em Destaque"
         ></base-section-heading
       ></v-col>
-      <v-col cols="12" class="pb-0">
+      <v-col cols="12" class="pa-0">
         <v-container grid-list-xs mb-0 pb-0>
           <v-row>
-            <v-col class="pb-0">
+            <v-col class="pa-0">
               <vueper-slides
                 autoplay
+                fade
                 :infinite="true"
                 :bullets="false"
                 class="no-shadow"
@@ -30,7 +31,7 @@
                   <template v-for="(property, i) in featured_properties">
                     <vueper-slide :key="'fatrd_proprt_' + i">
                       <template v-slot:content>
-                        <v-container grid-list-xs fluid pa-0 ma-1>
+                        <v-container grid-list-xs fluid pa-0>
                           <base-properties-card
                             :trunc="50"
                             :property="property"
@@ -57,9 +58,7 @@ import "vueperslides/dist/vueperslides.css";
 export default {
   name: "SectionThemeFeatures",
 
-  async created() {
-    await this.$store.dispatch("properties/getFeaturedProperties");
-  },
+
 
   computed: {
     ...mapGetters({ featured_properties: "properties/featured_properties" })
