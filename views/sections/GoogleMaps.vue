@@ -8,6 +8,7 @@
               :position="item.location.geo"
               @click="goToProperty(item.slug)"
             />
+              <!--:icon="markerOptions"-->
 
             <!--<gmap-info-window
               v-if="info_window[item.id]"
@@ -38,7 +39,12 @@ export default {
     return {
       center: { lat: 16, lng: -24 },
       mapTypeId: "terrain",
-      info_window: {}
+      info_window: {},
+      markerOptions: {
+        url: "/app/marker.svg",
+        size: { width: 60, height: 60, f: "px", b: "px" },
+        scaledSize: { width: 30, height: 45, f: "px", b: "px" }
+      }
     };
   },
 

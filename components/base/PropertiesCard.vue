@@ -1,7 +1,6 @@
 <template>
   <v-card
     class="mx-2"
-    
     v-bind="$attrs"
     v-on="$listeners"
     :ripple="false"
@@ -13,7 +12,7 @@
     <v-img
       class="white--text"
       height="130px"
-      :src="`${publicURL}/uploads/${property.cover}`"
+      :src="imageSrc"
       lazy-src="/loading/lazy-img.webp"
     >
       <v-container grid-list-xs>
@@ -149,6 +148,9 @@ export default {
     //   }
     //   return;
     // },
+    imageSrc() {
+      return this.publicURL + "/uploads/" + this.property.cover;
+    },
     propertyType() {
       if (this.property) {
         let m_type = [

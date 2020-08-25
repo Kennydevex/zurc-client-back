@@ -219,7 +219,7 @@ export default {
 </script>
 <style scoped lang="css">
 #login {
-  background-image: url("/background.jpg");
+  background-image: url("/auth/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

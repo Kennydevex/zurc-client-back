@@ -4,9 +4,9 @@
       <v-responsive class="mx-auto">
         <base-img
           :height="$vuetify.breakpoint.mdAndUp ? 350 : 225"
-          :src="`about.jpg`"
-          gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-          color="#45516b"
+          :src="`/app/about.jpg`"
+          gradient="to top right, rgba(2,99,111,.33), rgba(2,99,111,.7)"
+          color="#02636F"
           flat
           max-width="100%"
           tile
