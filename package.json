@@ -32,10 +32,12 @@
     "vuetify-loader": "^1.6.0"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.3.0",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-plugin-import": "^1.13.0",
     "install": "^0.13.0",
+    "nuxt-purgecss": "^1.0.0",
     "stylus": "^0.54.8",
     "stylus-loader": "^3.0.2"
   }

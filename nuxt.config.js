@@ -39,7 +39,7 @@ export default {
 
   css: ["@/assets/styles/main.css", "view-design/dist/styles/iview.css"],
 
-  loading: { color: "#3adced", },
+  loading: { color: "#3adced" },
 
   pageTransition: {
     name: "fade",
@@ -64,7 +64,7 @@ export default {
 
   components: true,
 
-  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/moment"],
+  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/moment", "nuxt-purgecss"],
 
   modules: [
     "@nuxtjs/axios",
