@@ -19,7 +19,7 @@
           outlined
           prepend-inner-icon="mdi-magnify"
           name="name"
-          label="Procura profunda"
+          label="Procurar em todos os regsitos"
           v-on="on"
           v-bind="attrs"
         >
