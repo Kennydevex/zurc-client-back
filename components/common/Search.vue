@@ -3,17 +3,18 @@
     <v-menu
       tile
       allow-overflow
-      nudge-bottom="40"
+      nudge-bottom="50"
       bottom
       max-width="600"
       max-height="350"
-      :close-on-content-click="closeOnContentClick"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
           clearable
           @input="search()"
           v-model="searchTerm"
+          :loading="searching"
+          hide-details
           dense
           outlined
           prepend-inner-icon="mdi-magnify"
@@ -22,7 +23,7 @@
           v-on="on"
           v-bind="attrs"
         >
-          <template v-slot:append>
+          <!--<template v-slot:append>
             <v-progress-circular
               v-if="searching"
               indeterminate
@@ -30,59 +31,75 @@
               size="18"
               width="1"
             ></v-progress-circular>
-          </template>
+          </template>-->
         </v-text-field>
       </template>
 
-      <v-list three-line v-if="searchResult.length === 0">
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img :src="'/components/no_result.svg'"></v-img>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title> Procura sem resultado</v-list-item-title>
-            <v-list-item-subtitle
-              >A procura pela '{{ searchTerm }}' não teve nenhum
-              retorno</v-list-item-subtitle
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-
-      <v-list three-line v-else>
-        <template v-for="(property, index) in searchResult">
-          <v-divider v-if="index > 0" :key="index" inset></v-divider>
-          <v-list-item
-            nuxt
-            :to="{
-              name: 'properties-ver-slug',
-              params: { slug: property.slug }
-            }"
-            :key="property.id"
-          >
+      <template v-if="searchTerm">
+        <v-list three-line v-if="searchResult.length === 0">
+          <v-list-item>
             <v-list-item-avatar>
               <v-img
-                :src="`${publicURL}/uploads/${property.cover}`"
-                lazy-src="/loading/lazy-img.webp"
+                :src="
+                  searching
+                    ? '/components/searching.svg'
+                    : '/components/no_result.svg'
+                "
               ></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title> {{ property.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{
-                property.description | truncate(100)
-              }}</v-list-item-subtitle>
+              <v-list-item-title>
+                {{
+                  searching ? "Procurando..." : "Procura sem resultado"
+                }}</v-list-item-title
+              >
+              <v-list-item-subtitle v-if="searching"
+                >A procurar pela '{{ searchTerm }}',
+                aguarde...</v-list-item-subtitle
+              >
+              <v-list-item-subtitle v-else
+                >A procura pela '{{ searchTerm }}' não teve nenhum
+                retorno</v-list-item-subtitle
+              >
             </v-list-item-content>
           </v-list-item>
-        </template>
-      </v-list>
+        </v-list>
+
+        <v-list three-line v-else>
+          <template v-for="(property, index) in searchResult">
+            <v-divider v-if="index > 0" :key="index" inset></v-divider>
+            <v-list-item
+              nuxt
+              :to="{
+                name: 'properties-ver-slug',
+                params: { slug: property.slug }
+              }"
+              :key="property.id"
+            >
+              <v-list-item-avatar>
+                <v-img
+                  :src="`${publicURL}/uploads/${property.cover}`"
+                  lazy-src="/loading/lazy-img.webp"
+                ></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title> {{ property.name }}</v-list-item-title>
+                <v-list-item-subtitle>{{
+                  property.description | truncate(100)
+                }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
+      </template>
     </v-menu>
   </div>
 </template>
 
 <script>
-import { debounce } from "lodash";
+import { debounce, isNull } from "lodash";
 
 export default {
   data() {
@@ -94,6 +111,14 @@ export default {
       searchResult: [],
       searching: false
     };
+  },
+
+  watch: {
+    searchTerm(newVal, oldVal) {
+      if (newVal == "" || isNull(newVal)) {
+        this.$data.searchResult = [];
+      }
+    }
   },
 
   //   computed: {

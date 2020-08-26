@@ -287,7 +287,6 @@ export default {
 
   components: {
     GoogleMaps: () => import("@/views/sections/GoogleMaps"),
-    Search: () => import("@/components/frontend/Search"),
     Pagination: () => import("@/components/common/Pagination"),
     PropertiesFeaturedProperties: () =>
       import("@/views/sections/PropertiesFeaturedProperties")
