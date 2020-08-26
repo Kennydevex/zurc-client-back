@@ -11,13 +11,16 @@
         <v-col cols="12" md="3">
           <v-row>
             <v-col cols="12" class="pb-0">
+              <search></search>
+            </v-col>
+            <v-col cols="12" class="pb-0">
               <v-text-field
                 filled
                 dense
                 outlined
                 prepend-inner-icon="mdi-magnify"
                 name="name"
-                label="Procurar propriedades"
+                label="Filtrar nesta página"
                 v-model="search"
               ></v-text-field>
             </v-col>
@@ -181,6 +184,7 @@ export default {
   components: {
     GoogleMaps: () => import("@/views/sections/GoogleMaps"),
     Pagination: () => import("@/components/common/Pagination"),
+    Search: () => import("@/components/common/Search"),
     PropertiesFeaturedProperties: () =>
       import("@/views/sections/PropertiesFeaturedProperties")
   },
@@ -231,7 +235,12 @@ export default {
           }
         })
         .filter(function(property) {
-          if (isUndefined(mthis.type) || isNull(mthis.type) || mthis.type === "" || mthis.type === "0") {
+          if (
+            isUndefined(mthis.type) ||
+            isNull(mthis.type) ||
+            mthis.type === "" ||
+            mthis.type === "0"
+          ) {
             return true;
           } else {
             return property.type === mthis.type;

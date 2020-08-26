@@ -117,7 +117,7 @@
                 :items="destinations"
                 item-text="name"
                 item-value="id"
-                v-model="formData.destinations"
+                v-model="formData.destination"
                 label="Finalidades da propriedade"
               ></v-autocomplete>
             </v-col>
