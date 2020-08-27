@@ -53,7 +53,7 @@ export default {
       }
     },
 
-    async myfacebook() {
+    myfacebook() {
       //   await this.$axios
       //     .$get(`${this.graphQlUrl}/me`, {
       //       params: {
