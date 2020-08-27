@@ -30,8 +30,6 @@ export default {
         Facebook.load().then(() => {
           Facebook.init({
             appId: "316013626184538",
-            xfbml: true,
-            version: "v8.0"
           });
         });
 
