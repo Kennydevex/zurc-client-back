@@ -2,7 +2,6 @@
   <div>
     Facebook
     {{ face_data }}
-    {{ access_token }}
   </div>
 </template>
 
@@ -33,16 +32,17 @@ export default {
       if (process.client) {
         await Facebook.load().then(() => {
           Facebook.init({
-            appId: "316013626184538",
+            appId: "308842333710659",
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
-            xfbml: true
+            xfbml: true,
+            version: "v8.0"
           });
 
-          this.facebookLogin();
+          // this.facebookLogin();
 
           // Facebook.getLoginStatus().then(response => {
-          //     this.facebookLogin();
+          //   // this.facebookLogin();
 
           //   if (response.status === "connected") {
           //     this.$data.access_token = response.authResponse.accessToken;
@@ -70,24 +70,25 @@ export default {
     //   });
     // },
 
-    facebookLogin() {
-      if (process.client) {
-        Facebook.login().then(response => {
-          if (response.status === "connected") {
-            this.$data.access_token = response.authResponse.accessToken;
-          } else {
-            console.log("Erro de authenticação");
-          }
-        });
-      }
-    },
+    // facebookLogin() {
+    //   if (process.client) {
+    //     Facebook.login().then(response => {
+    //       if (response.status === "connected") {
+    //         this.$data.access_token = response.authResponse.accessToken;
+    //       } else {
+    //         console.log("Erro de authenticação");
+    //       }
+    //     });
+    //   }
+    // },
 
     getFBData() {
       this.initFbApi().then(res => {
         console.log("o tken ta aqy" + this.$data.access_token);
         Facebook.api("/me", "get", {
           fields: "name",
-          access_token: this.$data.access_token
+          access_token: 'EAAEY4ZCWXqUMBALztFqxbW5WqI7cocPxNY8NUopbUEsFq5ybayEsgWBjIgrnLIKvjeh79WNN9ViJisZBDVNTtRCPi4DnzGIq7UuDG2eUQVDe6sTVqnUE7dZCzY1Y7xwlsiMhDaQO0ichyoyaO2y0GCk0LiZBaq07Sje4X7fpjkT06nfJQ65g6iZAVWcttPOxMW3jqLSyQqQZDZD'
+          // access_token: this.$data.access_token
         }).then(response => {
           console.log(response);
           this.face_data = response;
