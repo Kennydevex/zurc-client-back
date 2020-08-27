@@ -1,7 +1,7 @@
 <template>
   <div>
     Facebook
-    {{ face_perfil }}
+    {{ face_data }}
   </div>
 </template>
 
@@ -16,12 +16,13 @@ export default {
 
   created() {
     this.initFbApi();
-    this.myfacebook();
+    this.getFBApiStatus();
+    this.getFBData();
   },
 
   data() {
     return {
-      face_perfil: []
+      face_data: []
     };
   },
 
@@ -35,22 +36,38 @@ export default {
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true
           });
-
-          Facebook.getLoginStatus().then(response => {
-            if (response.status === "connected") {
-              console.log(response);
-            } else {
-              console.log(response);
-            }
-          });
         });
       }
     },
 
-    myfacebook() {
+    facebookLogin() {
+      if (process.client) {
+        Facebook.login().then(response => {
+          if (response.status === "connected") {
+            console.log("Login efetuado com sucesso");
+          } else {
+            console.log("Erro de authenticação");
+          }
+        });
+      }
+    },
+
+    getFBApiStatus() {
       this.initFbApi().then(res => {
-        Facebook.api("/700714477192789", "get", {
-          fields: "name,  first_name"
+        Facebook.getLoginStatus().then(response => {
+          if (response.status === "connected") {
+            console.log("connected");
+          } else {
+            this.facebookLogin();
+          }
+        });
+      });
+    },
+
+    getFBData() {
+      this.initFbApi().then(res => {
+        Facebook.api("/me", "get", {
+          fields: "name"
         }).then(response => {
           console.log(response);
           this.face_data = response;

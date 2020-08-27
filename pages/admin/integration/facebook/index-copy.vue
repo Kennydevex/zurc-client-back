@@ -57,6 +57,19 @@ export default {
       }
     },
 
+    myfacebookReal() {
+      this.initFbApi().then(res => {
+        Facebook.api("/me", "get", {
+          fields: "name",
+          access_token:
+            "EAAEfaafu01oBAB1dFzZBS32E7R9ZCARHlKFh9yJWYXIlwkpnAFDFO7sQuZAjYuTClpHHV8bOs34EFvmFuYu4EwJu0KWzzIZCGSkQqy9iwW8hOhg8u89sZBN3mmZCaNMUsoQIoskReCTqZBz0YRIXsePfUnm6ZBZBY1OpeAVBoqnV6Wci07U6kBTyiFGvGf7kz1qmyFQGDigL8qh91ZBEGfbx20T6W35AEaVXGR18D1rbwH2QZDZD"
+        }).then(response => {
+          console.log(response);
+          this.face_data = response;
+        });
+      });
+    },
+
     myfacebook() {
       //   await this.$axios
       //     .$get(`${this.graphQlUrl}/me`, {
