@@ -15,7 +15,7 @@ export default {
 
   created() {
     this.initFbApi();
-    // this.myfacebook();
+    this.myfacebook();
   },
 
   data() {
@@ -31,6 +31,7 @@ export default {
           Facebook.init({
             appId: "316013626184538"
           });
+
           Facebook.getLoginStatus().then(response => {
             if (response.status === "connected") {
               console.log(response);
@@ -39,16 +40,16 @@ export default {
             }
           });
         });
-        Facebook.login({
-          scope: "public_profile,name,email,user_friends",
-          return_scopes: true
-        }).then(response => {
-          if (response.status === "connected") {
-            console.log("em login----" + response);
-          } else {
-            console.log("em login----" + response);
-          }
-        });
+        // Facebook.login({
+        //   scope: "public_profile,name,email,user_friends",
+        //   return_scopes: true
+        // }).then(response => {
+        //   if (response.status === "connected") {
+        //     console.log("em login----" + response);
+        //   } else {
+        //     console.log("em login----" + response);
+        //   }
+        // });
       }
     },
 
