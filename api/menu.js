@@ -48,6 +48,22 @@ const Menu = [
       }
     ]
   },
+  { header: "Integrações" },
+
+  {
+    title: "Redes Sociais",
+    group: "social",
+    component: "social",
+    icon: "mdi-vector-link",
+    items: [
+      {
+        name: "facebook",
+        title: "Facebook",
+        href: "/admin/integration/facebook",
+        roles: "Super Admin|Admin|Gestor"
+      }
+    ]
+  },
 
   { header: "UI Elements" },
 

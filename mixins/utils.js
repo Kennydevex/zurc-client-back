@@ -20,8 +20,12 @@ const handleForms = {
           return process.env.SITE_URL;
         },
 
-        siteURL() {
-          return process.env.SITE_URL;
+        facekookAccessToken() {
+          return process.env.FACEBOOK_ACCESS_TOKEN;
+        },
+
+        graphQlUrl() {
+          return process.env.GRAPH_QL_URL;
         }
       }
     });

@@ -22,7 +22,9 @@ export default {
 
   env: {
     PUBLIC_URL: process.env.PUBLIC_URL || "https://zurconstroi.ml/api",
-    SITE_URL: process.env.SITE_URL || "https://zurconstroi.ml"
+    SITE_URL: process.env.SITE_URL || "https://zurconstroi.ml",
+    FACEBOOK_ACCESS_TOKEN: process.env.FACEBOOK_ACCESS_TOKEN,
+    GRAPH_QL_URL: process.env.GRAPH_QL_URL
   },
 
   robots: {
@@ -39,7 +41,7 @@ export default {
 
   css: ["@/assets/styles/main.css", "view-design/dist/styles/iview.css"],
 
-  loading: { color: "#3adced", },
+  loading: { color: "#3adced" },
 
   pageTransition: {
     name: "fade",
@@ -116,6 +118,12 @@ export default {
         },
         autoFetchUser: true
       }
+      // facebook: {
+      //   client_id: "...",
+      //   userinfo_endpoint:
+      //     "https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday",
+      //   scope: ["public_profile", "email", "user_birthday"]
+      // }
     }
   },
 
