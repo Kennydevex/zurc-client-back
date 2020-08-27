@@ -1,37 +1,37 @@
 <template>
   <v-container grid-list-xl fluid>
     <v-row>
-      <v-col cols="12" md="6" lg="3">
+      <v-col cols="12" md="4">
         <mini-statistic
           icon="mdi-account-group"
-          title="20"
+          :title="totalUsers"
           sub-title="Utilizadores"
           color="indigo"
         >
         </mini-statistic>
       </v-col>
 
-      <v-col cols="12" md="6" lg="3">
+      <v-col cols="12" md="4">
         <mini-statistic
           icon="mdi-account-check"
-          title="10"
+          :title="activedUsers"
           sub-title="Ativos"
           color="red"
         >
         </mini-statistic>
       </v-col>
 
-      <v-col cols="12" md="6" lg="3">
+      <v-col cols="12" md="4">
         <mini-statistic
           icon="mdi-account-lock"
-          title="5"
+          :title="inactivedUsers"
           sub-title="Inativos"
           color="light-blue"
         >
         </mini-statistic>
       </v-col>
 
-      <v-col cols="12" md="6" lg="3">
+      <!--<v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="fa fa-instagram"
           title="50+"
@@ -39,7 +39,7 @@
           color="purple"
         >
         </mini-statistic>
-      </v-col>
+      </v-col>-->
     </v-row>
 
     <v-row>
@@ -268,7 +268,22 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ users: "users/users" })
+    ...mapGetters({ users: "users/users" }),
+
+    totalUsers() {
+      return this.users.length;
+    },
+    activedUsers() {
+      return this.users.filter(user => {
+        return user.status == true;
+      }).length;
+    },
+
+    inactivedUsers() {
+      return this.users.filter(user => {
+        return user.status == false;
+      }).length;
+    }
   },
 
   data() {
