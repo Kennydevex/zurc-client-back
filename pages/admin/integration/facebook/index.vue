@@ -70,7 +70,7 @@ export default {
       }).then(response => {
         console.log(response);
         // data's here!
-        this.$data.face_perfil = res;
+        // this.$data.face_perfil = res;
       });
 
       //  .$get(
