@@ -16,7 +16,7 @@ export default {
 
   created() {
     this.initFbApi();
-    this.getFBApiStatus();
+    // this.getFBApiStatus();
     this.getFBData();
   },
 
@@ -36,9 +36,29 @@ export default {
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true
           });
+
+          Facebook.getLoginStatus().then(response => {
+            if (response.status === "connected") {
+              console.log("connected");
+            } else {
+              this.facebookLogin();
+            }
+          });
         });
       }
     },
+
+    // getFBApiStatus() {
+    //   this.initFbApi().then(res => {
+    //     Facebook.getLoginStatus().then(response => {
+    //       if (response.status === "connected") {
+    //         console.log("connected");
+    //       } else {
+    //         this.facebookLogin();
+    //       }
+    //     });
+    //   });
+    // },
 
     facebookLogin() {
       if (process.client) {
@@ -50,18 +70,6 @@ export default {
           }
         });
       }
-    },
-
-    getFBApiStatus() {
-      this.initFbApi().then(res => {
-        Facebook.getLoginStatus().then(response => {
-          if (response.status === "connected") {
-            console.log("connected");
-          } else {
-            this.facebookLogin();
-          }
-        });
-      });
     },
 
     getFBData() {
