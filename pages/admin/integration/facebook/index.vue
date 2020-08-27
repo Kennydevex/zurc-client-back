@@ -14,16 +14,8 @@ export default {
   //   appID: 316013626184538
 
   created() {
-    if (process.client) {
-      Facebook.load().then(() => {
-        Facebook.init({
-          appId: "316013626184538",
-          xfbml: true,
-          version: "v8.0"
-        });
-        this.myfacebiik();
-      });
-    }
+    this.initFbApi();
+    // this.myfacebook();
   },
 
   data() {
@@ -33,7 +25,27 @@ export default {
   },
 
   methods: {
-    async myfacebiik() {
+    initFbApi() {
+      if (process.client) {
+        Facebook.load().then(() => {
+          Facebook.init({
+            appId: "316013626184538",
+            xfbml: true,
+            version: "v8.0"
+          });
+        });
+
+        Facebook.getLoginStatus().then(response => {
+          if (response.status === "connected") {
+            console.log(response);
+          } else {
+            console.log(response);
+          }
+        });
+      }
+    },
+
+    async myfacebook() {
       //   await this.$axios
       //     .$get(`${this.graphQlUrl}/me`, {
       //       params: {
