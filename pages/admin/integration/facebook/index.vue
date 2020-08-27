@@ -2,6 +2,7 @@
   <div>
     Facebook
     {{ face_data }}
+    {{ access_token }}
   </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
 
   data() {
     return {
-      face_data: []
+      face_data: [],
+      access_token: ""
     };
   },
 
@@ -37,10 +39,16 @@ export default {
             xfbml: true
           });
 
+          // this.facebookLogin();
+
           Facebook.getLoginStatus().then(response => {
             if (response.status === "connected") {
+              this.$data.access_token = response.authResponse.accessToken;
               console.log("connected");
+              console.log(response);
             } else {
+              console.log(response);
+
               this.facebookLogin();
             }
           });
@@ -64,7 +72,7 @@ export default {
       if (process.client) {
         Facebook.login().then(response => {
           if (response.status === "connected") {
-            console.log("Login efetuado com sucesso");
+            this.$data.access_token = response.authResponse.accessToken;
           } else {
             console.log("Erro de authenticação");
           }
@@ -75,7 +83,8 @@ export default {
     getFBData() {
       this.initFbApi().then(res => {
         Facebook.api("/me", "get", {
-          fields: "name"
+          fields: "name",
+          access_token: this.$data.access_token
         }).then(response => {
           console.log(response);
           this.face_data = response;
