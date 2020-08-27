@@ -32,7 +32,7 @@
                         @click="subscribe('form-subscribe')"
                         color="primary"
                         small
-                        fab
+                        icon
                         ><v-icon>mdi-send</v-icon></v-btn
                       >
                     </template>
