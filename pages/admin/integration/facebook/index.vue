@@ -16,7 +16,7 @@ export default {
 
   created() {
     this.initFbApi();
-    this.myfacebook();
+    // this.myfacebook();
   },
 
   data() {
