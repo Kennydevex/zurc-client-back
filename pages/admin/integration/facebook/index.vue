@@ -29,16 +29,15 @@ export default {
       if (process.client) {
         Facebook.load().then(() => {
           Facebook.init({
-            appId: "316013626184538",
+            appId: "316013626184538"
           });
-        });
-
-        Facebook.getLoginStatus().then(response => {
-          if (response.status === "connected") {
-            console.log(response);
-          } else {
-            console.log(response);
-          }
+          Facebook.getLoginStatus().then(response => {
+            if (response.status === "connected") {
+              console.log(response);
+            } else {
+              console.log(response);
+            }
+          });
         });
       }
     },
