@@ -39,19 +39,21 @@ export default {
             xfbml: true
           });
 
-          // this.facebookLogin();
+          this.facebookLogin();
 
-          Facebook.getLoginStatus().then(response => {
-            if (response.status === "connected") {
-              this.$data.access_token = response.authResponse.accessToken;
-              console.log("connected");
-              console.log(response);
-            } else {
-              console.log(response);
+          // Facebook.getLoginStatus().then(response => {
+          //     this.facebookLogin();
 
-              this.facebookLogin();
-            }
-          });
+          //   if (response.status === "connected") {
+          //     this.$data.access_token = response.authResponse.accessToken;
+          //     console.log("connected");
+          //     console.log(response);
+          //   } else {
+          //     console.log(response);
+
+          //     this.facebookLogin();
+          //   }
+          // });
         });
       }
     },
@@ -82,6 +84,7 @@ export default {
 
     getFBData() {
       this.initFbApi().then(res => {
+        console.log("o tken ta aqy" + this.$data.access_token);
         Facebook.api("/me", "get", {
           fields: "name",
           access_token: this.$data.access_token
