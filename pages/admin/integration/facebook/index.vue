@@ -49,10 +49,11 @@ export default {
 
     myfacebook() {
       this.initFbApi().then(res => {
-        Facebook.api("/316013626184538", "get", {
-          fields: "name"
+        Facebook.api("/700714477192789", "get", {
+          fields: "name,  first_name"
         }).then(response => {
           console.log(response);
+          this.face_data = response;
         });
       });
     }
