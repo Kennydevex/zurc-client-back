@@ -38,17 +38,16 @@ export default {
               console.log(response);
             }
           });
-
-          Facebook.login({
-            scope: "public_profile,name,email,user_friends",
-            return_scopes: true
-          }).then(response => {
-            if (response.status === "connected") {
-              console.log("em login----" + response);
-            } else {
-              console.log("em login----" + response);
-            }
-          });
+        });
+        Facebook.login({
+          scope: "public_profile,name,email,user_friends",
+          return_scopes: true
+        }).then(response => {
+          if (response.status === "connected") {
+            console.log("em login----" + response);
+          } else {
+            console.log("em login----" + response);
+          }
         });
       }
     },
