@@ -86,8 +86,8 @@ export default {
       this.initFbApi().then(res => {
         Facebook.api("/me", "get", {
           fields: "name",
-          access_token: this.facekookAccessToken
-          // access_token: this.$data.access_token
+          access_token:
+            "EAAEY4ZCWXqUMBALztFqxbW5WqI7cocPxNY8NUopbUEsFq5ybayEsgWBjIgrnLIKvjeh79WNN9ViJisZBDVNTtRCPi4DnzGIq7UuDG2eUQVDe6sTVqnUE7dZCzY1Y7xwlsiMhDaQO0ichyoyaO2y0GCk0LiZBaq07Sje4X7fpjkT06nfJQ65g6iZAVWcttPOxMW3jqLSyQqQZDZD"
         }).then(response => {
           console.log(response);
           this.face_data = response;
