@@ -100,10 +100,13 @@
             </v-list-item>
           </template>
         </v-list-group>
-        <v-subheader v-else-if="item.header" :key="i">{{
+        <v-subheader v-else-if="item.header && !miniVariant" :key="i">{{
           item.header
         }}</v-subheader>
-        <v-divider v-else-if="item.divider" :key="i"></v-divider>
+        <v-divider
+          v-else-if="item.divider && !miniVariant"
+          :key="i"
+        ></v-divider>
         <!--top-level link-->
         <v-list-item
           v-role:any="item.roles"

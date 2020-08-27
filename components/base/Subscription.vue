@@ -8,7 +8,7 @@
           <base-divider :color="color" />
           <slot></slot>
 
-          <v-card class="ma-1 pa-3" color="grey darken-3 elevation-8">
+          <v-card tile class="ma-1 pa-3" color="grey darken-4 elevation-8">
             <v-form ref="form" data-vv-scope="form-subscribe">
               <v-row no-gutters>
                 <v-col cols="12">

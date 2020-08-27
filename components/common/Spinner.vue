@@ -18,12 +18,12 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
+
 .lds-ripple {
   display: inline-block;
   position: relative;
