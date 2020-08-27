@@ -18,7 +18,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
-  margin: 20px auto;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
