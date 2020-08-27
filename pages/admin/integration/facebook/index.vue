@@ -16,7 +16,7 @@ export default {
 
   created() {
     this.initFbApi();
-    // this.myfacebook();
+    this.myfacebook();
   },
 
   data() {
@@ -26,11 +26,14 @@ export default {
   },
 
   methods: {
-    initFbApi() {
+    async initFbApi() {
       if (process.client) {
-        Facebook.load().then(() => {
+        await Facebook.load().then(() => {
           Facebook.init({
-            appId: "316013626184538"
+            appId: "316013626184538",
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true
           });
 
           Facebook.getLoginStatus().then(response => {
@@ -66,21 +69,23 @@ export default {
       //       this.$data.face_perfil = res;
       //     });
 
-      Facebook.api("/316013626184538", "get", {
-        fields: "name"
-      })
-        .then(response => {
-          console.log(response);
-          // data's here!
-          // this.$data.face_perfil = res;
+      if (process.client) {
+        Facebook.api("/316013626184538", "get", {
+          fields: "name"
         })
-        .catch(err => {
-          console.log(err);
-        });
+          .then(response => {
+            console.log(response);
+            // data's here!
+            // this.$data.face_perfil = res;
+          })
+          .catch(err => {
+            console.log(err);
+          });
 
-      //  .$get(
-      //   "https://graph.facebook.com/v8.0/me?fields=id%2Cname&access_token=EAAEfaafu01oBAD72KNq6r4uTvImZBopZCgIFhzJUnWgYDaw8FiyduLzrZBkHpHpNKSdIcEE0HIa0naGKqXDtC7hzjuC0q1EVyZAi4bD8EXWfWKMDp3P65Q0yWUFw3xpJiVyPdRhETGf274F2TqEZB1kGosSkrZCyLGzLkzRp6TnXArJNrd5pBkxJZC8jq7ZBMwwZD"
-      // )
+        //  .$get(
+        //   "https://graph.facebook.com/v8.0/me?fields=id%2Cname&access_token=EAAEfaafu01oBAD72KNq6r4uTvImZBopZCgIFhzJUnWgYDaw8FiyduLzrZBkHpHpNKSdIcEE0HIa0naGKqXDtC7hzjuC0q1EVyZAi4bD8EXWfWKMDp3P65Q0yWUFw3xpJiVyPdRhETGf274F2TqEZB1kGosSkrZCyLGzLkzRp6TnXArJNrd5pBkxJZC8jq7ZBMwwZD"
+        // )
+      }
     }
   }
 };
