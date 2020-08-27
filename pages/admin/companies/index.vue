@@ -57,7 +57,7 @@
             class="white--text align-end"
             lazy-src="/loading/lazy-img.webp"
             height="100px"
-            src="/background.jpg"
+            src="/zurconstroi.jpeg"
           >
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">

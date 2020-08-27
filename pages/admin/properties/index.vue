@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl fluid>
-    <v-layout>
-      <v-flex lg3 sm6 xs12>
+    <v-row>
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-home-city"
           :title="`${totalPropreties}`"
@@ -9,8 +9,9 @@
           color="indigo"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-check-all"
           :title="`${activedPropreties}`"
@@ -18,8 +19,9 @@
           color="red"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-home-lock"
           :title="`${inactivedPropreties}`"
@@ -27,8 +29,9 @@
           color="light-blue"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="fa fa-instagram"
           title="50+"
@@ -36,8 +39,8 @@
           color="purple"
         >
         </mini-statistic>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
     <v-divider></v-divider>
 

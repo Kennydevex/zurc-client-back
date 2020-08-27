@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl fluid>
-    <v-layout>
-      <v-flex lg3 sm6 xs12>
+    <v-row>
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-account-group"
           title="20"
@@ -9,8 +9,9 @@
           color="indigo"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-account-check"
           title="10"
@@ -18,8 +19,9 @@
           color="red"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="mdi-account-lock"
           title="5"
@@ -27,8 +29,9 @@
           color="light-blue"
         >
         </mini-statistic>
-      </v-flex>
-      <v-flex lg3 sm6 xs12>
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3">
         <mini-statistic
           icon="fa fa-instagram"
           title="50+"
@@ -36,11 +39,11 @@
           color="purple"
         >
         </mini-statistic>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
-    <v-layout row wrap>
-      <v-flex lg12>
+    <v-row>
+      <v-col cols="12">
         <v-card>
           <v-toolbar color="white" flat>
             <v-text-field
@@ -167,11 +170,14 @@
             </v-data-table>
           </v-card-text>
         </v-card>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
-        <v-card id="users-action" v-permission:any="'Gerir Utilizadores|Gerir Permissões'">
+        <v-card
+          id="users-action"
+          v-permission:any="'Gerir Utilizadores|Gerir Permissões'"
+        >
           <v-speed-dial
             color="primary"
             v-model="fab"
@@ -208,7 +214,11 @@
               <span>Criar utilizador</span>
             </v-tooltip>
 
-            <v-tooltip bottom v-role:any="'Admin'" v-permission:any="'Gerir Permissões'">
+            <v-tooltip
+              bottom
+              v-role:any="'Admin'"
+              v-permission:any="'Gerir Permissões'"
+            >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   :loading="load_permissions"
@@ -231,9 +241,11 @@
     </v-row>
 
     <v-row>
-      <create-user></create-user>
-      <update-user></update-user>
-      <manage-permissions></manage-permissions>
+      <v-col cols="12">
+        <create-user></create-user>
+        <update-user></update-user>
+        <manage-permissions></manage-permissions>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -305,9 +317,9 @@ export default {
     };
   },
 
- async created() {
+  async created() {
     await this.$store.dispatch("permissions/getPermissions");
-      await this.$store.dispatch("permissions/getRoles");
+    await this.$store.dispatch("permissions/getRoles");
     if (process.client) {
       window.getApp.$on("APP_UPDATE_USERS_DATA", () => {
         this.getUsers();
