@@ -30,7 +30,7 @@ export default {
         name: "",
         description: "",
         price: 0,
-        type: "",
+        category_id: "",
         typology: "",
         destination: "",
         leisure: "",

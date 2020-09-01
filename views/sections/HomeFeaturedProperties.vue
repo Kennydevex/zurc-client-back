@@ -17,7 +17,7 @@
                 :bullets="false"
                 class="no-shadow"
                 :visible-slides="3"
-                fixed-height="370px"
+                fixed-height="400px"
                 slide-multiple
                 :gap="2"
                 :slide-ratio="1 / 4"
@@ -32,10 +32,11 @@
                     <vueper-slide :key="'fatrd_proprt_' + i">
                       <template v-slot:content>
                         <v-container grid-list-xs fluid pa-0>
-                          <base-properties-card
+                          <base-featured-properties-card
+                            ref="featured_card"
                             :trunc="50"
                             :property="property"
-                          ></base-properties-card>
+                          ></base-featured-properties-card>
                         </v-container>
                       </template>
                     </vueper-slide>
@@ -57,8 +58,6 @@ import "vueperslides/dist/vueperslides.css";
 
 export default {
   name: "SectionThemeFeatures",
-
-
 
   computed: {
     ...mapGetters({ featured_properties: "properties/featured_properties" })

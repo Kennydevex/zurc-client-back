@@ -24,5 +24,7 @@ Vue.use(VueGoogleMaps, {
   //// Vue.component('GmapMarker', GmapMarker)
   //// then set installComponents to 'false'.
   //// If you want to automatically install all the components this property must be set to 'true':
-  installComponents: true
+  installComponents: true,
+  region: 'CV',
+    language: 'pt-PT',
 });

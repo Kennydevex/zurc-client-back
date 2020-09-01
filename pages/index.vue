@@ -1,41 +1,26 @@
+<template>
+  <v-row no-gutters>
+    <v-col cols="12">
+      <HomeCaroucel />
+    </v-col>
+  </v-row>
+</template>
+
 <script>
-// Extensions
-import View from "@/views/View";
-
-// Mixins
-import LoadSections from "@/mixins/load-sections";
-
 export default {
+  name: "HomePage",
   layout: "frontend",
-  name: "index",
- 
- 
 
-  extends: View,
-
-  mixins: [
-    LoadSections([
-      "home-caroucel",
-      // "home-slider",
-      "home-services",
-      "home-guidelines",
-      // "contact-us",
-      // "affiliates",
-      // "social-media",
-      "home-featured-properties",
-      "principal-contacts",
-      // "newsletter",
-      // "pro-features",
-      // "GoogleMaps",
-      "home-footer"
-    ])
-  ],
-
-  props: {
-    id: {
-      type: String,
-      default: "home"
-    }
+  components: {
+    HomeCaroucel: () => import("@/views/sections/HomeCaroucel"),
+    HomeServices: () => import("@/views/sections/HomeServices"),
+    HomeGuidelines: () => import("@/views/sections/HomeGuidelines"),
+    HomeFeaturedProperties: () =>
+      import("@/views/sections/HomeFeaturedProperties"),
+    PrincipalContacts: () => import("@/views/sections/PrincipalContacts"),
+    HomeFooter: () => import("@/views/sections/HomeFooter")
   }
 };
 </script>
+
+<style lang="scss" scoped></style>

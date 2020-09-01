@@ -46,9 +46,9 @@ import "vueperslides/dist/vueperslides.css";
 export default {
   name: "SectionThemeFeatures",
 
-  async created() {
-    await this.$store.dispatch("properties/getFeaturedProperties");
-  },
+  // async created() {
+  //   await this.$store.dispatch("properties/getFeaturedProperties");
+  // },
 
   computed: {
     ...mapGetters({ featured_properties: "properties/featured_properties" })

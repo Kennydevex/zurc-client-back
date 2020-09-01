@@ -81,10 +81,10 @@
             <v-col cols="12" md="6" class="py-0">
               <v-autocomplete
                 name="type"
-                :items="types"
+                :items="categories"
                 item-text="name"
                 item-value="id"
-                v-model="formData.type"
+                v-model="formData.category_id"
                 label="Tipo de propriedade"
               ></v-autocomplete>
             </v-col>
@@ -510,24 +510,11 @@ export default {
       teste: [],
       uploadCoverList: [],
       uploadGalleryList: [],
-      types: [
-        { id: "1", name: "Apartamento" },
-        { id: "2", name: "Moradia" },
-        { id: "3", name: "Bloco de Apartamentos" },
-        { id: "4", name: "Lote de Terreno" },
-        { id: "5", name: "Loja" },
-        { id: "6", name: "Armazem" },
-        { id: "7", name: "Quinta" },
-        { id: "8", name: "Garagem" },
-        { id: "9", name: "Quarto" },
-        { id: "10", name: "Escritório" },
-        { id: "11", name: "Terreno" },
-        { id: "12", name: "Outro" }
-      ],
+     
        destinations: [
         { id: "1", name: "À Venda" },
         { id: "2", name: "Arrendamento" },
-        { id: "3", name: "Para Comprar" },
+        { id: "3", name: "Permuta" },
       ]
     };
   },
@@ -544,9 +531,9 @@ export default {
   },
 
   computed: {
-    // ...mapGetters({
-    //   destinations: "destinations/destinations"
-    // })
+    ...mapGetters({
+      categories: "categories/categories"
+    })
   },
 
   components: {

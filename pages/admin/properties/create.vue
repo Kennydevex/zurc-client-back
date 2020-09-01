@@ -24,7 +24,7 @@ export default {
         name: "",
         description: "",
         price: "",
-        type: "",
+        category_id: "",
         destination: "",
         typology: "",
         leisure: "",

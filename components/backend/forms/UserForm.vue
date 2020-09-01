@@ -28,6 +28,13 @@
               dense
               label="Número"
               name="phone"
+              v-validate="'required|numeric'"
+              data-vv-name="phone"
+              v-mask="'(+238) ###-##-##'"
+              placeholder="(+238) 000-00-00"
+              :error-messages="
+                showFormErrors('person.phone') || errors.collect('person.phone')
+              "
               v-model.trim="formData.person.phone"
             ></v-text-field>
           </v-col>

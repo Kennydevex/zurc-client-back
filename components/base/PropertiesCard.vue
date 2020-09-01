@@ -40,7 +40,7 @@
               small
               label
               color="accent"
-              >{{ propertyType }}</v-chip
+              >{{ property.category.name }}</v-chip
             >
           </v-col>
         </v-row>
@@ -151,26 +151,7 @@ export default {
     imageSrc() {
       return this.publicURL + "/uploads/" + this.property.cover;
     },
-    propertyType() {
-      if (this.property) {
-        let m_type = [
-          "Apartamento",
-          "Moradia",
-          "Bloco de Apartamentos",
-          "Lote de Terreno",
-          "Loja",
-          "Armazem",
-          "Quinta",
-          "Garagem",
-          "Quarto",
-          "Escritório",
-          "Terreno",
-          "Outro"
-        ];
-        return m_type[Number(this.property.type) - 1];
-      }
-      return;
-    },
+
     propertyDestination() {
       if (this.property) {
         let destination = ["À Venda", "Arrendamento", "Para Comprar"];
